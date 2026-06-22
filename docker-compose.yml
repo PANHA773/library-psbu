@@ -1,0 +1,71 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: library_psbu_new_app
+    restart: unless-stopped
+    ports:
+      - "8000:80"
+    environment:
+      APP_ENV: local
+      APP_DEBUG: "true"
+      APP_KEY: base64:da33mXLLGg/WQDou0ZKjA8dY8hui+BeApfLKaLFcNCM=
+      APP_URL: http://127.0.0.1:8000
+      DEBUGBAR_ENABLED: "false"
+      DB_CONNECTION: mysql
+      DB_HOST: mysql
+      DB_PORT: 3306
+      DB_DATABASE: ${DB_DATABASE:-library_psbu}
+      DB_USERNAME: ${DB_USERNAME:-laravel}
+      DB_PASSWORD: ${DB_PASSWORD:-secret}
+    volumes:
+      - ./storage:/var/www/html/storage
+      - ./bootstrap/cache:/var/www/html/bootstrap/cache
+    depends_on:
+      mysql:
+        condition: service_healthy
+    networks:
+      - library_network_new
+
+  mysql:
+    image: mysql:8.0
+    container_name: library_psbu_new_mysql
+    restart: unless-stopped
+    environment:
+      MYSQL_DATABASE: ${DB_DATABASE:-library_psbu}
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD:-rootsecret}
+    ports:
+      - "3308:3306"
+    volumes:
+      - mysql_data_new:/var/lib/mysql
+      - ./sqlfile:/docker-entrypoint-initdb.d
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-p${DB_PASSWORD:-rootsecret}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - library_network_new
+
+  phpmyadmin:
+    image: phpmyadmin:latest
+    container_name: library_psbu_new_phpmyadmin
+    restart: unless-stopped
+    ports:
+      - "8091:80"
+    environment:
+      PMA_HOST: mysql
+      PMA_PORT: 3306
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD:-rootsecret}
+    depends_on:
+      - mysql
+    networks:
+      - library_network_new
+
+volumes:
+  mysql_data_new:
+
+networks:
+  library_network_new:
+    driver: bridge

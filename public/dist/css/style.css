@@ -1,0 +1,70 @@
+/* @import url('/public/dist/css/adminlte.css');
+@import url('/public/dist/css/adminlte.min.css');
+@import url('/public/plugins/bootstrap-colorpicker/css/bootstrap-colorpicker.css');
+@import url('/public/plugins/bootstrap-colorpicker/css/bootstrap-colorpicker.css.map');
+@import url('/public/plugins/bootstrap-colorpicker/css/bootstrap-colorpicker.min.css');
+@import url('/public/plugins/bootstrap-colorpicker/css/bootstrap-colorpicker.min.css.map'); */
+
+
+@media print {
+
+    /* body * {
+        visibility: hidden;
+    } */
+
+    .print-area, .print-area * {
+        visibility: visible;
+    }
+
+    .print-area {
+        /* position: ; */
+        left: 0;
+        top: 0;
+        width: 100%;
+        background: white !important;
+    }
+
+
+    /* WATERMARK STYLE */
+    .watermark {
+        position: fixed;
+        top: 40%;
+        left: 50%;
+        transform: translate(-50%, -50%) rotate(-30deg);
+        font-size: 60px;
+        font-weight: bold;
+        color: rgba(0, 0, 0, 0.08);
+        z-index: 0;
+        pointer-events: none;
+        text-align: center;
+        white-space: nowrap;
+    }
+
+    .barcode-container {
+      page-break-inside: avoid !important;
+    }
+
+    .modal-content {
+        position: relative;
+        z-index: 2;
+    }
+
+    .no-print {
+        display: none !important;
+    }
+
+    .print-stamp {
+        position: fixed;
+        bottom: 25px;
+        right: 40px;
+        border: 3px solid red;
+        color: red;
+        font-weight: bold;
+        padding: 10px 16px;
+        transform: rotate(-10deg);
+        opacity: 0.7;
+        font-size: 14px;
+        border-radius: 6px;
+    }
+
+}

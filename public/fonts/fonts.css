@@ -1,0 +1,12 @@
+@font-face {
+    font-family: "Khmer os muol light";
+    src: url('public/fonts/Khmer OS Muol Light Regular.ttf') format("ttf"),;
+}
+
+
+.login-title {
+    font-family: "Khmer os muol light";
+    text-shadow: 1px 1px 0px gray;
+    color: #f28100 !important;
+    font-size: 25px;
+}
