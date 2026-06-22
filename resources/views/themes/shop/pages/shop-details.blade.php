@@ -1,5 +1,178 @@
 @extends(front_layout('main'))
 @section('content')
+<style>
+    .book-detail-shell {
+        position: relative;
+    }
+    .book-detail-shell::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background:
+            radial-gradient(circle at top left, rgba(255, 128, 0, 0.08), transparent 34%),
+            radial-gradient(circle at bottom right, rgba(13, 110, 253, 0.08), transparent 30%);
+        pointer-events: none;
+    }
+    .book-detail-card,
+    .book-pdf-card,
+    .book-summary-card {
+        position: relative;
+        z-index: 1;
+        background: #fff;
+        border: 1px solid rgba(15, 23, 42, 0.08);
+        border-radius: 24px;
+        box-shadow: 0 22px 60px rgba(15, 23, 42, 0.08);
+    }
+    .book-detail-card {
+        padding: 18px;
+    }
+    .book-detail-thumb {
+        background: linear-gradient(180deg, #fbfbfb, #f4f7fb);
+        border-radius: 20px;
+        padding: 18px;
+        min-height: 520px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .book-detail-thumb img {
+        width: 100%;
+        max-width: 420px;
+        max-height: 560px;
+        object-fit: cover;
+        border-radius: 18px;
+        box-shadow: 0 18px 40px rgba(0, 0, 0, 0.12);
+    }
+    .book-crumb {
+        display: inline-flex;
+        align-items: center;
+        gap: .5rem;
+        background: rgba(255, 101, 0, 0.1);
+        color: #ff6500;
+        border-radius: 999px;
+        padding: .45rem .85rem;
+        font-size: .85rem;
+        font-weight: 700;
+    }
+    .book-meta-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 12px;
+        margin: 18px 0 8px;
+    }
+    .meta-chip {
+        background: #f8fafc;
+        border: 1px solid rgba(15, 23, 42, 0.08);
+        border-radius: 16px;
+        padding: 12px 14px;
+    }
+    .meta-chip span {
+        display: block;
+        font-size: .78rem;
+        color: #64748b;
+        margin-bottom: 4px;
+        text-transform: uppercase;
+        letter-spacing: .04em;
+    }
+    .meta-chip strong {
+        color: #0f172a;
+        font-size: .98rem;
+        font-family: 'Battambang', sans-serif;
+    }
+    .book-summary-card {
+        padding: 18px 20px;
+        margin-top: 18px;
+        background: linear-gradient(180deg, #ffffff, #fbfdff);
+    }
+    .book-summary-card h4 {
+        font-size: 1.1rem;
+        margin-bottom: 12px;
+    }
+    .book-description {
+        color: #334155;
+        line-height: 1.9;
+        font-size: .98rem;
+    }
+    .book-action-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        align-items: center;
+        margin-top: 18px;
+    }
+    .book-action-row .theme-btn {
+        min-height: 48px;
+    }
+    .book-pdf-card {
+        margin-top: 22px;
+        padding: 18px;
+    }
+    .book-pdf-head {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        gap: 12px;
+        align-items: center;
+        margin-bottom: 14px;
+    }
+    .book-pdf-head h4 {
+        margin: 0;
+        font-size: 1rem;
+    }
+    .book-pdf-preview {
+        border: 1px solid rgba(15, 23, 42, 0.1);
+        border-radius: 18px;
+        overflow: hidden;
+        background: #f8fafc;
+        min-height: 360px;
+        position: relative;
+        background: #fff;
+    }
+    .pdf-toolbar-mask {
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 100%;
+        height: 56px;
+        background: linear-gradient(180deg, #ffffff 0%, #ffffff 70%, rgba(255,255,255,0.86) 100%);
+        z-index: 3;
+        pointer-events: none;
+        border-bottom: 1px solid rgba(15, 23, 42, 0.06);
+    }
+    .book-pdf-preview iframe {
+        width: 100%;
+        height: 560px;
+        border: 0;
+        display: block;
+    }
+    .section-title-soft {
+        margin-bottom: 18px;
+    }
+    .section-title-soft h2 {
+        font-size: 1.15rem;
+        margin-bottom: 0;
+    }
+    @media (max-width: 991px) {
+        .book-detail-thumb {
+            min-height: 360px;
+        }
+    }
+    @media (max-width: 575px) {
+        .book-meta-grid {
+            grid-template-columns: 1fr;
+        }
+        .book-pdf-preview {
+            min-height: 280px;
+        }
+        .book-pdf-preview iframe {
+            height: 420px;
+        }
+        .book-detail-thumb {
+            min-height: 280px;
+            padding: 12px;
+        }
+    }
+</style>
 <!-- Breadcumb Section Start -->
 <div class="breadcrumb-wrapper">
     <div class="book1">
@@ -36,8 +209,8 @@
         <div class="shop-details-wrapper">
             <div class="row g-4">
                 <div class="col-lg-5">
-                    <div class="shop-details-image">
-                        <div class="tab-content">
+                    <div class="book-detail-card">
+                        <div class="book-detail-thumb">
                             <div id="thumb1" class="tab-pane fade show active">
                                 <div class="shop-details-thumb">
                                     <img src="{{ $book->image ? asset('uploads/books/'. $book->image) : asset('uploads/books/no_image.png')}}" alt="img" class="img-fluid">
@@ -95,25 +268,39 @@
                 </div>
                 <div class="col-lg-7">
                     <div class="shop-details-content">
+                        <span class="book-crumb mb-3">
+                            {{ $category->name ?? __('frontend.book_details') }}
+                        </span>
                         <div class="title-wrapper">
-                            <h2 class="battambang-regular">{{$book->title }}</h2>
-                            {{-- <h5>Stock availability.</h5> --}}
+                            <h2 class="battambang-regular mb-2">{{$book->title }}</h2>
+                            <p class="mb-0 text-muted">A clean reading view with quick access to the PDF and book summary.</p>
                         </div>
-                        {{-- <div class="star">
-                            <a href="shop-details.html"> <i class="fas fa-star"></i></a>
-                            <a href="shop-details.html"><i class="fas fa-star"></i></a>
-                            <a href="shop-details.html"> <i class="fas fa-star"></i></a>
-                            <a href="shop-details.html"><i class="fas fa-star"></i></a>
-                            <a href="shop-details.html"><i class="fa-regular fa-star"></i></a>
-                            <span>(1 Customer Reviews)</span>
-                        </div> --}}
-                        <p>
-                            <?= decode_html($book->details) ?>
-                        </p>
-                        {{-- <div class="price-list">
-                            <h3>$16.00</h3>
-                        </div> --}}
-                        <div class="cart-wrapper">
+                        <div class="book-meta-grid">
+                            <div class="meta-chip">
+                                <span>Author</span>
+                                <strong>{{ $book->author ?: 'Unknown' }}</strong>
+                            </div>
+                            <div class="meta-chip">
+                                <span>Published</span>
+                                <strong>{{ $book->author_date ?: 'Not set' }}</strong>
+                            </div>
+                            <div class="meta-chip">
+                                <span>Code</span>
+                                <strong>{{ $book->code }}</strong>
+                            </div>
+                            <div class="meta-chip">
+                                <span>Format</span>
+                                <strong>{{ !empty($book->pdf) ? 'PDF available' : 'Print only' }}</strong>
+                            </div>
+                        </div>
+
+                        <div class="book-summary-card">
+                            <h4 class="battambang-regular">Overview</h4>
+                            <div class="book-description">
+                                <?= decode_html($book->details) ?>
+                            </div>
+                        </div>
+                        <div class="cart-wrapper book-action-row">
                             {{-- <div class="quantity-basket">
                                 <p class="qty">
                                     <button class="qtyminus" aria-hidden="true">−</button>
@@ -126,18 +313,18 @@
                                 </button>
                                 <!-- Read More Modal -->
                             <div class="modal fade" id="readMoreModal" tabindex="-1" aria-labelledby="readMoreModalLabel" aria-hidden="true">
-                                <div class="modal-dialog"> 
-                                    <div class="modal-content">
-                                        <div class="modal-body" style="background-image: url(assets/img/popupBg.png);"> 
-                                            <div class="close-btn">
+                                <div class="modal-dialog modal-lg modal-dialog-centered">
+                                    <div class="modal-content" style="border-radius: 24px; overflow: hidden;">
+                                        <div class="modal-body" style="background: linear-gradient(180deg, #ffffff, #f8fafc);">
+                                            <div class="close-btn text-end mb-3">
                                                 <button type="button" class="btn-close" data-bs-dismiss="modal"
                                                     aria-label="Close"></button>
                                             </div>
                                             <div class="readMoreBox"> 
                                                 <div class="content">
-                                                    <h3 id="readMoreModalLabel">{{$book->title}}</h3>
-                                                    <p>
-                                                        
+                                                    <span class="book-crumb mb-3">{{ $category->name ?? __('frontend.book_details') }}</span>
+                                                    <h3 id="readMoreModalLabel" class="battambang-regular">{{$book->title}}</h3>
+                                                    <p class="mb-0">
                                                        <?= decode_html($book->details) ?>
                                                     </p>
                                                 </div>
@@ -157,6 +344,38 @@
                                 </a>
                             </div> --}}
                         </div>
+                        @if(!empty($book->pdf))
+                        <div class="book-pdf-card">
+                            <div class="book-pdf-head">
+                                <div>
+                                    <h4 class="battambang-regular mb-1">Read the PDF</h4>
+                                    <p class="mb-0 text-muted">
+                                        Preview online. Downloads stay hidden unless the admin enables them.
+                                    </p>
+                                </div>
+                                <div class="d-flex flex-wrap gap-2">
+                                    @if(!empty($book->pdf_downloadable))
+                                        <a href="{{ asset('uploads/books/pdfs/' . $book->pdf) }}" download class="theme-btn">
+                                            Download
+                                        </a>
+                                    @else
+                                        <span class="book-crumb">Downloads disabled</span>
+                                    @endif
+                                </div>
+                            </div>
+                            <div
+                                class="book-pdf-preview"
+                                id="pdfPreview"
+                                data-pdf-url="{{ asset('uploads/books/pdfs/' . $book->pdf) }}"
+                            >
+                                <div class="pdf-toolbar-mask" aria-hidden="true"></div>
+                                <iframe
+                                    src="{{ asset('uploads/books/pdfs/' . $book->pdf) }}#toolbar=0&navpanes=0&scrollbar=0"
+                                    title="{{ $book->title }} PDF"
+                                ></iframe>
+                            </div>
+                        </div>
+                        @endif
                         {{-- <div class="category-box">
                             <div class="category-list">
                                 <ul>

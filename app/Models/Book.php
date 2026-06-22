@@ -15,6 +15,8 @@ class Book extends Model
         'code',
         'title',
         'image',
+        'pdf',
+        'pdf_downloadable',
         'details',
         'slug',
         'views',

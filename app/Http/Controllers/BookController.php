@@ -59,6 +59,7 @@ class BookController extends Controller
         $valid = $request->validate([
             'title' => 'required',
             'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'pdf' => 'nullable|mimes:pdf|max:10240',
         ]);
 
         $reference = reference_no('book', 10);
@@ -70,6 +71,7 @@ class BookController extends Controller
             'author_date' => $request->author_date,
             'category_lang_id' => $request->category_lang_id,
             'category_id' => $request->category,
+            'pdf_downloadable' => $request->has('pdf_downloadable') ? 1 : 0,
             'created_by' => Auth::user()->id,
             'created_at' => date('Y-m-m H:i:s'),
             'details' => clear_tag($request->description),
@@ -81,6 +83,14 @@ class BookController extends Controller
             $filename = hash('gost', (time() . '.' . $extension));
             $file->move(public_path('uploads/books/'), $filename);
             $data['image'] = $filename;
+        }
+
+        if ($request->hasFile('pdf')) {
+            $file = $request->file('pdf');
+            $extension = $file->getClientOriginalExtension();
+            $filename = hash('gost', (time() . '.' . $extension));
+            $file->move(public_path('uploads/books/pdfs/'), $filename);
+            $data['pdf'] = $filename;
         }
 
         DB::table('books')->insert($data);
@@ -140,6 +150,7 @@ class BookController extends Controller
             'title' => 'required',
             'slug' => 'required',
             'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'pdf' => 'nullable|mimes:pdf|max:10240',
 
         ]);
 
@@ -151,6 +162,7 @@ class BookController extends Controller
             'author_date' => $request->author_date,
             'category_lang_id' => $request->category_lang_id,
             'category_id' => $request->category,
+            'pdf_downloadable' => $request->has('pdf_downloadable') ? 1 : 0,
             'updated_at' => date('Y-m-m H:i:s'),
             'details' => clear_tag($request->description),
         ];
@@ -168,6 +180,19 @@ class BookController extends Controller
             }
         }
 
+        if ($request->hasFile('pdf')) {
+            $file = $request->file('pdf');
+            $extension = $file->getClientOriginalExtension();
+            $filename = hash('gost', (time() . '.' . $extension));
+            $file->move(public_path('uploads/books/pdfs/'), $filename);
+            $data['pdf'] = $filename;
+
+            $old_pdf = DB::table('books')->where(['id' => $id])->first()->pdf;
+            if ($old_pdf && file_exists(public_path('uploads/books/pdfs/' . $old_pdf))) {
+                unlink(public_path('uploads/books/pdfs/' . $old_pdf));
+            }
+        }
+
         DB::table('books')
             ->where('id', $id)
             ->update($data);
@@ -182,9 +207,13 @@ class BookController extends Controller
             return admin_redirect('group_book/books')->with('error', __('message.this_book_can_not_delete_please_check_book_browers'));
         } else {
             $old_img =  DB::table('books')->where(['id' => $id])->first()->image;
+            $old_pdf =  DB::table('books')->where(['id' => $id])->first()->pdf;
             DB::table('books')->where(['id' => $id])->delete();
             if ($old_img && file_exists(public_path('uploads/books/' . $old_img))) {
                 unlink(public_path('uploads/books/' . $old_img));
+            }
+            if ($old_pdf && file_exists(public_path('uploads/books/pdfs/' . $old_pdf))) {
+                unlink(public_path('uploads/books/pdfs/' . $old_pdf));
             }
         }
 

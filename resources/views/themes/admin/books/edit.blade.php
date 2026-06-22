@@ -83,6 +83,29 @@
                           <div class="form-group">
                             <img src="{{ asset('uploads/books/'. $book->image) }}" width="100px" height="100px">
                           </div>
+                          <div class="form-group">
+                            <label for="pdf">PDF File</label>
+                            <div class="input-group">
+                              <div class="custom-file">
+                                <input type="file" class="custom-file-input" id="pdf" name="pdf" accept=".pdf,application/pdf">
+                                <label class="custom-file-label" for="pdf">Choose PDF</label>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="form-group">
+                            <label for="pdf_downloadable">{{ __('admin.download') ?? 'PDF Download' }}</label>
+                            <div class="d-flex align-items-center" style="gap: 10px;">
+                              <input type="checkbox" name="pdf_downloadable" id="pdf_downloadable" style="width: 15px; height: 15px;" {{ !empty($book->pdf_downloadable) ? 'checked' : '' }}>
+                              <span>Allow users to download the PDF</span>
+                            </div>
+                          </div>
+                          @if(!empty($book->pdf))
+                          <div class="form-group">
+                            <a href="{{ asset('uploads/books/pdfs/' . $book->pdf) }}" target="_blank" rel="noopener noreferrer">
+                              View current PDF
+                            </a>
+                          </div>
+                          @endif
                         </div>
                         <div class="col-md-12">
                             <div class="card card-outline card-info">

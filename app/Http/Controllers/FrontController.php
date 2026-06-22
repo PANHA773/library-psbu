@@ -68,8 +68,9 @@ class FrontController extends Controller
     {
         
         $book_detail = DB::table('books')->where('slug', $slug)->first(); 
+        $category = DB::table('categories')->where('id', $book_detail->category_id)->first();
         $relate_book =  DB::table('books')->where('category_id', $book_detail->category_id)->where('id','!=', $book_detail->id)->get();
-        return $this->frontend_construct('pages/shop-details', ['book' => $book_detail, 'relate_books' => $relate_book]);
+        return $this->frontend_construct('pages/shop-details', ['book' => $book_detail, 'category' => $category, 'relate_books' => $relate_book]);
     }
 
     public function shop_list()

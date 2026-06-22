@@ -77,6 +77,22 @@
                               </div>
                             </div>
                           </div>
+                          <div class="form-group">
+                            <label for="pdf">PDF File</label>
+                            <div class="input-group">
+                              <div class="custom-file">
+                                <input type="file" class="custom-file-input" id="pdf" name="pdf" accept=".pdf,application/pdf">
+                                <label class="custom-file-label" for="pdf">Choose PDF</label>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="form-group">
+                            <label for="pdf_downloadable">{{ __('admin.download') ?? 'PDF Download' }}</label>
+                            <div class="d-flex align-items-center" style="gap: 10px;">
+                              <input type="checkbox" name="pdf_downloadable" id="pdf_downloadable" style="width: 15px; height: 15px;" checked>
+                              <span>Allow users to download the PDF</span>
+                            </div>
+                          </div>
                         </div>
                         
                         <div class="col-md-12">
