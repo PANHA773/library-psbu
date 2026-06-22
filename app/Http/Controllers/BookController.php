@@ -163,7 +163,7 @@ class BookController extends Controller
             $data['image'] = $filename;
 
             $old_img = DB::table('books')->where(['id' => $id])->first()->image;
-            if ($old_img) {
+            if ($old_img && file_exists(public_path('uploads/books/' . $old_img))) {
                 unlink(public_path('uploads/books/' . $old_img));
             }
         }
@@ -183,8 +183,8 @@ class BookController extends Controller
         } else {
             $old_img =  DB::table('books')->where(['id' => $id])->first()->image;
             DB::table('books')->where(['id' => $id])->delete();
-            if ($old_img) {
-                file_exists(unlink(public_path('uploads/books/' . $old_img)));
+            if ($old_img && file_exists(public_path('uploads/books/' . $old_img))) {
+                unlink(public_path('uploads/books/' . $old_img));
             }
         }
 

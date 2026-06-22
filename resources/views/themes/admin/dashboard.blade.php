@@ -247,7 +247,7 @@
             {{-- ── Greeting Banner ── --}}
             <div class="greeting-banner">
                 <div>
-                    <h2>👋 Welcome back, {{ Auth::user()->name }}</h2>
+                    <h2> Welcome back, {{ Auth::user()->name }}</h2>
                     <p>Here's what's happening in your library today.</p>
                 </div>
                 <div class="greeting-date d-none d-md-block">

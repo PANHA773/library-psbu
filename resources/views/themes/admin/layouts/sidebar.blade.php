@@ -13,15 +13,7 @@
               <p class="truncated-text">{{__('admin.dashboard')}}</p>
             </a>
           </li>
-          <li class="nav-item">
-            <a href="{{ route('messages.index') }}" class="nav-link {{ request()->is('admin/messages*') ? 'active' : '' }}">
-              <i class="nav-icon fas fa-envelope"></i>
-              <p class="truncated-text">
-                Messages
-                <span class="badge badge-danger right" style="display: none;">0</span>
-              </p>
-            </a>
-          </li>
+
           {{ config('is_ecommerce') }}
           @if(config('is_ecommerce')) 
           <li class="nav-item {{ request()->is('admin/product*') ? 'menu-open' : '' }}">
@@ -197,6 +189,18 @@
                   <p>{{__('admin.system_settings')}}</p>
                 </a>
               </li>
+
+             <!-- messages -->
+
+                       <li class="nav-item">
+            <a href="{{ route('messages.index') }}" class="nav-link {{ request()->is('admin/messages*') ? 'active' : '' }}">
+              <i class="nav-icon fas fa-envelope"></i>
+              <p class="truncated-text">
+                Messages
+                <span class="badge badge-danger right" style="display: none;">0</span>
+              </p>
+            </a>
+          </li>
 
               <li class="nav-item">
                 <a href="{{ admin_url('about-page') }}" class="nav-link {{ request()->is('admin/about-page*') ? 'active' : '' }}">
