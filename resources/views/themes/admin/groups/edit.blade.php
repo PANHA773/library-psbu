@@ -32,7 +32,7 @@
               </div>
               <!-- /.card-header -->
               <!-- form start -->
-              <form id="quickForm" action="{{ admin_url('categories/'. $category->id) }}" method="POST">
+              <form id="quickForm" action="{{ admin_url('settings/categories/'. $category->id) }}" method="POST">
                 @csrf
                 @method('PUT')
                 <div class="card-body">

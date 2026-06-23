@@ -42,6 +42,7 @@ class AuthenticatedSessionController extends Controller
     public function loginQrcode(LoginRequest $request): RedirectResponse
     {
         $credentials = $request->only('email', 'password');
+        $user = DB::table('users')->where('email', $request->email)->first();
 
         $request->validate([
             'captcha' => 'required'
@@ -52,12 +53,15 @@ class AuthenticatedSessionController extends Controller
             return redirect()->back()->with('error', __('message.invalid_captcha_please_try_again'));
         }
 
+        if (!$user) {
+            return redirect()->back()->with('error', __('message.invalid_credentials'));
+        }
+
+        if ((int) $user->activated === 0) {
+            return redirect()->back()->with('error', __('message.please_activate_account'));
+        }
+
         if (Auth::attempt($credentials)) {
-
-            if (auth()->user()->activated === 0) {
-                return redirect()->back()->with('error', __('message.please_activate_account'));
-            }
-
             if (auth()->user()->user_type === 'admin') {
                 $request->authenticate();
                 $request->session()->regenerate();
@@ -95,8 +99,13 @@ class AuthenticatedSessionController extends Controller
     public function store(LoginRequest $request): RedirectResponse
     {
         $credentials = $request->only('email', 'password');
+        $user = DB::table('users')->where('email', $request->email)->first();
 
-        $is_activated =  DB::table('users')->where('email', $request->email)->first()->activated;
+        if (!$user) {
+            return redirect()->back()->with('error', __('message.invalid_credentials'));
+        }
+
+        $is_activated = (int) $user->activated;
 
         if (!$is_activated) {
             return redirect()->back()->with('error', __('message.please_activate_your_account'));

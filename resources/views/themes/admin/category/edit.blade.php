@@ -32,7 +32,7 @@
               </div>
               <!-- /.card-header -->
               <!-- form start -->
-              <form id="quickForm" action="{{ admin_url('categories/'. $category->id) }}" method="POST">
+              <form id="quickForm" action="{{ admin_url('settings/categories/'. $category->id) }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
                 <div class="card-body">
@@ -62,6 +62,19 @@
                                   @endforeach
                                 </select>
                             </div>
+
+                            <div class="form-group">
+                                <label for="image">Image</label>
+                                <input type="file" name="image" class="form-control" id="image" accept=".jpg,.jpeg,.png,.gif,.svg">
+                            </div>
+                            @if(!empty($category->image))
+                                <div class="form-group">
+                                    <label>Current Image</label>
+                                    <div>
+                                        <img src="{{ asset('uploads/category/' . $category->image) }}" alt="{{ $category->name }}" style="max-width: 140px; border-radius: 10px;">
+                                    </div>
+                                </div>
+                            @endif
                         </div>
                         <div class="col-md-12">
                             <div class="card card-outline card-info">

@@ -21,9 +21,9 @@ Route::middleware('guest')->group(function () {
     // Route::post(prefix_url(). '/admin/register', [RegisteredUserController::class, 'store']);
 
     Route::get(prefix_url(). '/admin/login', [AuthenticatedSessionController::class, 'create'])
-                ->name('login')->middleware('throttle:3,1');
+                ->name('login');
 
-    Route::post(prefix_url(). '/admin/login', [AuthenticatedSessionController::class, 'store'])->middleware('throttle:3,1');
+    Route::post(prefix_url(). '/admin/login', [AuthenticatedSessionController::class, 'store'])->middleware('throttle:10,1');
 
     Route::get('forgot-password', [PasswordResetLinkController::class, 'create'])
                 ->name('password.request');

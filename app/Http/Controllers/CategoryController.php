@@ -122,11 +122,11 @@ class CategoryController extends Controller
             'slug' => $request->slug,
             'parent_id' => $request->parent,
             'updated_at' => date('Y-m-d H:i:s'),
-            'description' => htmlentities($request->description, ENT_QUOTES, 'UTF-8', false),
+            'description' => clear_tag($request->description),
         ];
 
         if (!empty($request->image)) {
-            $old_img = DB::table('categories')->first()->image;
+            $old_img = DB::table('categories')->where('id', $id)->first()->image;
             $file = $request->file('image');
             $extension = $file->getClientOriginalExtension();
             $filename = hash('gost', (time() . '.' . $extension));
