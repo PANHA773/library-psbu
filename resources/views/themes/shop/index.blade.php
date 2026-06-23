@@ -535,6 +535,47 @@
             min-height: 350px;
         }
     }
+
+    .top-ratting-book-section .top-ratting-box-items {
+        border-radius: 22px;
+        overflow: hidden;
+        background: #fff;
+        border: 1px solid rgba(12, 32, 57, 0.08);
+        box-shadow: 0 5px 5px rgba(12, 32, 57, 0.12);
+        transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    .top-ratting-book-section .top-ratting-box-items:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 10px 20px rgba(12, 32, 57, 0.14);
+    }
+
+    .top-ratting-book-section .top-ratting-box-items .book-thumb img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    .top-ratting-book-section .top-ratting-box-items .book-content {
+        padding: 14px 16px 16px;
+    }
+
+    .top-ratting-book-section .top-ratting-box-items .book-content h3 {
+        font-size: 15px;
+        line-height: 1.45;
+        margin: 0;
+    }
+
+    .top-ratting-book-section .top-ratting-box-items .shop-icon {
+        opacity: 0;
+        transform: translateY(6px);
+        transition: opacity 0.22s ease, transform 0.22s ease;
+    }
+
+    .top-ratting-book-section .top-ratting-box-items:hover .shop-icon {
+        opacity: 1;
+        transform: translateY(0);
+    }
 </style>
 
 <section class="cta-banner-section fix section-padding pt-12 pb-12">

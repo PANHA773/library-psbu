@@ -864,8 +864,7 @@
             <div class="row align-items-center">
                 <div class="col-lg-6 wow fadeInLeft" data-wow-delay=".3s">
                     <div class="intro-img-wrapper">
-                        <!-- Modern academic library setup with books and student laptops -->
-                        <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=800&q=80" alt="Students studying in Library" class="intro-img-main">
+                        <img src="{{ asset('frontend/assets/img/about.jpg') }}" alt="Students studying in Library" class="intro-img-main">
                         <div class="intro-badge-card edu-font-battambang">
                             <h4>{{ $about->years_of_service ?? '10' }}+ ឆ្នាំ</h4>
                             <p class="mb-0 text-white">{{ $about->service_description ?? 'នៃការបម្រើការ និងរួមចំណែកកសាងធនធានមនុស្សក្នុងប្រទេសកម្ពុជា' }}</p>
@@ -1044,7 +1043,7 @@
                 <!-- Facility 1 -->
                 <div class="col-md-6 col-lg-3 wow fadeInUp" data-wow-delay=".1s">
                     <div class="facility-gallery-item">
-                        <img src="https://images.unsplash.com/photo-1548048026-5a1a941d93d3?auto=format&fit=crop&w=600&q=80" alt="Main Reading Hall" class="facility-gallery-img">
+                        <img src="{{ asset('frontend/assets/img/about.jpg') }}" alt="Main Reading Hall" class="facility-gallery-img">
                         <div class="facility-gallery-overlay edu-font-battambang">
                             <h4>សាលអានកណ្ដាល</h4>
                             <p>កន្លែងអានសៀវភៅដ៏ធំទូលាយ មានពន្លឺធម្មជាតិ និងបរិយាកាសស្ងប់ស្ងាត់។</p>
@@ -1054,7 +1053,7 @@
                 <!-- Facility 2 -->
                 <div class="col-md-6 col-lg-3 wow fadeInUp" data-wow-delay=".2s">
                     <div class="facility-gallery-item">
-                        <img src="https://images.unsplash.com/photo-1562774053-701939374585?auto=format&fit=crop&w=600&q=80" alt="E-Library Lab" class="facility-gallery-img">
+                        <img src="{{ asset('frontend/assets/img/readingbook.jpg') }}" alt="E-Library Lab" class="facility-gallery-img">
                         <div class="facility-gallery-overlay edu-font-battambang">
                             <h4>បន្ទប់កុំព្យូទ័រ E-Lab</h4>
                             <p>បន្ទប់កុំព្យូទ័រសម្រាប់ការស្រាវជ្រាវ និងចូលប្រើធនធានអនឡាញ។</p>
@@ -1064,7 +1063,7 @@
                 <!-- Facility 3 -->
                 <div class="col-md-6 col-lg-3 wow fadeInUp" data-wow-delay=".3s">
                     <div class="facility-gallery-item">
-                        <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=600&q=80" alt="Discussion Rooms" class="facility-gallery-img">
+                        <img src="{{ asset('frontend/assets/img/banner/book-banner-2.jpg') }}" alt="Discussion Rooms" class="facility-gallery-img">
                         <div class="facility-gallery-overlay edu-font-battambang">
                             <h4>បន្ទប់ពិភាក្សាក្រុម</h4>
                             <p>កន្លែងសម្រាប់ការងារជាក្រុម ការបង្ហាញមេរៀន និងការសហការគ្នា។</p>
@@ -1074,7 +1073,7 @@
                 <!-- Facility 4 -->
                 <div class="col-md-6 col-lg-3 wow fadeInUp" data-wow-delay=".4s">
                     <div class="facility-gallery-item">
-                        <img src="https://images.unsplash.com/photo-1507842217343-583bb7270b66?auto=format&fit=crop&w=600&q=80" alt="Research Archives" class="facility-gallery-img">
+                        <img src="{{ asset('frontend/assets/img/banner/book-banner-3.jpg') }}" alt="Research Archives" class="facility-gallery-img">
                         <div class="facility-gallery-overlay edu-font-battambang">
                             <h4>បណ្ណសារស្រាវជ្រាវ</h4>
                             <p>កន្លែងរក្សាទុកឯកសារ និងសៀវភៅកម្ររបស់បណ្ណាល័យ។</p>

@@ -1,5 +1,51 @@
 @extends(front_layout('main'))
 @section('content')
+<style>
+    .shop-section .shop-box-items {
+        border-radius: 22px;
+        overflow: hidden;
+        background: #fff;
+        box-shadow: 0 12px 12px rgba(12, 32, 57, 0.20);
+        transition: transform 0.25s ease, box-shadow 0.25s ease;
+        border: 1px solid rgba(12, 32, 57, 0.08);
+    }
+
+    .shop-section .shop-box-items:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 24px 48px rgba(12, 32, 57, 0.24);
+    }
+
+    .shop-section .shop-box-items .book-thumb {
+        background: linear-gradient(180deg, #f9fbfd 0%, #eef4f8 100%);
+    }
+
+    .shop-section .shop-box-items .book-thumb img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    .shop-section .shop-box-items .shop-content {
+        padding: 14px 16px 16px;
+    }
+
+    .shop-section .shop-box-items .shop-content h3 {
+        font-size: 15px;
+        line-height: 1.45;
+        margin: 0;
+    }
+
+    .shop-section .shop-box-items .shop-icon {
+        opacity: 0;
+        transform: translateY(8px);
+        transition: opacity 0.22s ease, transform 0.22s ease;
+    }
+
+    .shop-section .shop-box-items:hover .shop-icon {
+        opacity: 1;
+        transform: translateY(0);
+    }
+</style>
 <!-- Breadcumb Section Start -->
 <div class="breadcrumb-wrapper">
     <div class="book1">

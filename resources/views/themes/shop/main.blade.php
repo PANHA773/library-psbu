@@ -306,23 +306,23 @@
                                         <nav>
                                             <ul>
                                                 <li class="{{ request()->is('/') || request()->is('') ? 'active' : '' }}">
-                                                    <a href="{{ front_url('')}}">
-                                                        <i class="fas fa-home mr-1" style="font-size:.8rem"></i>ទំព័រដើម
+                                                    <a href="{{ front_url('')}}" style="display:inline-flex;align-items:center;gap:8px;">
+                                                        <i class="fas fa-home" style="font-size:20px;width:20px;min-width:20px;text-align:center;"></i><span>ទំព័រដើម</span>
                                                     </a>
                                                 </li>
                                                 <li class="{{ request()->is('books*') ? 'active' : '' }}">
-                                                    <a href="{{front_url('books')}}">
-                                                        <i class="fas fa-book mr-1" style="font-size:.8rem"></i>សៀវភៅ
+                                                    <a href="{{front_url('books')}}" style="display:inline-flex;align-items:center;gap:8px;">
+                                                        <i class="fas fa-book" style="font-size:20px;width:20px;min-width:20px;text-align:center;"></i><span>សៀវភៅ</span>
                                                     </a>
                                                 </li>
                                                 <li class="{{ request()->is('about*') ? 'active' : '' }}">
-                                                    <a href="{{front_url('about')}}">
-                                                        <i class="fas fa-info-circle mr-1" style="font-size:.8rem"></i>អំពីយើង
+                                                    <a href="{{front_url('about')}}" style="display:inline-flex;align-items:center;gap:8px;">
+                                                        <i class="fas fa-info-circle" style="font-size:20px;width:20px;min-width:20px;text-align:center;"></i><span>អំពីយើង</span>
                                                     </a>
                                                 </li>
                                                 <li class="{{ request()->is('contact*') ? 'active' : '' }}">
-                                                    <a href="{{front_url('contact')}}">
-                                                        <i class="fas fa-envelope mr-1" style="font-size:.8rem"></i>ទំនាក់ទំនង
+                                                    <a href="{{front_url('contact')}}" style="display:inline-flex;align-items:center;gap:8px;">
+                                                        <i class="fas fa-envelope" style="font-size:20px;width:20px;min-width:20px;text-align:center;"></i><span>ទំនាក់ទំនង</span>
                                                     </a>
                                                 </li>
                                             </ul>
@@ -404,23 +404,23 @@
                                         <nav id="mobile-menu">
                                             <ul>
                                                 <li class="{{ request()->is('/') || request()->is('') ? 'active' : '' }}">
-                                                    <a href="{{front_url('')}}">
-                                                        <i class="fas fa-home mr-1" style="font-size:.8rem"></i>ទំព័រដើម
+                                                    <a href="{{front_url('')}}" style="display:inline-flex;align-items:center;gap:8px;">
+                                                        <i class="fas fa-home" style="font-size:20px;width:20px;min-width:20px;text-align:center;"></i><span>ទំព័រដើម</span>
                                                     </a>
                                                 </li>
                                                 <li class="{{ request()->is('books*') ? 'active' : '' }}">
-                                                    <a href="{{front_url('books')}}">
-                                                        <i class="fas fa-book mr-1" style="font-size:.8rem"></i>សៀវភៅ
+                                                    <a href="{{front_url('books')}}" style="display:inline-flex;align-items:center;gap:8px;">
+                                                        <i class="fas fa-book" style="font-size:20px;width:20px;min-width:20px;text-align:center;"></i><span>សៀវភៅ</span>
                                                     </a>
                                                 </li>
                                                 <li class="{{ request()->is('about*') ? 'active' : '' }}">
-                                                    <a href="{{front_url('about')}}">
-                                                        <i class="fas fa-info-circle mr-1" style="font-size:.8rem"></i>អំពីយើង
+                                                    <a href="{{front_url('about')}}" style="display:inline-flex;align-items:center;gap:8px;">
+                                                        <i class="fas fa-info-circle" style="font-size:20px;width:20px;min-width:20px;text-align:center;"></i><span>អំពីយើង</span>
                                                     </a>
                                                 </li>
                                                 <li class="{{ request()->is('contact*') ? 'active' : '' }}">
-                                                    <a href="{{front_url('contact')}}">
-                                                        <i class="fas fa-envelope mr-1" style="font-size:.8rem"></i>ទំនាក់ទំនង
+                                                    <a href="{{front_url('contact')}}" style="display:inline-flex;align-items:center;gap:8px;">
+                                                        <i class="fas fa-envelope" style="font-size:20px;width:20px;min-width:20px;text-align:center;"></i><span>ទំនាក់ទំនង</span>
                                                     </a>
                                                 </li>
                                             </ul>
@@ -623,47 +623,47 @@
     <!-- Footer Section start  -->
     <footer class="footer-section footer-bg">
         <div class="container">
-            <div class="contact-info-area">
-                <div class="contact-info-items wow fadeInUp" data-wow-delay=".2s">
+            <div class="contact-info-area" style="gap:18px;">
+                <div class="contact-info-items wow fadeInUp" data-wow-delay=".2s" style="padding:22px 24px;border-radius:22px;background:linear-gradient(135deg,#0f3b5e 0%,#0b2b47 100%);border:1px solid rgba(255,255,255,.10);box-shadow:0 20px 40px rgba(0,0,0,.20);">
                     <div class="icon">
                         <i class="icon-icon-5"></i>
                     </div>
                     <div class="content">
-                        <p>Call Us 7/24</p>
-                        <h3>
+                        <p style="font-size:12px;letter-spacing:.08em;text-transform:uppercase;margin-bottom:4px;opacity:.85;">Call Us 7/24</p>
+                        <h3 style="font-size:18px;line-height:1.45;margin-bottom:0;">
                             <a href="tel:{{shop_settings()->phone}}">{{shop_settings()->phone}}</a>
                         </h3>
                     </div>
                 </div>
-                <div class="contact-info-items wow fadeInUp" data-wow-delay=".4s">
+                <div class="contact-info-items wow fadeInUp" data-wow-delay=".4s" style="padding:22px 24px;border-radius:22px;background:linear-gradient(135deg,#0f3b5e 0%,#0b2b47 100%);border:1px solid rgba(255,255,255,.10);box-shadow:0 20px 40px rgba(0,0,0,.20);">
                     <div class="icon">
                         <i class="icon-icon-6"></i>
                     </div>
                     <div class="content">
-                        <p>Make a Quote</p>
-                        <h3>
+                        <p style="font-size:12px;letter-spacing:.08em;text-transform:uppercase;margin-bottom:4px;opacity:.85;">Make a Quote</p>
+                        <h3 style="font-size:18px;line-height:1.45;margin-bottom:0;">
                             <a href="mailto:{{shop_settings()->email}}">{{shop_settings()->email}}</a>
                         </h3>
                     </div>
                 </div>
-                <div class="contact-info-items wow fadeInUp" data-wow-delay=".6s">
+                <div class="contact-info-items wow fadeInUp" data-wow-delay=".6s" style="padding:22px 24px;border-radius:22px;background:linear-gradient(135deg,#0f3b5e 0%,#0b2b47 100%);border:1px solid rgba(255,255,255,.10);box-shadow:0 20px 40px rgba(0,0,0,.20);">
                     <div class="icon">
                         <i class="icon-icon-7"></i>
                     </div>
                     <div class="content">
-                        <p>Opening Hour</p>
-                        <h3>
+                        <p style="font-size:12px;letter-spacing:.08em;text-transform:uppercase;margin-bottom:4px;opacity:.85;">Opening Hour</p>
+                        <h3 style="font-size:18px;line-height:1.45;margin-bottom:0;">
                             {{shop_settings()->workday}}
                         </h3>
                     </div>
                 </div>
-                <div class="contact-info-items wow fadeInUp" data-wow-delay=".8s">
+                <div class="contact-info-items wow fadeInUp" data-wow-delay=".8s" style="padding:22px 24px;border-radius:22px;background:linear-gradient(135deg,#0f3b5e 0%,#0b2b47 100%);border:1px solid rgba(255,255,255,.10);box-shadow:0 20px 40px rgba(0,0,0,.20);">
                     <div class="icon">
                         <i class="icon-icon-8"></i>
                     </div>
                     <div class="content">
-                        <p>Location</p>
-                        <h3>
+                        <p style="font-size:12px;letter-spacing:.08em;text-transform:uppercase;margin-bottom:4px;opacity:.85;">Location</p>
+                        <h3 style="font-size:18px;line-height:1.45;margin-bottom:0;">
                             {{shop_settings()->address}}
                         </h3>
                     </div>
