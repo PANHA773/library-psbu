@@ -166,6 +166,42 @@
                     </div>
                 </div>
                 </fieldset>
+
+                <fieldset>
+                  <legend>License Developer</legend>
+                  <div class="row">
+                    <div class="col-md-4">
+                      <div class="form-group">
+                        <label for="license_dev_name">Developer Name</label>
+                        <input type="text" class="form-control" name="license_dev_name" id="license_dev_name" value="{{ $setting->license_dev_name ?? '' }}" placeholder="Developer name">
+                      </div>
+                      <div class="form-group">
+                        <label for="license_dev_phone">Phone</label>
+                        <input type="text" class="form-control" name="license_dev_phone" id="license_dev_phone" value="{{ $setting->license_dev_phone ?? '' }}" placeholder="+855 ...">
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="form-group">
+                        <label for="license_dev_telegram">Telegram</label>
+                        <input type="text" class="form-control" name="license_dev_telegram" id="license_dev_telegram" value="{{ $setting->license_dev_telegram ?? '' }}" placeholder="@username or https://t.me/...">
+                      </div>
+                      <div class="form-group">
+                        <label for="license_dev_email">Email</label>
+                        <input type="email" class="form-control" name="license_dev_email" id="license_dev_email" value="{{ $setting->license_dev_email ?? '' }}" placeholder="email@example.com">
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="form-group">
+                        <label for="license_dev_whatsapp">WhatsApp</label>
+                        <input type="text" class="form-control" name="license_dev_whatsapp" id="license_dev_whatsapp" value="{{ $setting->license_dev_whatsapp ?? '' }}" placeholder="+855 ...">
+                      </div>
+                      <div class="form-group">
+                        <label for="license_dev_note">Note</label>
+                        <textarea class="form-control" name="license_dev_note" id="license_dev_note" rows="4" placeholder="Short support note">{{ $setting->license_dev_note ?? '' }}</textarea>
+                      </div>
+                    </div>
+                  </div>
+                </fieldset>
           
                   <div class="col-md-12">
                     <div class="card card-outline card-info">

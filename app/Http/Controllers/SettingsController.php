@@ -77,7 +77,13 @@ class SettingsController extends Controller
             'end_ip_address'    => $request->input('end_ip_address'),
             'using_in_area'     => $request->input('using_in_area'),
             'avariable_register_page' => $request->input('avariable_register_page'),
-            'site_prefix'       => $request->input('site_prefix')
+            'site_prefix'       => $request->input('site_prefix'),
+            'license_dev_name'  => $request->input('license_dev_name'),
+            'license_dev_phone' => $request->input('license_dev_phone'),
+            'license_dev_telegram' => $request->input('license_dev_telegram'),
+            'license_dev_email' => $request->input('license_dev_email'),
+            'license_dev_whatsapp' => $request->input('license_dev_whatsapp'),
+            'license_dev_note'  => $request->input('license_dev_note'),
         ];
 
         if (!empty($request->image)) {

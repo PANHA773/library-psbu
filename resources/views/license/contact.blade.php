@@ -65,11 +65,18 @@
     </style>
 </head>
 <body>
+@php
+    $developer = settings();
+    $telegramValue = optional($developer)->license_dev_telegram;
+    $telegramLink = $telegramValue
+        ? (preg_match('/^https?:\/\//', $telegramValue) ? $telegramValue : 'https://t.me/' . ltrim(preg_replace('/^@/', '', $telegramValue), '/'))
+        : 'https://t.me/chou_chamnan';
+@endphp
 
 <div class="contact-section container">
     <div class="col-md-12 mb-4">
         <h1>Contact Developer for License</h1>
-        <p>If you need a license key for your installation, you can reach me via any of the methods below.</p> 
+        <p>{{ optional($developer)->license_dev_note ?? 'If you need a license key for your installation, you can reach me via any of the methods below.' }}</p>
         <a href="{{ route('license.form') }}" class="btn btn-success"><i class="fa fa-key"></i> Activate License Key</a>
     </div> 
     
@@ -79,8 +86,8 @@
             <div class="contact-card">
                 <i class="bi bi-telephone"></i>
                 <h5>Phone</h5>
-                <p>+855 713567907</p>
-                <a href="tel:+855713567907">Call Now</a>
+                <p>{{ optional($developer)->license_dev_phone ?? '+855 713567907' }}</p>
+                <a href="tel:{{ preg_replace('/\s+/', '', optional($developer)->license_dev_phone ?? '+855713567907') }}">Call Now</a>
             </div>
         </div>
 
@@ -89,8 +96,8 @@
             <div class="contact-card">
                 <i class="bi bi-telegram"></i>
                 <h5>Telegram</h5>
-                <p>@CHOU_CHAMNAN</p>
-                <a href="https://t.me/chou_chamnan" target="_blank">Message Me</a>
+                <p>{{ optional($developer)->license_dev_telegram ?? '@CHOU_CHAMNAN' }}</p>
+                <a href="{{ $telegramLink }}" target="_blank">Message Me</a>
             </div>
         </div>
 
@@ -99,8 +106,8 @@
             <div class="contact-card">
                 <i class="bi bi-envelope"></i>
                 <h5>Email</h5>
-                <p>chou.chamnan.kh@gmail.com</p>
-                <a href="mailto:chou.chamnan.kh@gmail.com">Send Email</a>
+                <p>{{ optional($developer)->license_dev_email ?? 'chou.chamnan.kh@gmail.com' }}</p>
+                <a href="mailto:{{ optional($developer)->license_dev_email ?? 'chou.chamnan.kh@gmail.com' }}">Send Email</a>
             </div>
         </div>
 
@@ -109,8 +116,8 @@
             <div class="contact-card">
                 <i class="bi bi-whatsapp"></i>
                 <h5>WhatsApp</h5>
-                <p>+855 71 35 67 907</p>
-                <a href="https://wa.me/855713567907" target="_blank">Chat Now</a>
+                <p>{{ optional($developer)->license_dev_whatsapp ?? '+855 71 35 67 907' }}</p>
+                <a href="https://wa.me/{{ preg_replace('/\D+/', '', optional($developer)->license_dev_whatsapp ?? '855713567907') }}" target="_blank">Chat Now</a>
             </div>
         </div>
 

@@ -29,6 +29,6 @@ class LocalizationController extends Controller
             cookie()->queue(cookie()->forever("language", "us"));
         }
         
-        return redirect($_SERVER['HTTP_REFERER']);
+        return redirect()->back();
      }
 }

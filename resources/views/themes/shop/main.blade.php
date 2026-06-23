@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="km">
+<html lang="{{ request()->cookie('language', 'kh') === 'us' ? 'en' : 'km' }}">
 <!--<< Header Area >>-->
 
 <head>
@@ -33,6 +33,7 @@
     <link rel="stylesheet" href="{{asset('frontend/assets/css/nice-select.css')}}">
     <!--<< Icomoon.css >>-->
     <link rel="stylesheet" href="{{asset('frontend/assets/css/icomoon.css')}}">
+    <link rel="stylesheet" href="{{asset('plugins/flag-icon-css/css/flag-icon.min.css')}}">
     <!--<< Main.css >>-->
     <link rel="stylesheet" href="{{asset('frontend/assets/css/main.css')}}">
     <style>
@@ -78,6 +79,39 @@
         .header-top-1 .contact-list li a {
             font-family: 'Battambang', sans-serif;
             font-size: .88rem;
+        }
+        .header-top-1 .contact-list li.language-switcher {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+        .header-top-1 .lang-flag-link {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 34px;
+            height: 24px;
+            border-radius: 999px;
+            border: 1px solid rgba(26, 32, 44, 0.12);
+            background: #fff;
+            transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease;
+            text-decoration: none;
+        }
+        .header-top-1 .lang-flag-link:hover {
+            transform: translateY(-1px);
+            border-color: rgba(255, 101, 0, 0.45);
+            box-shadow: 0 8px 18px rgba(16, 24, 40, 0.10);
+        }
+        .header-top-1 .lang-flag-link.active {
+            border-color: #FF6500;
+            box-shadow: 0 8px 18px rgba(255, 101, 0, 0.18);
+        }
+        .header-top-1 .lang-flag-link .flag-icon {
+            border-radius: 50%;
+            width: 18px;
+            height: 18px;
+            background-size: cover;
         }
 
         /* ── Footer Khmer ── */
@@ -268,6 +302,17 @@
                     <li>
                         <i class="far fa-envelope"></i>
                         <a href="mailto:{{shop_settings()->email}}">{{shop_settings()->email}}</a>
+                    </li>
+                    @php
+                        $currentLanguage = request()->cookie('language', 'kh');
+                    @endphp
+                    <li class="language-switcher">
+                        <a class="lang-flag-link {{ $currentLanguage === 'kh' ? 'active' : '' }}" href="{{ url('/localization/km') }}" title="Khmer" aria-label="Switch to Khmer">
+                            <span class="flag-icon flag-icon-kh"></span>
+                        </a>
+                        <a class="lang-flag-link {{ $currentLanguage === 'us' ? 'active' : '' }}" href="{{ url('/localization/en') }}" title="English" aria-label="Switch to English">
+                            <span class="flag-icon flag-icon-us"></span>
+                        </a>
                     </li>
                     @if(shop_settings()->workday)
                     <li>

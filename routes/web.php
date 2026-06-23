@@ -111,12 +111,13 @@ Route::controller(FacebookController::class)->group(function () {
     Route::get('auth/facebook/callback', 'handleFacebookCallback');
 });
 
+Route::get('/localization/{local}', [LocalizationController::class, 'index']);
+
 
 Route::middleware(['auth', 'admin'])->group(function () {
 
     Route::prefix(prefix_url() . '/admin')->group(function () {
         Route::get('/', [DashboardController::class, 'dashboard'])->middleware(['auth', 'verified'])->name('dashboard');
-
         Route::get('/localization/{local}', [LocalizationController::class, 'index']);
 
         //reports
