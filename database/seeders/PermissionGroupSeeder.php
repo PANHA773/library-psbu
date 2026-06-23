@@ -15,6 +15,14 @@ class PermissionGroupSeeder extends Seeder
             'Users' => ['user-list','user-create','user-edit','user-delete'],
             'Roles' => ['role-list','role-create','role-edit','role-delete'],
             'Products' => ['product-list','product-create','product-edit','product-delete'],
+            'Books' => [
+                'book-index',
+                'book-create',
+                'book-edit',
+                'book-delete',
+                'book-view',
+                'book-print_barcodes',
+            ],
         ];
 
         foreach ($permissions as $group => $perms) {
