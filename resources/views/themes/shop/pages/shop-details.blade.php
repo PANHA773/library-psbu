@@ -276,22 +276,22 @@
                             <p class="mb-0 text-muted">A clean reading view with quick access to the PDF and book summary.</p>
                         </div>
                         <div class="book-meta-grid">
-                            <div class="meta-chip">
+                            <!-- <div class="meta-chip">
                                 <span>Author</span>
                                 <strong>{{ $book->author ?: 'Unknown' }}</strong>
-                            </div>
+                            </div> -->
                             <div class="meta-chip">
                                 <span>Published</span>
                                 <strong>{{ $book->author_date ?: 'Not set' }}</strong>
                             </div>
-                            <div class="meta-chip">
+                            <!-- <div class="meta-chip">
                                 <span>Code</span>
                                 <strong>{{ $book->code }}</strong>
-                            </div>
-                            <div class="meta-chip">
+                            </div> -->
+                            <!-- <div class="meta-chip">
                                 <span>Format</span>
                                 <strong>{{ !empty($book->pdf) ? 'PDF available' : 'Print only' }}</strong>
-                            </div>
+                            </div> -->
                         </div>
 
                         <div class="book-summary-card">
