@@ -38,15 +38,34 @@
     <link rel="stylesheet" href="{{asset('frontend/assets/css/main.css')}}">
     <style>
         /* ── Khmer Font Base ── */
-        body, p, span, a, li, td, th, input, button, select, textarea {
+        body,
+        p,
+        span,
+        a,
+        li,
+        td,
+        th,
+        input,
+        button,
+        select,
+        textarea {
             font-family: 'Battambang', 'Siemreap', sans-serif;
         }
-        h1, h2, h3, h4, h5, h6 {
+
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
             font-family: 'Battambang', 'Moul', sans-serif;
         }
-        .moul-regular, .moul-beauty {
+
+        .moul-regular,
+        .moul-beauty {
             font-family: 'Moul', serif !important;
         }
+
         .battambang-regular {
             font-family: 'Battambang', sans-serif !important;
         }
@@ -60,12 +79,14 @@
             color: #1a202c;
             transition: color .2s;
         }
+
         .header-1 .main-menu nav ul li a:hover,
-        .header-1 .main-menu nav ul li.active > a {
+        .header-1 .main-menu nav ul li.active>a {
             color: #FF6500 !important;
         }
+
         /* Active underline */
-        .header-1 .main-menu nav ul li.active > a::after {
+        .header-1 .main-menu nav ul li.active>a::after {
             content: '';
             display: block;
             height: 2px;
@@ -80,12 +101,14 @@
             font-family: 'Battambang', sans-serif;
             font-size: .88rem;
         }
+
         .header-top-1 .contact-list li.language-switcher {
             display: inline-flex;
             align-items: center;
             gap: 8px;
             flex-wrap: wrap;
         }
+
         .header-top-1 .lang-flag-link {
             display: inline-flex;
             align-items: center;
@@ -98,15 +121,18 @@
             transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease;
             text-decoration: none;
         }
+
         .header-top-1 .lang-flag-link:hover {
             transform: translateY(-1px);
             border-color: rgba(255, 101, 0, 0.45);
             box-shadow: 0 8px 18px rgba(16, 24, 40, 0.10);
         }
+
         .header-top-1 .lang-flag-link.active {
             border-color: #FF6500;
             box-shadow: 0 8px 18px rgba(255, 101, 0, 0.18);
         }
+
         .header-top-1 .lang-flag-link .flag-icon {
             border-radius: 50%;
             width: 18px;
@@ -120,11 +146,13 @@
             font-family: 'Battambang', sans-serif;
             font-weight: 700;
         }
+
         .footer-section .list-area li a,
         .footer-section p {
             font-family: 'Battambang', sans-serif;
             font-size: .92rem;
         }
+
         .footer-bottom p {
             font-family: 'Battambang', sans-serif;
         }
@@ -304,7 +332,7 @@
                         <a href="mailto:{{shop_settings()->email}}">{{shop_settings()->email}}</a>
                     </li>
                     @php
-                        $currentLanguage = request()->cookie('language', 'kh');
+                    $currentLanguage = request()->cookie('language', 'kh');
                     @endphp
                     <li class="language-switcher">
                         <a class="lang-flag-link {{ $currentLanguage === 'kh' ? 'active' : '' }}" href="{{ url('/localization/km') }}" title="Khmer" aria-label="Switch to Khmer">
@@ -594,7 +622,7 @@
             </div>
         </div>
     </div>
-    
+
     <!-- Registration Modal -->
     <div class="modal fade" id="registrationModal" tabindex="-1" aria-labelledby="registrationModalLabel"
         aria-hidden="true">
@@ -751,7 +779,7 @@
                     </div>
                     <div class="col-xl-3 col-lg-4 col-md-6 ps-lg-5 wow fadeInUp" data-wow-delay=".4s">
                         <div class="single-footer-widget">
-                             <div class="widget-head">
+                            <div class="widget-head">
                                 <h3>ផ្នែក</h3>
                             </div>
                             <ul class="list-area">
@@ -790,7 +818,7 @@
                                     </a>
                                 </li>
                                 @endforeach
-                               
+
                             </ul>
                         </div>
                     </div>
@@ -823,7 +851,7 @@
             </div>
         </div>
     </footer>
-    
+
     <!--<< All JS Plugins >>-->
     <script src="{{asset('frontend/assets/js/jquery-3.7.1.min.js')}}"></script>
     <!--<< Viewport Js >>-->

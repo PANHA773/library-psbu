@@ -44,9 +44,9 @@
                                     <i class="icon-icon-10"></i>
                                 </div>
                                 <div class="content">
-                                    <p>Call Us 7/24</p>
+                                    <p>Call Us</p>
                                     <h3>
-                                        <a href="tel:+2085550112">+208-555-0112</a>
+                                        <a href="tel: 023 902 904"> 023 902 904</a>
                                     </h3>
                                 </div>
                             </div>
@@ -57,7 +57,7 @@
                                 <div class="content">
                                     <p>Make a Quote</p>
                                     <h3>
-                                        <a href="mailto:example@gmail.com">example@gmail.com</a>
+                                        <a href="mailto:elibrary@psbu.cloud">elibrary@psbu.cloud</a>
                                     </h3>
                                 </div>
                             </div>
@@ -68,7 +68,7 @@
                                 <div class="content">
                                     <p>Location</p>
                                     <h3>
-                                        4517 Washington ave.
+                                        Sangkat Tonle Basac, Khan Chamkarmorn, Phnom Penh, Cambodia
                                     </h3>
                                 </div>
                             </div>
