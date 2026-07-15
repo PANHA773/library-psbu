@@ -125,7 +125,7 @@ class FrontController extends Controller
             $query->where('c.id', $category);
         }
 
-        $books =  $query->paginate(50);
+        $books =  $query->orderBy('books.id', 'DESC')->paginate(50);
 
         if($books) {
 

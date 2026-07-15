@@ -71,18 +71,17 @@
 <script src="{{ asset('dist/js/core.js') }}"></script>
 
 <script src="{{ asset('plugins/chart.js/Chart.min.js') }}"></script>
-<script src="{{ asset('dist/js/pages/dashboard2.js') }}"></script>
-<script src="https://cdn.datatables.net/select/1.7.0/js/dataTables.select.min.js"></script>
 
 <script  src="{{asset('plugins/datatables/jquery.dataTables.min.js')}}"></script>
+<script src="https://cdn.datatables.net/select/1.7.0/js/dataTables.select.min.js"></script>
 <script  src="{{asset('plugins/datatables-bs4/js/dataTables.bootstrap4.min.js')}}"></script>
 <script  src="{{asset('plugins/datatables-responsive/js/dataTables.responsive.min.js')}}"></script>
 <script  src="{{asset('plugins/datatables-responsive/js/responsive.bootstrap4.min.js')}}"></script>
 <script  src="{{asset('plugins/datatables-buttons/js/dataTables.buttons.min.js')}}"></script>
 <script  src="{{asset('plugins/datatables-buttons/js/buttons.bootstrap4.min.js')}}"></script>
 <script  src="{{asset('plugins/jszip/jszip.min.js')}}"></script>
-<script  src="{{asset('plugins/pdfmake/pdfmake.min.js')}}"></script>
-<script  src="{{asset('plugins/pdfmake/vfs_fonts.js')}}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
 <script  src="{{asset('plugins/datatables-buttons/js/buttons.html5.min.js')}}"></script>
 <script  src="{{asset('plugins/datatables-buttons/js/buttons.print.min.js')}}"></script>
 <script  src="{{asset('plugins/datatables-buttons/js/buttons.colVis.min.js')}}"></script>
@@ -180,7 +179,10 @@
       var yyyy = today.getFullYear();
 
       var ttoday = mm + '/' + dd + '/' + yyyy;
-      document.querySelector(".date").value = ttoday;
+      var dateEl = document.querySelector(".date");
+      if (dateEl) {
+          dateEl.value = ttoday;
+      }
   </script>
 
   <script async>

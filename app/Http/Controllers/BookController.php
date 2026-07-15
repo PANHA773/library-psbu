@@ -80,7 +80,7 @@ class BookController extends Controller
         if (!empty($request->image)) {
             $file = $request->file('image');
             $extension = $file->getClientOriginalExtension();
-            $filename = hash('gost', (time() . '.' . $extension));
+            $filename = hash('gost', time()) . '.' . $extension;
             $file->move(public_path('uploads/books/'), $filename);
             $data['image'] = $filename;
         }
@@ -88,7 +88,7 @@ class BookController extends Controller
         if ($request->hasFile('pdf')) {
             $file = $request->file('pdf');
             $extension = $file->getClientOriginalExtension();
-            $filename = hash('gost', (time() . '.' . $extension));
+            $filename = hash('gost', time()) . '.' . $extension;
             $file->move(public_path('uploads/books/pdfs/'), $filename);
             $data['pdf'] = $filename;
         }
@@ -170,7 +170,7 @@ class BookController extends Controller
         if (!empty($request->image)) {
             $file = $request->file('image');
             $extension = $file->getClientOriginalExtension();
-            $filename = hash('gost', (time() . '.' . $extension));
+            $filename = hash('gost', time()) . '.' . $extension;
             $file->move(public_path('uploads/books/'), $filename);
             $data['image'] = $filename;
 
@@ -183,7 +183,7 @@ class BookController extends Controller
         if ($request->hasFile('pdf')) {
             $file = $request->file('pdf');
             $extension = $file->getClientOriginalExtension();
-            $filename = hash('gost', (time() . '.' . $extension));
+            $filename = hash('gost', time()) . '.' . $extension;
             $file->move(public_path('uploads/books/pdfs/'), $filename);
             $data['pdf'] = $filename;
 
@@ -261,6 +261,10 @@ class BookController extends Controller
 
     public function import_by_csv(Request $request)
     {
+        $request->validate([
+            'import_file' => 'required|mimes:csv,xls,xlsx|max:10240',
+        ]);
+
         Excel::import(new BookImport, $request->file('import_file'));
 
         return admin_redirect('group_book/books')->with('success', __('message.import_book_success'));

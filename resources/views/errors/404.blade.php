@@ -726,9 +726,12 @@ nav .menu .menu_icon:hover .icon:after {
         </div>
     </section>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/parallax/3.1.0/parallax.min.js"></script>
     <script>
         var scene = document.getElementById('scene');
-        var parallax = new Parallax(scene);
+        if (scene && typeof Parallax !== 'undefined') {
+            var parallax = new Parallax(scene);
+        }
     </script>
     
 </body>

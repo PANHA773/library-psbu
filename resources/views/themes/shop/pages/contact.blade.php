@@ -74,9 +74,9 @@
                             </div>
                         </div>
                         <div class="video-image">
-                            <img src="{{asset('frontend/assets/img/contact.jpg')}}" alt="img">
+                            <img src="{{asset('frontend/assets/img/cover.png')}}" alt="img">
                             <div class="video-box">
-                                <a href="https://www.youtube.com/watch?v=Cn4G2lZ_g2I"
+                                <a href="https://www.youtube.com/watch?v=ZGeP_FfSsBI"
                                     class="video-btn ripple video-popup">
                                     <i class="fa-solid fa-play"></i>
                                 </a>

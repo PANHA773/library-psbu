@@ -48,7 +48,7 @@
                     <div class="container-fluid">
                       <div class="form-group">
                         <label for="slug">{{__('admin.upload_file')}}</label>
-                        <input type="file" name="import_file" class="form-control" id="import_file" placeholder="{{__('admin.import_file')}}" >
+                        <input type="file" name="import_file" class="form-control" id="import_file" placeholder="{{__('admin.import_file')}}" accept=".csv,.xls,.xlsx,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,text/csv">
                       </div>
                 
                     </div>

@@ -5,8 +5,9 @@
 <style>
     .travel-slider-wrap {
         position: relative;
-        height: 75vh;
-        min-height: 550px;
+        width: 100%;
+        height: 440px;
+        margin: 0 auto;
         background: #000;
         color: #fff;
         overflow: hidden;
@@ -26,7 +27,7 @@
         content: '';
         position: absolute;
         top: 0; left: 0; right: 0; bottom: 0;
-        background: linear-gradient(to right, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.4) 40%, rgba(0,0,0,0.2) 100%);
+        /* background: linear-gradient(to right, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.4) 40%, rgba(0,0,0,0.2) 100%); */
     }
     .slider-content-left {
         position: absolute;
@@ -51,7 +52,7 @@
         position: absolute;
         left: 0; top: 50%;
         width: 30px; height: 2px;
-        background: #FF6500;
+        background: #D4AF37;
     }
     .slider-content-left h1 {
         font-size: 5rem;
@@ -87,14 +88,14 @@
         font-weight: 600;
     }
     .btn-discover:hover {
-        background: #FF6500;
-        border-color: #FF6500;
-        box-shadow: 0 10px 20px rgba(255,101,0,0.4);
+        background: #D4AF37;
+        border-color: #D4AF37;
+        box-shadow: 0 10px 20px rgba(212,175,55,0.4);
         transform: translateY(-2px);
         color: #fff;
     }
     .btn-icon-custom {
-        background: #FF6500;
+        background: #D4AF37;
         color: #fff;
         width: 45px; height: 45px;
         display: inline-flex;
@@ -104,7 +105,7 @@
         margin-right: -15px;
         margin-left: 20px;
         z-index: 2;
-        box-shadow: 0 5px 15px rgba(255,101,0,0.4);
+        box-shadow: 0 5px 15px rgba(212,175,55,0.4);
     }
     
 
@@ -139,8 +140,8 @@
         backdrop-filter: blur(5px);
     }
     .swiper-nav-btn:hover {
-        background: #FF6500;
-        border-color: #FF6500;
+        background: #D4AF37;
+        border-color: #D4AF37;
         transform: scale(1.1);
     }
     .progress-container {
@@ -154,7 +155,7 @@
     .progress-fill {
         position: absolute;
         top: 0; left: 0; bottom: 0;
-        background: #FF6500;
+        background: #D4AF37;
         width: 0%;
     }
     .slider-counter {
@@ -206,38 +207,38 @@
     <div class="swiper bg-swiper">
         <div class="swiper-wrapper">
             <!-- Slide 1 -->
-            <div class="swiper-slide" style="background-image: url('{{asset('frontend/assets/img/readingbook.jpg')}}');">
+            <div class="swiper-slide" style="background-image: url('{{asset('frontend/assets/img/caruOne.png')}}');">
                 <div class="slider-content-left">
-                    <div class="subtitle animate-elem">Techo Peace Library</div>
-                     <h1 class="animate-elem">អានសៀវភៅ<br>បង្កើនចំណេះ</h1>
-                    <p class="animate-elem">បណ្ណាល័យយើងខ្ញុំផ្តល់ជូនបរិយាកាសអានដ៏ល្អឥតខ្ចោះ និងឯកសារគ្រប់ប្រភេទសម្រាប់និស្សិតគ្រប់រូប។ ចាប់ផ្តើមការអានរបស់អ្នកនៅថ្ងៃនេះ!</p> -->
-                    <div class="btn-wrap animate-elem" style="display: flex; align-items: center;">
-                        <span class="btn-icon-custom"><i class="fa fa-bookmark"></i></span>
-                        <a href="{{ front_url('books') }}" class="btn-discover">DISCOVER BOOKS</a>
+                    <!-- <div class="subtitle animate-elem">Techo Peace Library</div> -->
+                     <!-- <h1 class="animate-elem">អានសៀវភៅ<br>បង្កើនចំណេះ</h1> -->
+                    <!-- <p class="animate-elem">បណ្ណាល័យយើងខ្ញុំផ្តល់ជូនបរិយាកាសអានដ៏ល្អឥតខ្ចោះ និងឯកសារគ្រប់ប្រភេទសម្រាប់និស្សិតគ្រប់រូប។ ចាប់ផ្តើមការអានរបស់អ្នកនៅថ្ងៃនេះ!</p> -->
+                    <div class="btn-wrap animate-elem" style="display: flex; align-items: center;"> -->
+                        <!-- <span class="btn-icon-custom"><i class="fa fa-bookmark"></i></span> -->
+                        <!-- <a href="{{ front_url('books') }}" class="btn-discover">DISCOVER BOOKS</a> -->
                     </div>
                 </div>
             </div>
             <!-- Slide 2 -->
-            <div class="swiper-slide" style="background-image: url('{{asset('frontend/assets/img/banner1.jpg')}}');">
+            <div class="swiper-slide" style="background-image: url('{{asset('frontend/assets/img/caruselTow.png')}}');">
                 <div class="slider-content-left">
-                    <div class="subtitle animate-elem">New Arrivals - 2026</div>
-                    <h1 class="animate-elem">សៀវភៅ<br>ថ្មីៗបំផុត</h1>
-                    <p class="animate-elem">ស្វែងរកសៀវភៅ និងឯកសារស្រាវជ្រាវជាច្រើនដែលទើបតែបន្ថែមថ្មីៗ។ មានសៀវភៅល្អៗរាប់ពាន់ក្បាលរង់ចាំអ្នក។</p>
+                    <!-- <div class="subtitle animate-elem">New Arrivals - 2026</div> -->
+                    <!-- <h1 class="animate-elem">សៀវភៅ<br>ថ្មីៗបំផុត</h1> -->
+                    <!-- <p class="animate-elem">ស្វែងរកសៀវភៅ និងឯកសារស្រាវជ្រាវជាច្រើនដែលទើបតែបន្ថែមថ្មីៗ។ មានសៀវភៅល្អៗរាប់ពាន់ក្បាលរង់ចាំអ្នក។</p> -->
                     <div class="btn-wrap animate-elem" style="display: flex; align-items: center;">
-                        <span class="btn-icon-custom"><i class="fa fa-book"></i></span>
-                        <a href="{{ front_url('books') }}" class="btn-discover">VIEW COLLECTION</a>
+                        <!-- <span class="btn-icon-custom"><i class="fa fa-book"></i></span> -->
+                        <!-- <a href="{{ front_url('books') }}" class="btn-discover">VIEW COLLECTION</a> -->
                     </div>
                 </div>
             </div>
             <!-- Slide 3 -->
-            <div class="swiper-slide" style="background-image: url('{{asset('frontend/assets/img/psbu-student.png')}}'); background-color: #2b2b2b; background-size: cover; background-position: top center;">
+            <div class="swiper-slide" style="background-image: url('{{asset('frontend/assets/img/caruselTree.png')}}'); background-color: #2b2b2b; background-size: cover; background-position: top center;">
                 <div class="slider-content-left">
-                    <div class="subtitle animate-elem">Student Area - PSBU</div>
-                    <h1 class="animate-elem">ទីកន្លែង<br>សិក្សាស្រាវជ្រាវ</h1> 
-                    <p class="animate-elem">បណ្ណាល័យផ្តល់ជូនកន្លែងអង្គុយអានយ៉ាងមានផាសុកភាព ស្ងប់ស្ងាត់ និងមានអ៊ីនធឺណិតល្បឿនលឿន។</p> -->
-                    <div class="btn-wrap animate-elem" style="display: flex; align-items: center;">
-                        <span class="btn-icon-custom"><i class="fa fa-graduation-cap"></i></span>
-                        <a href="{{ front_url('books') }}" class="btn-discover">JOIN US NOW</a>
+                    <!-- <div class="subtitle animate-elem">Student Area - PSBU</div> -->
+                    <!-- <h1 class="animate-elem">ទីកន្លែង<br>សិក្សាស្រាវជ្រាវ</h1>  -->
+                    <!-- <p class="animate-elem">បណ្ណាល័យផ្តល់ជូនកន្លែងអង្គុយអានយ៉ាងមានផាសុកភាព ស្ងប់ស្ងាត់ និងមានអ៊ីនធឺណិតល្បឿនលឿន។</p> -->
+                    <div class="btn-wrap animate-elem" style="display: flex; align-items: center;"> -->
+                        <!-- <span class="btn-icon-custom"><i class="fa fa-graduation-cap"></i></span> -->
+                        <!-- <a href="{{ front_url('books') }}" class="btn-discover">JOIN US NOW</a> -->
                     </div>
                 </div>
             </div>
