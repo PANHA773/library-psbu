@@ -47,16 +47,16 @@ class ReportController extends Controller
             $books =  DB::table('books')
                 ->join('categories', 'books.category_id', '=', 'categories.id')
                 ->join('category_langs', 'books.category_lang_id', '=', 'category_langs.id')
-                ->whereBetween(DB::raw('DATE_FORMAT(created_at, "%Y-%m-%d")'), [$request->start_date, $request->end_date])
+                ->whereBetween('books.created_at', [$request->start_date . ' 00:00:00', $request->end_date . ' 23:59:59'])
                 ->select('books.*', 'categories.name as category_name', 'category_langs.name as cate_lang_name')
-                ->orderBy('id', 'desc')
+                ->orderBy('books.id', 'desc')
                 ->get();
         } else {
             $books =  DB::table('books')
                 ->join('categories', 'books.category_id', '=', 'categories.id')
                 ->join('category_langs', 'books.category_lang_id', '=', 'category_langs.id')
                 ->select('books.*', 'categories.name as category_name', 'category_langs.name as cate_lang_name')
-                ->orderBy('id', 'desc')
+                ->orderBy('books.id', 'desc')
                 ->get();
         }
 
@@ -68,7 +68,7 @@ class ReportController extends Controller
     {
         if ($request->start_date && $request->end_date) {
             $users = DB::table('users')
-                ->whereBetween(DB::raw('DATE_FORMAT(created_at, "%Y-%m-%d")'), [$request->start_date, $request->end_date])
+                ->whereBetween('created_at', [$request->start_date . ' 00:00:00', $request->end_date . ' 23:59:59'])
                 ->get();
         } else {
             $users = DB::table('users')
@@ -118,7 +118,7 @@ class ReportController extends Controller
         if ($request->start_date && $request->end_date) {
             $borrowers = DB::table('borrowers')
                 ->join('students', 'borrowers.student_id', '=', 'students.id')
-                ->whereBetween(DB::raw('DATE_FORMAT(created_at, "%Y-%m-%d")'), [$request->start_date, $request->end_date])
+                ->whereBetween('borrowers.created_at', [$request->start_date . ' 00:00:00', $request->end_date . ' 23:59:59'])
                 ->select(
                     'borrowers.reference_no',
                     'borrowers.term',
@@ -157,7 +157,7 @@ class ReportController extends Controller
         if ($request->start_date && $request->end_date) {
             $categories = DB::table('categories as c')
                 ->leftJoin('categories as pc', 'pc.parent_id', '=', 'c.id')
-                ->whereBetween(DB::raw('DATE_FORMAT("c.created_at", "%Y-%m-%d")'), [$request->start_date, $request->end_date])
+                ->whereBetween('c.created_at', [$request->start_date . ' 00:00:00', $request->end_date . ' 23:59:59'])
                 ->select('c.*', 'pc.name as parent_name')
                 ->get();
         } else {
@@ -175,7 +175,7 @@ class ReportController extends Controller
     {
         if ($request->start_date && $request->end_date) {
             $category_langs = DB::table('category_langs')
-                ->whereBetween(DB::raw('DATE_FORMAT(created_at, "%Y-%m-%d")'), [$request->start_date, $request->end_date])
+                ->whereBetween('created_at', [$request->start_date . ' 00:00:00', $request->end_date . ' 23:59:59'])
                 ->get();
         } else {
             $category_langs = DB::table('category_langs')
@@ -190,7 +190,7 @@ class ReportController extends Controller
         if ($request->start_date && $request->end_date) {
             $attendances = DB::table('attendances')
                 ->join('students', 'attendances.student_id', '=', 'students.id')
-                ->whereBetween(DB::raw('DATE_FORMAT(created_at, "%Y-%m-%d")'), [$request->start_date, $request->end_date])
+                ->whereBetween('attendances.created_at', [$request->start_date . ' 00:00:00', $request->end_date . ' 23:59:59'])
                 ->select('students.*')
                 ->get();
         } else {
@@ -209,13 +209,13 @@ class ReportController extends Controller
         if ($request->start_date && $request->end_date) {
             $daily_attendances = DB::table('attendances')
                 ->join('students', 'attendances.student_id', '=', 'students.id')
-                ->whereBetween(DB::raw('DATE_FORMAT(created_at, "%Y-%m-%d")'), [$request->start_date, $request->end_date])
+                ->whereBetween('attendances.created_at', [$request->start_date . ' 00:00:00', $request->end_date . ' 23:59:59'])
                 ->select('students.image', 'students.code', DB::raw("concat(first_name,' ', last_name) as student_name"), 'attendances.created_at', 'students.gender as student_gender')
                 ->get();
         } else {
             $daily_attendances = DB::table('attendances')
                 ->join('students', 'attendances.student_id', '=', 'students.id')
-                ->where(DB::raw('DATE_FORMAT(created_at, "%Y-%m-%d")'))
+                ->whereDate('attendances.created_at', date('Y-m-d'))
                 ->select('students.image', 'students.code', DB::raw("concat(first_name,' ', last_name) as student_name"), 'attendances.created_at', 'students.gender as student_gender')
                 ->get();
         }
@@ -227,22 +227,23 @@ class ReportController extends Controller
     {
         $created_by = DB::table('users')->get();
 
-        if ($request->start_date && $request->end_date || $request->created_by) {
+        $dailyBorrowerQuery = DB::table('borrowers')
+            ->join('book_borrowers', 'borrowers.id', '=', 'book_borrowers.borrower_id')
+            ->join('students', 'borrowers.student_id', '=', 'students.id');
 
-
-
-            $daily_borrower = DB::table('borrowers')
-                ->join('book_borrowers', 'borrowers.id', '=', 'book_borrowers.borrower_id')
-                ->join('students', 'borrowers.student_id', '=', 'students.id')
-                ->orWhere('borrowers.created_by', $request->created_by)
-                ->orWhereBetween(DB::raw('DATE_FORMAT(created_at, "%Y-%m-%d")'), [$request->start_date, $request->end_date])
-                ->select('borrowers.*', 'students.image', DB::raw('CONCAT(first_name, " ",last_name) as student_name'), 'students.gender as student_gender', 'students.phone as student_phone')
-                ->get();
-        } else {
-            $daily_borrower = DB::table('attendances')
-                ->where(DB::raw('DATE_FORMAT(created_at, "%Y-%m-%d")'), date('Y-m-d'))
-                ->get();
+        if ($request->filled('created_by')) {
+            $dailyBorrowerQuery->where('borrowers.created_by', $request->created_by);
         }
+
+        if ($request->start_date && $request->end_date) {
+            $dailyBorrowerQuery->whereBetween('borrowers.created_at', [$request->start_date . ' 00:00:00', $request->end_date . ' 23:59:59']);
+        } elseif (!$request->filled('created_by')) {
+            $dailyBorrowerQuery->whereDate('borrowers.created_at', date('Y-m-d'));
+        }
+
+        $daily_borrower = $dailyBorrowerQuery
+            ->select('borrowers.*', 'students.image', DB::raw('CONCAT(first_name, " ",last_name) as student_name'), 'students.gender as student_gender', 'students.phone as student_phone')
+            ->get();
 
 
         return $this->admin_construct('reports.daily_borrowers', ['daily_borrower' => $daily_borrower, 'created_by' => $created_by]);

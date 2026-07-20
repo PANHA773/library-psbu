@@ -122,6 +122,8 @@
     .book-pdf-card {
         margin-top: 22px;
         padding: 18px;
+        width: 100%;
+        max-width: 100%;
     }
 
     .book-pdf-head {
@@ -143,9 +145,11 @@
         border-radius: 18px;
         overflow: hidden;
         background: #f8fafc;
-        min-height: 360px;
+        min-height: 520px;
         position: relative;
         background: #fff;
+        width: 100%;
+        max-width: 100%;
     }
 
     .pdf-toolbar-mask {
@@ -162,9 +166,19 @@
 
     .book-pdf-preview iframe {
         width: 100%;
-        height: 560px;
+        height: 820px;
         border: 0;
         display: block;
+    }
+
+    @media (max-width: 991px) {
+        .book-pdf-preview {
+            min-height: 620px;
+        }
+
+        .book-pdf-preview iframe {
+            height: 720px;
+        }
     }
 
     .section-title-soft {
@@ -389,7 +403,7 @@
                                 Download
                             </a>
                             @else
-                            <span class="book-crumb">Downloads disabled</span>
+                            <!-- <span class="book-crumb">Downloads disabled</span> -->
                             @endif
                         </div>
                     </div>

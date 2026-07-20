@@ -24,8 +24,17 @@ class Book extends Model
         'author_date',
         'category_lang_id',
         'category_id',
+        'department_id',
         'created_by',
         'created_at',
         'updated_at'
     ];
+
+    /**
+     * Get the department that uploaded this book.
+     */
+    public function department()
+    {
+        return $this->belongsTo(Department::class, 'department_id');
+    }
 }

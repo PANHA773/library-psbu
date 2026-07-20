@@ -39,11 +39,12 @@
                       <th>{{ __('admin.slug') }}</th>
                       <th>{{ __('admin.category') }}</th>
                       <th>{{ __('admin.category_language') }}</th>
+                      <th>Department</th>
                       <th>{{ __('admin.action') }}</th>
                     </tr>
                   </thead>
                   <tbody>
-                    @foreach($books as $book)
+                    @forelse($books as $book)
                   <tr class="text-center view-modal" data-id="{{ $book->id}}" data-toggle="modal" data-target="#modal-lg">
                     <td></td>
                     <td><img width="50px" src="{{ $book->image ? asset('uploads/books/'. $book->image) : asset('images/no_image.png');  }}"></td>
@@ -52,22 +53,34 @@
                     <td>{{ $book->slug }}</td>
                     <td>{{ $book->category_name }}</td>
                     <td>{{ $book->cate_lang_name }}</td>
+                    <td>{{ $book->department_name ?? 'N/A' }}</td>
                     <td class="col-2">
                         <form  action="{{ admin_url('group_book/books/'. $book->id) }}" method="post">
                             @csrf
                             @method('DELETE')
-                            @can('book-edit')
+                            @php
+                              $currentUser = auth()->user();
+                              $canManageBook = $currentUser->hasAnyRole(['Owner', 'Admin', 'Teacher'])
+                                  || ($currentUser->user_type === 'department' && (int) $book->created_by === (int) auth()->id());
+                            @endphp
+                            @if($canManageBook && auth()->user()->can('book-edit'))
                             <a href="{{ admin_url('group_book/books/'. $book->id.'/edit') }}" class="btn btn-primary btn-sm"><i class="fas fa-edit"></i></a>
-                            @endcan
-                            @can('book-delete')
+                            @endif
+                            @if($canManageBook && auth()->user()->can('book-delete'))
                             <button type="submit" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i></button>
-                            @endcan
+                            @endif
                         </form>
                     </td>
                   </tr>
-                  @endforeach
-                  </tfoot>
+                  @empty
+                  <tr>
+                    <td colspan="9" class="text-center">No books found.</td>
+                  </tr>
+                  @endforelse
                 </table>
+                <div class="mt-3">
+                  {{ $books->links() }}
+                </div>
               </div>
               </div>
             </div>

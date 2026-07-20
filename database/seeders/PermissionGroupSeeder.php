@@ -43,5 +43,20 @@ class PermissionGroupSeeder extends Seeder
 
         // Assign all permissions to Admin Role
         $adminRole->syncPermissions(Permission::all());
+
+        $departmentRole = Role::firstOrCreate([
+            'name' => 'Department',
+            'guard_name' => 'web',
+        ]);
+
+        $departmentRole->syncPermissions(Permission::whereIn('name', [
+            'dashboard-index',
+            'book-index',
+            'book-create',
+            'book-edit',
+            'book-delete',
+            'book-view',
+            'book-print_barcodes',
+        ])->get());
     }
 }

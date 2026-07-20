@@ -53,7 +53,7 @@
           <a href="#" class="dropdown-item">
             <!-- Message Start -->
             <div class="media">
-              <img src="dist/img/user1-128x128.jpg" alt="User Avatar" class="img-size-50 mr-3 img-circle">
+              <img src="{{ asset('dist/img/user1-128x128.jpg') }}" alt="User Avatar" class="img-size-50 mr-3 img-circle">
               <div class="media-body">
                 <h3 class="dropdown-item-title">
                   Brad Diesel
@@ -69,7 +69,7 @@
           <a href="#" class="dropdown-item">
             <!-- Message Start -->
             <div class="media">
-              <img src="dist/img/user8-128x128.jpg" alt="User Avatar" class="img-size-50 img-circle mr-3">
+              <img src="{{ asset('dist/img/user8-128x128.jpg') }}" alt="User Avatar" class="img-size-50 img-circle mr-3">
               <div class="media-body">
                 <h3 class="dropdown-item-title">
                   John Pierce
@@ -85,7 +85,7 @@
           <a href="#" class="dropdown-item">
             <!-- Message Start -->
             <div class="media">
-              <img src="dist/img/user3-128x128.jpg" alt="User Avatar" class="img-size-50 img-circle mr-3">
+              <img src="{{ asset('dist/img/user3-128x128.jpg') }}" alt="User Avatar" class="img-size-50 img-circle mr-3">
               <div class="media-body">
                 <h3 class="dropdown-item-title">
                   Nora Silvester
@@ -155,7 +155,14 @@
       </li>
       <li class="nav-item dropdown">
         <a class="nav-link" data-toggle="dropdown" href="#">
-          <img src="{{ Auth::user()->avatar ? asset('uploads/profile/'. Auth::user()->avatar) :  (Auth::user()->gender == 'male' ?  asset('uploads/profile/male.png') : asset('uploads/profile/female.png'))  }}" class="img-circle elevation-3" width="30px" style="opacity: .8">
+          @php
+            $userAvatar = Auth::user()->avatar;
+            $userAvatarPath = $userAvatar ? public_path('uploads/profile/' . $userAvatar) : null;
+            $userAvatarUrl = ($userAvatar && file_exists($userAvatarPath))
+                ? asset('uploads/profile/'. $userAvatar)
+                : (Auth::user()->gender == 'male' ? asset('uploads/profile/male.png') : asset('uploads/profile/female.png'));
+          @endphp
+          <img src="{{ $userAvatarUrl }}" class="img-circle elevation-3" width="30px" style="opacity: .8">
           <!-- font-weight-light -->
         </a>
      
@@ -297,4 +304,3 @@
         </div>
     </div>
 </nav> -->
-

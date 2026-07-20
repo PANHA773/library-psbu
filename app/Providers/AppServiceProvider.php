@@ -32,9 +32,7 @@ class AppServiceProvider extends ServiceProvider
 
         View::addExtension('chamnan', 'blade');
         Schema::defaultStringLength(191);
-        // Paginator::useBootstrapFive();
-        Paginator::defaultView('default');
-        Paginator::defaultSimpleView('default');
+        Paginator::useBootstrapFive();
     }
 
 }

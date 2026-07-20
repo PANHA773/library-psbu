@@ -18,21 +18,28 @@ class AdminMiddleware
     {
         $user = auth()->user();
 
-        // If no user is logged in, block access
         if (!$user) {
-            abort(403, 'You are not allowed to access this page.');
+            return redirect()->route('login');
         }
 
-        // Ensure the user model has the roles relationship
-        if (!method_exists($user, 'hasAnyRole')) {
-            abort(403, 'User roles are not configured properly.');
+        if ($user->user_type === 'department') {
+            if ($request->routeIs('dashboard') || $request->routeIs('profile.*') || $request->routeIs('books.*')) {
+                return $next($request);
+            }
+
+            return redirect()->route('dashboard')
+                ->with('error', 'Department users can only access the dashboard, profile, and book management pages.');
         }
 
-        // Check roles safely
-        if (!$user->hasAnyRole(['Owner','Admin','Teacher'])) {
-            abort(403, 'You are not allowed to access this page.');
+        if ($user->user_type === 'admin') {
+            return $next($request);
         }
 
-        return $next($request);
+        if (method_exists($user, 'hasAnyRole') && $user->hasAnyRole(['Owner', 'Admin', 'Teacher'])) {
+            return $next($request);
+        }
+
+        abort(403, 'You are not allowed to access this page.');
+
     }
 }

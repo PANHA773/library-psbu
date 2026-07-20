@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Rules\capchaRule;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\LoginRequest;
+use App\Models\User;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -13,7 +14,8 @@ use Illuminate\View\View;
 use Carbon\Carbon;
 use Jenssegers\Agent\Agent;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Hash;
+use Spatie\Permission\Models\Permission;
+use Spatie\Permission\Models\Role;
 
 
 class AuthenticatedSessionController extends Controller
@@ -41,7 +43,6 @@ class AuthenticatedSessionController extends Controller
 
     public function loginQrcode(LoginRequest $request): RedirectResponse
     {
-        $credentials = $request->only('email', 'password');
         $user = DB::table('users')->where('email', $request->email)->first();
 
         $request->validate([
@@ -61,36 +62,38 @@ class AuthenticatedSessionController extends Controller
             return redirect()->back()->with('error', __('message.please_activate_account'));
         }
 
-        if (Auth::attempt($credentials)) {
-            if (auth()->user()->user_type === 'admin') {
-                $request->authenticate();
-                $request->session()->regenerate();
-                $device = request()->header('sec-ch-ua-platform');
-                $browser = request()->header('sec-ch-ua');
-                // device 
+        $request->authenticate();
+        $request->session()->regenerate();
 
+        $authenticatedUser = $request->user();
+        $this->ensureDepartmentAccess($authenticatedUser);
 
-                if (preg_match('/"([^"]*Google Chrome[^"]*)"/', $browser, $matches)) {
-                    $browser = $matches[1]; // Extracted value is in $matches[1]
-                } else {
-                    $browser = 'Browser not found';
-                }
+        $device = request()->header('sec-ch-ua-platform');
+        $browser = request()->header('sec-ch-ua');
 
-                $request->user()->update([
-                    'last_login_at' => Carbon::now()->toDateTimeString(),
-                    'last_login_ip' => $request->getClientIp(),
-                    'brower_login' => $browser,
-                    'os_login' => str_replace(['"', "'"], '', $device),
-                ]);
-
-                return redirect()->intended(prefix_url() . RouteServiceProvider::HOME)->with('success', __('message.login_successfully'));
-            }
-
-            Auth::logout();
-            return admin_redirect('login')->with('error', __('message.unauthorized_access'));
+        if (preg_match('/"([^"]*Google Chrome[^"]*)"/', $browser, $matches)) {
+            $browser = $matches[1];
+        } else {
+            $browser = 'Browser not found';
         }
 
-        return redirect()->back()->with('error', __('message.invalid_credentials'));
+        $authenticatedUser->update([
+            'last_login_at' => Carbon::now()->toDateTimeString(),
+            'last_login_ip' => $request->getClientIp(),
+            'brower_login' => $browser,
+            'os_login' => str_replace(['"', "'"], '', $device),
+        ]);
+
+        if ($authenticatedUser->user_type === 'admin') {
+            return redirect()->intended(prefix_url() . RouteServiceProvider::HOME)->with('success', __('message.login_successfully'));
+        }
+
+        if ($authenticatedUser->user_type === 'department') {
+            return redirect(admin_url('group_book/books/create'))->with('success', __('message.login_successfully'));
+        }
+
+        Auth::logout();
+        return admin_redirect('login')->with('error', __('message.unauthorized_access'));
     }
 
     /**
@@ -98,7 +101,6 @@ class AuthenticatedSessionController extends Controller
      */
     public function store(LoginRequest $request): RedirectResponse
     {
-        $credentials = $request->only('email', 'password');
         $user = DB::table('users')->where('email', $request->email)->first();
 
         if (!$user) {
@@ -123,35 +125,66 @@ class AuthenticatedSessionController extends Controller
             }
         }
 
-        if (Auth::attempt($credentials)) {
-            if (auth()->user()->user_type === 'admin') {
+        $request->authenticate();
+        $request->session()->regenerate();
 
-                $request->authenticate();
-                $request->session()->regenerate();
-                $device = request()->header('sec-ch-ua-platform');
-                $browser = request()->header('sec-ch-ua');
-                // device 
+        $authenticatedUser = $request->user();
+        $this->ensureDepartmentAccess($authenticatedUser);
 
-                if (preg_match('/"([^"]*Google Chrome[^"]*)"/', $browser, $matches)) {
-                    $browser = $matches[1]; // Extracted value is in $matches[1]
-                } else {
-                    $browser = 'Browser not found';
-                }
+        $device = request()->header('sec-ch-ua-platform');
+        $browser = request()->header('sec-ch-ua');
 
-                $request->user()->update([
-                    'last_login_at' => Carbon::now()->toDateTimeString(),
-                    'last_login_ip' => $request->getClientIp(),
-                    'brower_login' => $browser,
-                    'os_login' => str_replace(['"', "'"], '', $device),
-                ]);
-
-                return redirect()->intended(prefix_url() . RouteServiceProvider::HOME)->with('success', __('message.login_successfully'));
-            }
-
-            Auth::logout();
-            return admin_redirect('login')->with('error', __('message.unauthorized_access'));
+        if (preg_match('/"([^"]*Google Chrome[^"]*)"/', $browser, $matches)) {
+            $browser = $matches[1];
+        } else {
+            $browser = 'Browser not found';
         }
-        return redirect()->back()->with('error', __('message.invalid_credentials'));
+
+        $authenticatedUser->update([
+            'last_login_at' => Carbon::now()->toDateTimeString(),
+            'last_login_ip' => $request->getClientIp(),
+            'brower_login' => $browser,
+            'os_login' => str_replace(['"', "'"], '', $device),
+        ]);
+
+        if ($authenticatedUser->user_type === 'admin') {
+            return redirect()->intended(prefix_url() . RouteServiceProvider::HOME)->with('success', __('message.login_successfully'));
+        }
+
+        if ($authenticatedUser->user_type === 'department') {
+            return redirect(admin_url('group_book/books/create'))->with('success', __('message.login_successfully'));
+        }
+
+        Auth::logout();
+        return admin_redirect('login')->with('error', __('message.unauthorized_access'));
+    }
+
+    private function ensureDepartmentAccess(User $user): void
+    {
+        if ($user->user_type !== 'department') {
+            return;
+        }
+
+        $role = Role::firstOrCreate([
+            'name' => 'Department',
+            'guard_name' => 'web',
+        ]);
+
+        $permissions = Permission::whereIn('name', [
+            'dashboard-index',
+            'book-index',
+            'book-create',
+            'book-edit',
+            'book-delete',
+            'book-view',
+            'book-print_barcodes',
+        ])->where('guard_name', 'web')->get();
+
+        $role->syncPermissions($permissions);
+
+        if (!$user->hasRole($role->name)) {
+            $user->syncRoles([$role->name]);
+        }
     }
 
     // reload captcha

@@ -30,6 +30,10 @@
                 <div class="card-body">
                     <div class="row">
                         <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="code">{{__('admin.code')}}</label>
+                                <input type="text" name="code" class="form-control" id="code" value="{{ old('code', reference_no('book', 10)) }}" placeholder="{{__('admin.enter_book_code')}}">
+                            </div>
                             
                             <div class="form-group">
                                 <label for="name">{{__('admin.title')}}</label>
@@ -65,6 +69,15 @@
                                   <option value="">{{__('admin.select_category_language')}}</option>
                                   @foreach($category_languages as $category_lang)
                                   <option value="{{ $category_lang->id }}">{{ $category_lang->name }}</option>
+                                  @endforeach
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Department</label>
+                                <select class="form-control select2" name="department_id" id="department_id" style="width: 100%;">
+                                  <option value="">Select Department</option>
+                                  @foreach($departments as $department)
+                                  <option value="{{ $department->id }}">{{ $department->name }}</option>
                                   @endforeach
                                 </select>
                             </div>

@@ -23,8 +23,14 @@
             <div class="card card-primary card-outline">
               <div class="card-body box-profile">
                 <div class="text-center">
+                  @php
+                    $profileAvatarPath = $user->avatar ? public_path('uploads/profile/' . $user->avatar) : null;
+                    $profileAvatarUrl = ($user->avatar && file_exists($profileAvatarPath))
+                        ? asset('uploads/profile/'. $user->avatar)
+                        : ($user->gender == 'male' ? asset('uploads/profile/male.png') : asset('uploads/profile/female.png'));
+                  @endphp
                   <img class="profile-user-img img-fluid img-circle"
-                       src="{{ $user->avatar ? asset('uploads/profile/'. $user->avatar) :  ($user->gender == 'male' ?  asset('uploads/profile/male.png') : asset('uploads/profile/female.png'))  }}"
+                       src="{{ $profileAvatarUrl }}"
                        alt="User profile picture">
                 </div>
                 <h3 class="profile-username text-center">{{ Auth::user()->name }}</h3>

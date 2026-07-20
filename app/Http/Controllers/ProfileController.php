@@ -18,7 +18,7 @@ class ProfileController extends Controller
     {
         if (func_num_args() === 0) {
             return [
-                new Middleware('role:Owner|Admin|Teacher'),
+                new Middleware('role:Owner|Admin|Teacher|Department'),
                 new Middleware('permission:product-index', only: ['index']),
                 new Middleware('permission:product-create', only: ['create','store']),
                 new Middleware('permission:product-edit', only: ['edit','update']),
@@ -66,25 +66,26 @@ class ProfileController extends Controller
 
     public function update_avatar(Request $request) 
     {
-        
+        $data = [];
+
         $validation = $request->validate([
-            'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'profile' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
 
-        if (!empty($request->profile)) {
-            $old_img = DB::table('users')->first()->avatar;
+        if ($request->hasFile('profile')) {
+            $old_img = DB::table('users')->where('id', Auth::user()->id)->value('avatar');
             $file = $request->file('profile');
             $extension = $file->getClientOriginalExtension(); 
             $filename = hash('gost',(time().'.' . $extension));
             $file->move(public_path('uploads/profile/'), $filename);
             $data['avatar'] = $filename;
 
-            // if($old_img) {
-            //     unlink(public_path('uploads/profile/'. $old_img));   
-            // } 
+            if ($old_img && file_exists(public_path('uploads/profile/' . $old_img))) {
+                unlink(public_path('uploads/profile/' . $old_img));
+            }
         }
 
-        if($data) {
+        if (!empty($data)) {
             DB::table('users')
            ->where('id' , Auth::user()->id)
            ->update($data);

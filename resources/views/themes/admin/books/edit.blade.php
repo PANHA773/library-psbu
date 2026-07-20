@@ -72,6 +72,15 @@
                                 </select>
                             </div>
                             <div class="form-group">
+                                <label>Department</label>
+                                <select class="form-control select2" name="department_id" id="department_id" style="width: 100%;">
+                                  <option value="">Select Department</option>
+                                  @foreach($departments as $department)
+                                  <option value="{{ $department->id }}" {{  ($department->id == $book->department_id) ? 'selected' : '' }}>{{ $department->name }}</option>
+                                  @endforeach
+                                </select>
+                            </div>
+                            <div class="form-group">
                             <label for="exampleInputFile">{{__('admin.image')}}</label>
                             <div class="input-group">
                               <div class="custom-file">

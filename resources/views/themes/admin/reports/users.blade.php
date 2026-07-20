@@ -84,7 +84,10 @@
                   <tbody>
                     @foreach($users as $user)
                   <tr class="text-center">
-                    <td><img width="50px" src="{{ $user->avatar ? asset('uploads/profile/'. $user->avatar) : asset('images/no_image.png');  }}"></td>
+                    @php
+                      $reportAvatar = $user->avatar ? public_path('uploads/profile/' . $user->avatar) : null;
+                    @endphp
+                    <td><img width="50px" src="{{ ($user->avatar && file_exists($reportAvatar)) ? asset('uploads/profile/'. $user->avatar) : asset('images/no_image.png');  }}"></td>
                     <td>{{ $user->name }}</td>
                     <td>{{ $user->email }}</td>
                     <td>{{ $user->phone }}</td>

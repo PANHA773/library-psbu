@@ -14,6 +14,48 @@
             </a>
           </li>
 
+          @if(Auth::user()->user_type === 'department')
+          <li class="nav-item {{ request()->is('admin/group_book*') ? 'menu-open' : '' }}">
+            <a href="#" class="nav-link {{ request()->is('admin/group_book*') ? 'active' : '' }}">
+              <i class="nav-icon fas fa-book"></i>
+              <p class="truncated-text">
+                {{__('admin.books')}}
+                <i class="fas fa-angle-left right"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{ admin_url('group_book/books') }}" class="nav-link {{ request()->is('admin/group_book/books') ? 'active' : '' }}">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p class="truncated-text">{{__('admin.book_lists')}}</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{admin_url('group_book/books/create')}}" class="nav-link {{ request()->is('admin/group_book/books/create') ? 'active' : '' }}">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p class="truncated-text">{{__('admin.add_book')}}</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+
+          <li class="nav-item">
+            <a href="{{ admin_url('profile') }}" class="nav-link {{ request()->is('admin/profile') ? 'active' : '' }}">
+              <i class="nav-icon fas fa-user"></i>
+              <p class="truncated-text">{{__('admin.profile')}}</p>
+            </a>
+          </li>
+
+          <li class="nav-item">
+            <form method="POST" action="{{ route('logout') }}">
+              @csrf
+              <button type="submit" class="nav-link btn btn-danger text-white btn-sm">
+                <i class="nav-icon fas fa-sign-out-alt"></i>
+                <p>Logout</p>
+              </button>
+            </form>
+          </li>
+          @else
           {{ config('is_ecommerce') }}
           @if(config('is_ecommerce')) 
           <li class="nav-item {{ request()->is('admin/product*') ? 'menu-open' : '' }}">
@@ -240,6 +282,13 @@
                 </a>
               </li>
 
+              <li class="nav-item">
+                <a href="{{ admin_url('settings/departments')}}" class="nav-link {{ request()->is('admin/settings/departments') ? 'active' : '' }}">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p class="truncated-text">Departments</p>
+                </a>
+              </li>
+
               @if(config('app.permission_group'))
               <li class="nav-item">
                 <a href="{{ admin_url('settings/permission-groups')}}" class="nav-link {{ request()->is('admin/settings/permission-groups') ? 'active' : '' }}">
@@ -380,6 +429,7 @@
               </button>
             </form>
           </li>
+          @endif
           @endif
         </ul>
       </nav>

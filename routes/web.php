@@ -32,6 +32,8 @@ use App\Http\Controllers\ApiKeyController;
 use App\Http\Controllers\PermissionGroupController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\Admin\StaffMemberController;
+use App\Http\Controllers\DepartmentController;
+use App\Http\Controllers\DepartmentUserController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -152,7 +154,7 @@ Route::middleware(['auth', 'admin'])->group(function () {
 
         // purchases
         Route::prefix('/purchases')->group(function () {
-            Route::resource('/', PurcheseController::class);
+            Route::resource('/', PurchaseController::class);
         });
 
         // products
@@ -249,6 +251,15 @@ Route::middleware(['auth', 'admin'])->group(function () {
             Route::resource('/permission-groups', PermissionGroupController::class);
             Route::resource('/permissions', PermissionController::class);
             Route::resource('/roles', RoleController::class);
+            Route::resource('/departments', DepartmentController::class);
+            
+            // Department Users Management
+            Route::get('/departments/{departmentId}/users', [DepartmentUserController::class, 'index'])->name('departments.users.index');
+            Route::get('/departments/{departmentId}/users/create', [DepartmentUserController::class, 'create'])->name('departments.users.create');
+            Route::post('/departments/{departmentId}/users', [DepartmentUserController::class, 'store'])->name('departments.users.store');
+            Route::get('/departments/{departmentId}/users/{userId}/edit', [DepartmentUserController::class, 'edit'])->name('departments.users.edit');
+            Route::put('/departments/{departmentId}/users/{userId}', [DepartmentUserController::class, 'update'])->name('departments.users.update');
+            Route::delete('/departments/{departmentId}/users/{userId}', [DepartmentUserController::class, 'destroy'])->name('departments.users.destroy');
         });
 
         Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
