@@ -120,64 +120,313 @@
     }
 
     .book-pdf-card {
-        margin-top: 22px;
-        padding: 18px;
+        margin-top: 0;
+        padding: 0;
         width: 100%;
-        max-width: 100%;
+        max-width: none;
+        position: relative;
+        left: 0;
+        transform: none;
+        background: transparent;
+        border: 0;
+        border-radius: 0;
+        box-shadow: none;
     }
 
-    .book-pdf-head {
+    .book-pdf-section {
+        width: 100vw;
+        max-width: 100vw;
+        position: relative;
+        left: 50%;
+        margin-left: -50vw;
+        background: #ffffff;
+        padding: 26px 0 28px;
+    }
+
+    .book-pdf-band {
+        width: 100%;
+        padding: 0 32px;
+    }
+
+    .book-pdf-band-head {
         display: flex;
         flex-wrap: wrap;
         justify-content: space-between;
         gap: 12px;
         align-items: center;
-        margin-bottom: 14px;
+        margin-bottom: 18px;
     }
 
-    .book-pdf-head h4 {
+    .book-pdf-band-head h4 {
         margin: 0;
         font-size: 1rem;
+        color: #111827;
     }
 
-    .book-pdf-preview {
-        border: 1px solid rgba(15, 23, 42, 0.1);
-        border-radius: 18px;
-        overflow: hidden;
-        background: #f8fafc;
-        min-height: 520px;
+    .book-pdf-band-head p,
+    .pdf-footer-bar {
+        color: #4b5563;
+    }
+
+    .book-pdf-viewer {
+        width: calc(100% - 64px);
+        margin: 0 32px;
+        background: #2f2f2f;
+        border-radius: 22px;
+        padding: 24px 20px 18px;
         position: relative;
-        background: #fff;
-        width: 100%;
-        max-width: 100%;
+        overflow: hidden;
+        box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.04), 0 28px 70px rgba(15, 23, 42, 0.22);
     }
 
-    .pdf-toolbar-mask {
+    .book-pdf-viewer::before,
+    .book-pdf-viewer::after {
+        content: "";
+        position: absolute;
+        top: 50%;
+        width: 58px;
+        height: 58px;
+        border-top: 3px solid rgba(255, 255, 255, 0.85);
+        border-right: 3px solid rgba(255, 255, 255, 0.85);
+        opacity: .65;
+        transform: translateY(-50%) rotate(45deg);
+        pointer-events: none;
+        z-index: 2;
+    }
+
+    .book-pdf-viewer::before {
+        left: 10px;
+        transform: translateY(-50%) rotate(225deg);
+    }
+
+    .book-pdf-viewer::after {
+        right: 10px;
+    }
+
+    .pdf-spread-stage {
+        position: relative;
+        min-height: clamp(720px, calc(100vh - 210px), 980px);
+        display: flex;
+        align-items: stretch;
+        justify-content: center;
+        gap: 0;
+        padding: 0 56px;
+    }
+
+    .pdf-page-pane {
+        position: relative;
+        flex: 1 1 0;
+        background: linear-gradient(180deg, #ffffff 0%, #fafafa 100%);
+        box-shadow: 0 14px 40px rgba(0, 0, 0, 0.18);
+        overflow: hidden;
+        min-height: inherit;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .pdf-page-pane:first-child {
+        border-radius: 2px 0 0 2px;
+    }
+
+    .pdf-page-pane:last-child {
+        border-radius: 0 2px 2px 0;
+    }
+
+    .pdf-page-spine {
+        width: 32px;
+        background: linear-gradient(90deg, rgba(0, 0, 0, 0.18), rgba(255, 255, 255, 0.96), rgba(0, 0, 0, 0.16));
+        box-shadow: inset 0 0 34px rgba(0, 0, 0, 0.2);
+        position: relative;
+        z-index: 2;
+    }
+
+    .pdf-page-spine::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(180deg, transparent, rgba(0, 0, 0, 0.05), transparent);
+    }
+
+    .pdf-page-pane canvas {
+        display: block;
+        max-width: 100%;
+        max-height: 100%;
+        opacity: 1;
+        transition: opacity .25s ease;
+        image-rendering: auto;
+    }
+
+    .book-pdf-viewer.is-rendering .pdf-page-pane canvas {
+        opacity: .82;
+    }
+
+    .pdf-loading-overlay {
+        position: absolute;
+        inset: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #fff;
+        font-size: 1rem;
+        letter-spacing: .04em;
+        background: rgba(47, 47, 47, 0.32);
+        z-index: 3;
+        backdrop-filter: blur(2px);
+    }
+
+    .pdf-nav-button {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 54px;
+        height: 54px;
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.08);
+        color: #fff;
+        font-size: 2rem;
+        line-height: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 4;
+        transition: transform .2s ease, background .2s ease, opacity .2s ease;
+    }
+
+    .pdf-nav-button:hover {
+        background: rgba(255, 255, 255, 0.18);
+        transform: translateY(-50%) scale(1.04);
+    }
+
+    .pdf-nav-button:disabled {
+        opacity: .35;
+        cursor: not-allowed;
+        transform: translateY(-50%);
+    }
+
+    .pdf-nav-prev {
+        left: 18px;
+    }
+
+    .pdf-nav-next {
+        right: 18px;
+    }
+
+    .pdf-footer-bar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 12px;
+        margin-top: 14px;
+        font-size: .92rem;
+    }
+
+    .pdf-footer-pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        background: rgba(17, 24, 39, 0.06);
+        border: 1px solid rgba(17, 24, 39, 0.08);
+        color: black;
+        border-radius: 999px;
+        padding: .5rem .95rem;
+    }
+
+    .pdf-footer-pill strong {
+        color: #fff;
+    }
+
+    .pdf-action-link {
+        border-radius: 999px;
+        padding: .72rem 1.15rem;
+        background: linear-gradient(135deg, #ff7b54, #ff5252);
+        color: #fff;
+        font-weight: 700;
+        text-decoration: none;
+        box-shadow: 0 14px 30px rgba(255, 82, 82, 0.28);
+    }
+
+    .pdf-action-link:hover {
+        color: #fff;
+        opacity: .94;
+    }
+
+    .pdf-nav-button {
+        background: rgba(17, 24, 39, 0.1);
+        border-color: rgba(17, 24, 39, 0.15);
+        color: #111827;
+    }
+
+    .pdf-nav-button:hover {
+        background: rgba(17, 24, 39, 0.16);
+    }
+
+    /* Flip Animation Styles */
+    .pdf-spread-stage {
+        perspective: 3000px;
+    }
+
+    .flip-page-container {
         position: absolute;
         top: 0;
-        right: 0;
-        width: 100%;
-        height: 56px;
-        background: linear-gradient(180deg, #ffffff 0%, #ffffff 70%, rgba(255, 255, 255, 0.86) 100%);
-        z-index: 3;
+        width: calc((100% - 112px - 32px) / 2);
+        height: 100%;
+        z-index: 10;
+        transform-style: preserve-3d;
+        transition: transform 0.8s cubic-bezier(0.645, 0.045, 0.355, 1);
         pointer-events: none;
-        border-bottom: 1px solid rgba(15, 23, 42, 0.06);
     }
 
-    .book-pdf-preview iframe {
-        width: 100%;
-        height: 820px;
-        border: 0;
+    .flip-page-container.flip-right-to-left {
+        right: 56px;
+        transform-origin: left center;
+    }
+
+    .flip-page-container.flip-left-to-right {
+        left: 56px;
+        transform-origin: right center;
+    }
+
+    .flip-page-front, .flip-page-back {
+        position: absolute;
+        inset: 0;
+        backface-visibility: hidden;
+        background: linear-gradient(180deg, #ffffff 0%, #fafafa 100%);
+        box-shadow: 0 14px 40px rgba(0, 0, 0, 0.18);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+    }
+
+    .flip-page-back {
+        transform: rotateY(180deg);
+    }
+
+    .flip-page-front canvas, .flip-page-back canvas {
+        max-width: 100%;
+        max-height: 100%;
         display: block;
     }
 
+    /* Mobile simple transition */
+    .mobile-fade-transition canvas {
+        transition: opacity 0.3s ease, transform 0.3s ease;
+    }
+    .mobile-fade-out {
+        opacity: 0;
+        transform: scale(0.98);
+    }
+
     @media (max-width: 991px) {
-        .book-pdf-preview {
-            min-height: 620px;
+        .pdf-spread-stage {
+            min-height: 70vh;
+            padding: 0 24px;
         }
 
-        .book-pdf-preview iframe {
-            height: 720px;
+        .pdf-page-pane {
+            min-height: 70vh;
         }
     }
 
@@ -201,17 +450,46 @@
             grid-template-columns: 1fr;
         }
 
-        .book-pdf-preview {
-            min-height: 280px;
+        .pdf-spread-stage {
+            min-height: 64vh;
+            padding: 0 12px;
         }
 
-        .book-pdf-preview iframe {
-            height: 420px;
+        .pdf-page-pane {
+            min-height: 64vh;
         }
 
         .book-detail-thumb {
             min-height: 280px;
             padding: 12px;
+        }
+
+        .pdf-nav-button {
+            width: 42px;
+            height: 42px;
+            font-size: 1.5rem;
+        }
+
+        .pdf-nav-prev {
+            left: 8px;
+        }
+
+        .pdf-nav-next {
+            right: 8px;
+        }
+
+        .pdf-footer-bar {
+            flex-direction: column;
+            align-items: flex-start;
+            padding: 0 16px;
+        }
+
+        .book-pdf-band-head {
+            padding: 0 16px;
+        }
+
+        .book-pdf-band {
+            padding: 0 16px;
         }
     }
 </style>
@@ -388,36 +666,6 @@
                                 </a>
                             </div> --}}
                 </div>
-                @if(!empty($book->pdf))
-                <div class="book-pdf-card">
-                    <div class="book-pdf-head">
-                        <div>
-                            <h4 class="battambang-regular mb-1">Read the PDF</h4>
-                            <p class="mb-0 text-muted">
-                                Preview online. Downloads stay hidden unless the admin enables them.
-                            </p>
-                        </div>
-                        <div class="d-flex flex-wrap gap-2">
-                            @if(!empty($book->pdf_downloadable))
-                            <a href="{{ asset('uploads/books/pdfs/' . $book->pdf) }}" download class="theme-btn">
-                                Download
-                            </a>
-                            @else
-                            <!-- <span class="book-crumb">Downloads disabled</span> -->
-                            @endif
-                        </div>
-                    </div>
-                    <div
-                        class="book-pdf-preview"
-                        id="pdfPreview"
-                        data-pdf-url="{{ asset('uploads/books/pdfs/' . $book->pdf) }}">
-                        <div class="pdf-toolbar-mask" aria-hidden="true"></div>
-                        <iframe
-                            src="{{ asset('uploads/books/pdfs/' . $book->pdf) }}#toolbar=0&navpanes=0&scrollbar=0"
-                            title="{{ $book->title }} PDF"></iframe>
-                    </div>
-                </div>
-                @endif
                 {{-- <div class="category-box">
                             <div class="category-list">
                                 <ul>
@@ -657,6 +905,278 @@
     </div>
     </div>
 </section>
+
+@if(!empty($book->pdf))
+<section class="book-pdf-section">
+    <div class="book-pdf-band">
+        <div class="book-pdf-band-head">
+            <div>
+                <h4 class="battambang-regular mb-1">Read the PDF</h4>
+                <p class="mb-0 text-muted">
+                    Preview online. Downloads stay hidden unless the admin enables them.
+                </p>
+            </div>
+            <div class="d-flex flex-wrap gap-2">
+                <span class="book-crumb">Two-page reader</span>
+            </div>
+        </div>
+        <div class="book-pdf-card">
+            <div class="book-pdf-viewer" id="pdfViewer" data-pdf-url="{{ asset('uploads/books/pdfs/' . $book->pdf) }}">
+                <button type="button" class="pdf-nav-button pdf-nav-prev" id="pdfPrevBtn" aria-label="Previous pages">
+                    &#8249;
+                </button>
+                <div class="pdf-spread-stage">
+                    <div class="pdf-page-pane">
+                        <canvas id="pdfLeftCanvas"></canvas>
+                    </div>
+                    <div class="pdf-page-spine" aria-hidden="true"></div>
+                    <div class="pdf-page-pane">
+                        <canvas id="pdfRightCanvas"></canvas>
+                    </div>
+                    <div class="pdf-loading-overlay" id="pdfLoading">Loading PDF...</div>
+                </div>
+                <button type="button" class="pdf-nav-button pdf-nav-next" id="pdfNextBtn" aria-label="Next pages">
+                    &#8250;
+                </button>
+            </div>
+            <div class="pdf-footer-bar">
+                <span class="pdf-footer-pill" id="pdfPageInfo">Page 1 - 2</span>
+                @if(!empty($book->pdf_downloadable))
+                <a href="{{ asset('uploads/books/pdfs/' . $book->pdf) }}" download class="pdf-action-link">
+                    Download PDF
+                </a>
+                @endif
+            </div>
+        </div>
+    </div>
+</section>
+@endif
+
+@if(!empty($book->pdf))
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const viewer = document.getElementById('pdfViewer');
+        const pageInfo = document.getElementById('pdfPageInfo');
+        const loading = document.getElementById('pdfLoading');
+        const prevBtn = document.getElementById('pdfPrevBtn');
+        const nextBtn = document.getElementById('pdfNextBtn');
+        const leftCanvas = document.getElementById('pdfLeftCanvas');
+        const rightCanvas = document.getElementById('pdfRightCanvas');
+
+        if (!viewer || typeof pdfjsLib === 'undefined') {
+            return;
+        }
+
+        pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+
+        const pdfUrl = viewer.dataset.pdfUrl;
+        const leftPane = leftCanvas.closest('.pdf-page-pane');
+        const rightPane = rightCanvas.closest('.pdf-page-pane');
+        const spine = viewer.querySelector('.pdf-page-spine');
+        const stage = viewer.querySelector('.pdf-spread-stage');
+        let pdfDoc = null;
+        let currentPage = 1;
+        let renderSeq = 0;
+
+        function isMobile() {
+            return window.innerWidth < 992;
+        }
+
+        function setLoading(state) {
+            loading.style.display = state ? 'flex' : 'none';
+            viewer.classList.toggle('is-rendering', state);
+        }
+
+        async function renderPage(pageNumber, canvas, targetWidth, targetHeight) {
+            if (!pageNumber || pageNumber > pdfDoc.numPages) {
+                canvas.getContext('2d').clearRect(0, 0, canvas.width, canvas.height);
+                canvas.style.display = 'none';
+                return;
+            }
+
+            const page = await pdfDoc.getPage(pageNumber);
+            const viewport = page.getViewport({ scale: 1 });
+            const scale = Math.min(targetWidth / viewport.width, targetHeight / viewport.height);
+            const cssViewport = page.getViewport({ scale });
+            const outputScale = window.devicePixelRatio || 1;
+            const renderViewport = page.getViewport({ scale: scale * outputScale });
+            const context = canvas.getContext('2d');
+
+            canvas.width = renderViewport.width;
+            canvas.height = renderViewport.height;
+            canvas.style.width = cssViewport.width + 'px';
+            canvas.style.height = cssViewport.height + 'px';
+            canvas.style.display = 'block';
+
+            context.imageSmoothingEnabled = true;
+            context.imageSmoothingQuality = 'high';
+            context.clearRect(0, 0, canvas.width, canvas.height);
+            await page.render({ canvasContext: context, viewport: renderViewport }).promise;
+        }
+
+        async function renderSpread(direction = 0) {
+            const seq = ++renderSeq;
+            setLoading(true);
+
+            const stageWidth = stage.clientWidth;
+            const stageHeight = Math.max(stage.clientHeight - 28, 420);
+            const mobile = isMobile();
+            const leftPage = currentPage;
+            const rightPage = mobile ? null : currentPage + 1;
+
+            const gap = mobile ? 0 : 32;
+            const pageWidth = mobile ? stageWidth - 10 : Math.floor((stageWidth - gap) / 2) - 10;
+            const pageHeight = stageHeight;
+
+            // If a flip animation is requested and we are not on mobile
+            if (direction !== 0 && !mobile && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                const isNext = direction > 0;
+                
+                // Create flipper container
+                const flipper = document.createElement('div');
+                flipper.className = 'flip-page-container ' + (isNext ? 'flip-right-to-left' : 'flip-left-to-right');
+                
+                const front = document.createElement('div');
+                front.className = 'flip-page-front';
+                const frontCanvas = document.createElement('canvas');
+                front.appendChild(frontCanvas);
+                
+                const back = document.createElement('div');
+                back.className = 'flip-page-back';
+                const backCanvas = document.createElement('canvas');
+                back.appendChild(backCanvas);
+                
+                flipper.appendChild(front);
+                flipper.appendChild(back);
+                stage.appendChild(flipper);
+
+                // Copy current page to front of flipper
+                const sourceCanvas = isNext ? rightCanvas : leftCanvas;
+                frontCanvas.width = sourceCanvas.width;
+                frontCanvas.height = sourceCanvas.height;
+                frontCanvas.style.width = sourceCanvas.style.width;
+                frontCanvas.style.height = sourceCanvas.style.height;
+                if (sourceCanvas.width > 0) {
+                    frontCanvas.getContext('2d').drawImage(sourceCanvas, 0, 0);
+                }
+
+                // Render the incoming page to the back of the flipper
+                const incomingPageNum = isNext ? leftPage : rightPage;
+                await renderPage(incomingPageNum, backCanvas, pageWidth, pageHeight);
+
+                // Prepare actual canvases behind the flipper
+                // If next: update right canvas immediately to R2, left canvas stays L1 until flip finishes
+                // If prev: update left canvas immediately to L2, right canvas stays R1 until flip finishes
+                if (isNext) {
+                    await renderPage(rightPage, rightCanvas, pageWidth, pageHeight);
+                } else {
+                    await renderPage(leftPage, leftCanvas, pageWidth, pageHeight);
+                }
+
+                // Trigger animation
+                requestAnimationFrame(() => {
+                    requestAnimationFrame(() => {
+                        flipper.style.transform = isNext ? 'rotateY(-180deg)' : 'rotateY(180deg)';
+                    });
+                });
+
+                // Wait for animation to finish
+                await new Promise(resolve => setTimeout(resolve, 800));
+                
+                // Now update the hidden side to the new page and remove flipper
+                if (isNext) {
+                    await renderPage(leftPage, leftCanvas, pageWidth, pageHeight);
+                } else {
+                    await renderPage(rightPage, rightCanvas, pageWidth, pageHeight);
+                }
+                
+                flipper.remove();
+                
+            } else if (direction !== 0 && mobile) {
+                // Simple fade for mobile
+                leftCanvas.classList.add('mobile-fade-transition', 'mobile-fade-out');
+                await new Promise(resolve => setTimeout(resolve, 300));
+                await renderPage(leftPage, leftCanvas, pageWidth, pageHeight);
+                leftCanvas.classList.remove('mobile-fade-out');
+                await new Promise(resolve => setTimeout(resolve, 300));
+                leftCanvas.classList.remove('mobile-fade-transition');
+            } else {
+                // Normal render without animation
+                leftPane.style.display = 'flex';
+                rightPane.style.display = mobile ? 'none' : 'flex';
+                spine.style.display = mobile ? 'none' : 'block';
+                
+                await renderPage(leftPage, leftCanvas, pageWidth, pageHeight);
+                if (!mobile) {
+                    await renderPage(rightPage, rightCanvas, pageWidth, pageHeight);
+                }
+            }
+
+            if (seq !== renderSeq) {
+                return;
+            }
+
+            pageInfo.textContent = mobile
+                ? 'Page ' + leftPage + ' of ' + pdfDoc.numPages
+                : 'Page ' + leftPage + ' - ' + Math.min(rightPage || leftPage, pdfDoc.numPages) + ' of ' + pdfDoc.numPages;
+
+            prevBtn.disabled = currentPage <= 1;
+            nextBtn.disabled = mobile
+                ? currentPage >= pdfDoc.numPages
+                : currentPage >= pdfDoc.numPages - 1;
+                
+            if (seq === renderSeq) {
+                setLoading(false);
+            }
+        }
+
+        function goPrev() {
+            if (currentPage <= 1) return;
+            if (isMobile()) {
+                currentPage = Math.max(1, currentPage - 1);
+            } else {
+                currentPage = Math.max(1, currentPage - 2);
+            }
+            renderSpread(-1);
+        }
+
+        function goNext() {
+            if (isMobile()) {
+                if (currentPage >= pdfDoc.numPages) return;
+                currentPage = Math.min(pdfDoc.numPages, currentPage + 1);
+            } else {
+                if (currentPage >= pdfDoc.numPages - 1) return;
+                currentPage = Math.min(pdfDoc.numPages, currentPage + 2);
+            }
+            renderSpread(1);
+        }
+
+        prevBtn.addEventListener('click', goPrev);
+        nextBtn.addEventListener('click', goNext);
+
+        let resizeTimer = null;
+        window.addEventListener('resize', function () {
+            clearTimeout(resizeTimer);
+            resizeTimer = setTimeout(function () {
+                renderSpread();
+            }, 150);
+        });
+
+        pdfjsLib.getDocument(pdfUrl).promise
+            .then(function (doc) {
+                pdfDoc = doc;
+                return renderSpread();
+            })
+            .catch(function (error) {
+                console.error('PDF preview failed:', error);
+                pageInfo.textContent = 'Preview unavailable';
+                setLoading(false);
+                viewer.innerHTML = '<div class="pdf-loading-overlay">PDF preview could not be loaded.</div>';
+            });
+    });
+</script>
+@endif
 
 <!-- Top Ratting Book Section Start -->
 <section class="top-ratting-book-section fix section-padding pt-0">
