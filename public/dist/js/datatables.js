@@ -1,8 +1,10 @@
 $(function () {
+    const table = document.querySelector("table");
+    if (!table || !table.id) {
+        return;
+    }
 
-    let id = document.querySelector("table").id;
-
-    $('#'+id).DataTable({
+    $('#' + table.id).DataTable({
 
         "paging": true,
         "lengthChange": true,

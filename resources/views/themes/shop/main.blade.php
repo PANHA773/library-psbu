@@ -12,7 +12,7 @@
     <!-- ======== Page title ============ -->
     <title>{{shop_settings()->shop_name}}</title>
     <!--<< Favcion >>-->
-    <link rel="shortcut icon" href="{{asset('uploads/settings/'. shop_settings()->logo)}}">
+    <link rel="shortcut icon" href="{{ shop_settings_logo_url() }}">
     <!-- Khmer Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -105,39 +105,52 @@
         .header-top-1 .contact-list li.language-switcher {
             display: inline-flex;
             align-items: center;
-            gap: 8px;
-            flex-wrap: wrap;
+            gap: 12px;
+            flex-wrap: nowrap;
         }
 
         .header-top-1 .lang-flag-link {
             display: inline-flex;
             align-items: center;
-            justify-content: center;
-            width: 34px;
-            height: 24px;
-            border-radius: 999px;
-            border: 1px solid rgba(26, 32, 44, 0.12);
-            background: #fff;
-            transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease;
+            gap: 8px;
             text-decoration: none;
-        }
-
-        .header-top-1 .lang-flag-link:hover {
-            transform: translateY(-1px);
-            border-color: rgba(255, 101, 0, 0.45);
-            box-shadow: 0 8px 18px rgba(16, 24, 40, 0.10);
-        }
-
-        .header-top-1 .lang-flag-link.active {
-            border-color: #FF6500;
-            box-shadow: 0 8px 18px rgba(255, 101, 0, 0.18);
+            color: #ffffff;
+            font-size: 0.95rem;
+            font-weight: 500;
+            transition: color 0.2s ease, opacity 0.2s ease;
         }
 
         .header-top-1 .lang-flag-link .flag-icon {
-            border-radius: 50%;
-            width: 18px;
-            height: 18px;
+            width: 22px;
+            height: 16px;
+            border-radius: 2px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.2);
             background-size: cover;
+            flex-shrink: 0;
+        }
+
+        .header-top-1 .lang-flag-link .lang-text {
+            color: #ffffff;
+            font-family: 'Battambang', 'Siemreap', sans-serif;
+            font-weight: 600;
+            font-size: 0.92rem;
+            line-height: 1;
+        }
+
+        .header-top-1 .lang-flag-link:hover .lang-text {
+            color: #FF6500;
+        }
+
+        .header-top-1 .lang-flag-link.active .lang-text {
+            color: #ffffff;
+            font-weight: 700;
+        }
+
+        .header-top-1 .lang-divider {
+            color: rgba(255, 255, 255, 0.35);
+            font-size: 0.9rem;
+            user-select: none;
+            font-weight: 300;
         }
 
         /* ── Footer Khmer ── */
@@ -157,11 +170,167 @@
             font-family: 'Battambang', sans-serif;
         }
 
-        /* ── Offcanvas Khmer ── */
-        .offcanvas__info h4,
-        .offcanvas__info a,
-        .offcanvas__info p {
+        /* ===== OFFCANVAS SIDEBAR - PREMIUM REDESIGN ===== */
+        .offcanvas__info {
+            background: #dcebfa !important;
+            padding: 40px 32px !important;
+            border-left: 1px solid rgba(0, 0, 0, 0.06);
+            box-shadow: -15px 0 40px rgba(0, 0, 0, 0.12);
+        }
+
+        .offcanvas__wrapper {
+            background: transparent !important;
+        }
+
+        .offcanvas__top {
+            margin-bottom: 30px !important;
+        }
+
+        .offcanvas__logo img {
+            max-height: 70px;
+            object-fit: contain;
+        }
+
+        .offcanvas__close button {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: #005c70;
+            color: #ffffff;
+            border: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 4px 14px rgba(0, 92, 112, 0.3);
+        }
+
+        .offcanvas__close button:hover {
+            background: #003e4c;
+            transform: rotate(90deg) scale(1.08);
+            color: #ffffff;
+        }
+
+        .offcanvas__content p.text {
+            color: #475569 !important;
+            font-size: 0.95rem;
+            line-height: 1.75;
+            margin-bottom: 28px;
             font-family: 'Battambang', sans-serif;
+        }
+
+        .offcanvas__contact h4 {
+            color: #0b2545 !important;
+            font-size: 1.25rem;
+            font-weight: 800;
+            margin-bottom: 24px;
+            font-family: 'Battambang', 'Kantumruy Pro', sans-serif;
+            position: relative;
+        }
+
+        .offcanvas__contact ul {
+            padding: 0;
+            margin: 0 0 32px 0;
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+        }
+
+        .offcanvas__contact ul li {
+            display: flex;
+            align-items: flex-start;
+            gap: 14px;
+        }
+
+        .offcanvas__contact-icon {
+            color: #005c70 !important;
+            font-size: 1.15rem;
+            min-width: 28px;
+            height: 28px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 2px;
+        }
+
+        .offcanvas__contact-text a {
+            color: #1e293b !important;
+            font-size: 0.95rem;
+            font-weight: 700;
+            line-height: 1.5;
+            text-decoration: none;
+            transition: color 0.25s ease;
+            font-family: 'Battambang', 'Inter', sans-serif;
+        }
+
+        .offcanvas__contact-text a:hover {
+            color: #005c70 !important;
+        }
+
+        .offcanvas__contact .header-button .theme-btn {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            background: linear-gradient(135deg, #005c70 0%, #004255 100%) !important;
+            color: #ffffff !important;
+            padding: 16px 28px;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: 700;
+            border: none;
+            box-shadow: 0 8px 25px rgba(0, 92, 112, 0.35);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            text-decoration: none;
+            font-family: 'Battambang', sans-serif;
+        }
+
+        .offcanvas__contact .header-button .theme-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 30px rgba(0, 92, 112, 0.5);
+            color: #ffffff !important;
+        }
+
+        .offcanvas__contact .header-button .theme-btn i {
+            transition: transform 0.3s ease;
+        }
+
+        .offcanvas__contact .header-button .theme-btn:hover i {
+            transform: translateX(5px);
+        }
+
+        .offcanvas__contact .social-icon {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin-top: 28px;
+        }
+
+        .offcanvas__contact .social-icon a {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.6);
+            border: 1px solid rgba(0, 0, 0, 0.08);
+            color: #334155;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+            text-decoration: none;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            backdrop-filter: blur(4px);
+        }
+
+        .offcanvas__contact .social-icon a:hover {
+            background: #005c70;
+            color: #ffffff;
+            border-color: #005c70;
+            transform: translateY(-4px);
+            box-shadow: 0 6px 16px rgba(0, 92, 112, 0.3);
         }
 
         /* ── Section Titles ── */
@@ -243,7 +412,7 @@
                     <div class="offcanvas__top mb-5 d-flex justify-content-between align-items-center">
                         <div class="offcanvas__logo">
                             <a href="{{front_url('')}}">
-                                <img src="{{asset('uploads/settings/'. shop_settings()->logo)}}" alt="logo-img">
+                                <img src="{{ shop_settings_logo_url() }}" alt="logo-img">
                             </a>
                         </div>
                         <div class="offcanvas__close">
@@ -337,10 +506,14 @@
                     <li class="language-switcher">
                         <a class="lang-flag-link {{ $currentLanguage === 'kh' ? 'active' : '' }}" href="{{ url('/localization/km') }}" title="Khmer" aria-label="Switch to Khmer">
                             <span class="flag-icon flag-icon-kh"></span>
+                            <span class="lang-text">Khmer</span>
                         </a>
-                        <a class="lang-flag-link {{ $currentLanguage === 'us' ? 'active' : '' }}" href="{{ url('/localization/en') }}" title="English" aria-label="Switch to English">
-                            <span class="flag-icon flag-icon-us"></span>
+                        <span class="lang-divider">|</span>
+                        <a class="lang-flag-link {{ $currentLanguage === 'us' || $currentLanguage === 'en' ? 'active' : '' }}" href="{{ url('/localization/en') }}" title="English" aria-label="Switch to English">
+                            <span class="flag-icon flag-icon-gb"></span>
+                            <span class="lang-text">English</span>
                         </a>
+                        <span class="lang-divider">|</span>
                     </li>
                     @if(shop_settings()->workday)
                     <li>
@@ -371,7 +544,7 @@
                             <div class="header-left">
                                 <div class="logo">
                                     <a href="{{front_url('')}}" class="header-logo">
-                                        <img src="{{asset('uploads/settings/'. shop_settings()->logo)}}" alt="logo-img" class="img-fluid" style="width: 11rem">
+                                        <img src="{{ shop_settings_logo_url() }}" alt="logo-img" class="img-fluid" style="width: 11rem">
                                     </a>
                                 </div>
                                 <div class="mean__menu-wrapper">
@@ -469,7 +642,7 @@
                             <div class="header-left">
                                 <div class="logo">
                                     <a href="{{ front_url('') }}" class="header-logo">
-                                        <img src="{{asset('uploads/settings/'. shop_settings()->logo)}}" alt="logo-img" class="img-fluid" style="width: 11rem">
+                                        <img src="{{ shop_settings_logo_url() }}" alt="logo-img" class="img-fluid" style="width: 11rem">
                                     </a>
                                 </div>
                                 <div class="mean__menu-wrapper">
@@ -753,7 +926,7 @@
                         <div class="single-footer-widget">
                             <div class="widget-head">
                                 <a href="{{ front_url(''); }}">
-                                    <img src="{{asset('uploads/settings/'. shop_settings()->logo)}}" alt="logo-img" class="img-fluid" style="50px">
+                                    <img src="{{ shop_settings_logo_url() }}" alt="logo-img" class="img-fluid" style="50px">
                                 </a>
                             </div>
                             <div class="footer-content">

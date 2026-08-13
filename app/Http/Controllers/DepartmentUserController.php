@@ -6,12 +6,17 @@ use App\Models\User;
 use App\Models\Department;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Routing\Controllers\Middleware;
+use Illuminate\Support\Facades\Schema;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
 
 class DepartmentUserController extends Controller
 {
+    private function supportsDepartmentColumn(): bool
+    {
+        return Schema::hasColumn('users', 'department_id');
+    }
+
     private function syncDepartmentAccess(User $user): void
     {
         $role = Role::firstOrCreate([
@@ -33,24 +38,18 @@ class DepartmentUserController extends Controller
         $user->syncRoles([$role->name]);
     }
 
-    public function middleware($middleware = null, array $options = [])
-    {
-        if (func_num_args() === 0) {
-            return [
-                new Middleware('role:Owner|Admin'),
-            ];
-        }
-
-        return parent::middleware($middleware, $options);
-    }
-
     /**
      * Display a listing of department users.
      */
     public function index($departmentId)
     {
         $department = Department::findOrFail($departmentId);
-        $users = User::where('department_id', $departmentId)->get();
+        $users = collect();
+
+        if ($this->supportsDepartmentColumn()) {
+            $users = User::where('department_id', $departmentId)->get();
+        }
+
         return $this->admin_construct('department-users.index', ['department' => $department, 'users' => $users]);
     }
 
@@ -69,6 +68,11 @@ class DepartmentUserController extends Controller
     public function store(Request $request, $departmentId)
     {
         $department = Department::findOrFail($departmentId);
+
+        if (! $this->supportsDepartmentColumn()) {
+            return admin_redirect('settings/departments/' . $departmentId . '/users')
+                ->with('error', 'Department users are not configured yet. Please run the database migrations.');
+        }
 
         $request->validate([
             'name' => 'required|string|max:255',
@@ -108,7 +112,14 @@ class DepartmentUserController extends Controller
     public function edit($departmentId, $userId)
     {
         $department = Department::findOrFail($departmentId);
-        $user = User::where('id', $userId)->where('department_id', $departmentId)->firstOrFail();
+        $user = User::where('id', $userId);
+
+        if ($this->supportsDepartmentColumn()) {
+            $user->where('department_id', $departmentId);
+        }
+
+        $user = $user->firstOrFail();
+
         return $this->admin_construct('department-users.edit', ['department' => $department, 'user' => $user]);
     }
 
@@ -118,7 +129,18 @@ class DepartmentUserController extends Controller
     public function update(Request $request, $departmentId, $userId)
     {
         $department = Department::findOrFail($departmentId);
-        $user = User::where('id', $userId)->where('department_id', $departmentId)->firstOrFail();
+        $user = User::where('id', $userId);
+
+        if ($this->supportsDepartmentColumn()) {
+            $user->where('department_id', $departmentId);
+        }
+
+        $user = $user->firstOrFail();
+
+        if (! $this->supportsDepartmentColumn()) {
+            return admin_redirect('settings/departments/' . $departmentId . '/users')
+                ->with('error', 'Department users are not configured yet. Please run the database migrations.');
+        }
 
         $request->validate([
             'name' => 'required|string|max:255',
@@ -132,6 +154,7 @@ class DepartmentUserController extends Controller
             'name' => $request->name,
             'email' => $request->email,
             'phone' => $request->phone,
+            'department_id' => $departmentId,
         ];
 
         if ($request->filled('password')) {
@@ -161,7 +184,18 @@ class DepartmentUserController extends Controller
     public function destroy($departmentId, $userId)
     {
         $department = Department::findOrFail($departmentId);
-        $user = User::where('id', $userId)->where('department_id', $departmentId)->firstOrFail();
+        $user = User::where('id', $userId);
+
+        if ($this->supportsDepartmentColumn()) {
+            $user->where('department_id', $departmentId);
+        }
+
+        $user = $user->firstOrFail();
+
+        if (! $this->supportsDepartmentColumn()) {
+            return admin_redirect('settings/departments/' . $departmentId . '/users')
+                ->with('error', 'Department users are not configured yet. Please run the database migrations.');
+        }
 
         // Delete avatar if exists
         if ($user->avatar && file_exists(public_path('uploads/users/' . $user->avatar))) {

@@ -14,14 +14,14 @@ return new class extends Migration
     public function up()
     {
         
-        Schema::create('nan_api_keys', function (Blueprint $table) {
-            $table->id();
-            $table->string('name');
-            $table->string('key')->unique();
-            $table->text('scopes')->nullable(); // => FIXED
-            $table->boolean('active')->default(true);
-            $table->timestamps();
-        });
+        // Schema::create('api_keys', function (Blueprint $table) {
+        //     $table->id();
+        //     $table->string('name');
+        //     $table->string('key')->unique();
+        //     $table->text('scopes')->nullable(); // => FIXED
+        //     $table->boolean('active')->default(true);
+        //     $table->timestamps();
+        // });
     }
 
     /**

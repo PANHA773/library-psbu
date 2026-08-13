@@ -24,7 +24,7 @@
               <div class="card-header">
                 <h3 class="card-title">{{ __('admin.in_required') }}</h3>
               </div>
-              <form id="departmentForm" action="{{ admin_url('settings/departments/'. $department->id) }}" method="POST">
+              <form id="departmentForm" action="{{ admin_url('settings/departments/'. $department->id) }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
                 <div class="card-body">

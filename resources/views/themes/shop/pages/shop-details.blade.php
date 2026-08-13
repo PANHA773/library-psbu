@@ -612,7 +612,7 @@
                     </div>
                     <div class="meta-chip">
                         <span>Format</span>
-                        <strong>{{ !empty($book->pdf) ? 'PDF available' : 'Print only' }}</strong>
+                        <strong>{{ !empty(data_get($book, 'pdf')) ? 'PDF available' : 'Print only' }}</strong>
                     </div>
                 </div>
 
@@ -906,7 +906,7 @@
     </div>
 </section>
 
-@if(!empty($book->pdf))
+@if(!empty(data_get($book, 'pdf')))
 <section class="book-pdf-section">
     <div class="book-pdf-band">
         <div class="book-pdf-band-head">
@@ -921,7 +921,7 @@
             </div>
         </div>
         <div class="book-pdf-card">
-            <div class="book-pdf-viewer" id="pdfViewer" data-pdf-url="{{ asset('uploads/books/pdfs/' . $book->pdf) }}">
+            <div class="book-pdf-viewer" id="pdfViewer" data-pdf-url="{{ asset('uploads/books/pdfs/' . data_get($book, 'pdf')) }}">
                 <button type="button" class="pdf-nav-button pdf-nav-prev" id="pdfPrevBtn" aria-label="Previous pages">
                     &#8249;
                 </button>
@@ -941,8 +941,8 @@
             </div>
             <div class="pdf-footer-bar">
                 <span class="pdf-footer-pill" id="pdfPageInfo">Page 1 - 2</span>
-                @if(!empty($book->pdf_downloadable))
-                <a href="{{ asset('uploads/books/pdfs/' . $book->pdf) }}" download class="pdf-action-link">
+                @if(!empty(data_get($book, 'pdf_downloadable')))
+                <a href="{{ asset('uploads/books/pdfs/' . data_get($book, 'pdf')) }}" download class="pdf-action-link">
                     Download PDF
                 </a>
                 @endif
@@ -952,7 +952,7 @@
 </section>
 @endif
 
-@if(!empty($book->pdf))
+@if(!empty(data_get($book, 'pdf')))
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
 <script>
     document.addEventListener('DOMContentLoaded', function () {

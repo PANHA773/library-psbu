@@ -104,13 +104,13 @@
                           <div class="form-group">
                             <label for="pdf_downloadable">{{ __('admin.download') ?? 'PDF Download' }}</label>
                             <div class="d-flex align-items-center" style="gap: 10px;">
-                              <input type="checkbox" name="pdf_downloadable" id="pdf_downloadable" style="width: 15px; height: 15px;" {{ !empty($book->pdf_downloadable) ? 'checked' : '' }}>
+                              <input type="checkbox" name="pdf_downloadable" id="pdf_downloadable" style="width: 15px; height: 15px;" {{ !empty(data_get($book, 'pdf_downloadable')) ? 'checked' : '' }}>
                               <span>Allow users to download the PDF</span>
                             </div>
                           </div>
-                          @if(!empty($book->pdf))
+                          @if(!empty(data_get($book, 'pdf')))
                           <div class="form-group">
-                            <a href="{{ asset('uploads/books/pdfs/' . $book->pdf) }}" target="_blank" rel="noopener noreferrer">
+                            <a href="{{ asset('uploads/books/pdfs/' . data_get($book, 'pdf')) }}" target="_blank" rel="noopener noreferrer">
                               View current PDF
                             </a>
                           </div>

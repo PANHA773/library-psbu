@@ -9,16 +9,16 @@ return new class extends Migration
 {
     private function addIndexSafe($table, $column)
     {
-        try {
-            Schema::table($table, function (Blueprint $t) use ($column) {
-                $t->index($column);
-            });
-        } catch (QueryException $e) {
-            // 1061 is Duplicate key name in MySQL
-            if ($e->errorInfo[1] != 1061) {
-                throw $e;
-            }
-        }
+        // try {
+        //     Schema::table($table, function (Blueprint $t) use ($column) {
+        //         $t->index($column);
+        //     });
+        // } catch (QueryException $e) {
+        //     // 1061 is Duplicate key name in MySQL
+        //     if ($e->errorInfo[1] != 1061) {
+        //         throw $e;
+        //     }
+        // }
     }
 
     private function dropIndexSafe($table, $column)

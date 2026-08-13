@@ -116,7 +116,7 @@ Route::controller(FacebookController::class)->group(function () {
 Route::get('/localization/{local}', [LocalizationController::class, 'index']);
 
 
-Route::middleware(['auth', 'admin'])->group(function () {
+Route::middleware(['auth', 'admin', 'sync.admin.permissions'])->group(function () {
 
     Route::prefix(prefix_url() . '/admin')->group(function () {
         Route::get('/', [DashboardController::class, 'dashboard'])->middleware(['auth', 'verified'])->name('dashboard');

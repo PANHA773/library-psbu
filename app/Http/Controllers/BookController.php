@@ -6,10 +6,10 @@ use App\Models\Book;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Schema;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Imports\UsersImport;
 use App\Imports\BookImport;
-use Illuminate\Routing\Controllers\Middleware;
 
 
 class BookController extends Controller
@@ -19,13 +19,23 @@ class BookController extends Controller
         return auth()->check() && auth()->user()->user_type === 'department';
     }
 
+    private function isAdminUser(): bool
+    {
+        return auth()->check() && auth()->user()->user_type === 'admin';
+    }
+
+    private function isBookManager(): bool
+    {
+        return auth()->check() && auth()->user()->hasAnyRole(['Owner', 'Admin', 'Teacher']);
+    }
+
     private function canManageBook($book)
     {
         if (!auth()->check()) {
             return false;
         }
 
-        if (auth()->user()->hasAnyRole(['Owner', 'Admin', 'Teacher'])) {
+        if ($this->isBookManager()) {
             return true;
         }
 
@@ -36,42 +46,44 @@ class BookController extends Controller
         return false;
     }
 
-        public function middleware($middleware = null, array $options = [])
+    private function supportsDepartmentColumn(): bool
     {
-        if (func_num_args() === 0) {
-            return [
-                new Middleware('role:Owner|Admin|Teacher|Department'),
-                new Middleware('permission:book-index', only: ['index']),
-                new Middleware('permission:book-create', only: ['create','store']),
-                new Middleware('permission:book-edit', only: ['edit','update']),
-                new Middleware('permission:book-delete', only: ['destroy']),
-                new Middleware('permission:book-view', only: ['show']),
-                new Middleware('permission:book-print_barcodes', only: ['print_barcodes']),
-            ];
-        }
+        return Schema::hasColumn('books', 'department_id');
+    }
 
-        return parent::middleware($middleware, $options);
+    private function supportsPdfColumn(): bool
+    {
+        return Schema::hasColumn('books', 'pdf');
+    }
+
+    private function supportsPdfDownloadableColumn(): bool
+    {
+        return Schema::hasColumn('books', 'pdf_downloadable');
     }
 
     public function index()
     {
-        // dd('he');
-        if (!auth()->user()->can('book-index')) {
+        if (!auth()->check()) {
+            return redirect()->route('login');
+        }
+
+        if (!$this->isBookManager() && !$this->isDepartmentUser() && !auth()->user()->can('book-index')) {
             return redirect()->back()->with('error', 'You do not have permission!');
         }
         $booksQuery = DB::table('books')
             ->leftJoin('categories as c', 'books.category_id', '=', 'c.id')
             ->leftJoin('category_langs as cl', 'books.category_lang_id', '=', 'cl.id')
-            ->leftJoin('departments as d', 'books.department_id', '=', 'd.id')
             ->orderBy('books.id', 'desc')
-            ->select('books.*', 'c.name as category_name', 'cl.name as cate_lang_name', 'd.name as department_name');
+            ->select('books.*', 'c.name as category_name', 'cl.name as cate_lang_name');
+
+        if ($this->supportsDepartmentColumn()) {
+            $booksQuery->leftJoin('departments as d', 'books.department_id', '=', 'd.id')
+                ->addSelect('d.name as department_name');
+        }
         
-        // Department users should see their own uploads and books in their department
-        if ($this->isDepartmentUser() && !auth()->user()->hasAnyRole(['Owner', 'Admin'])) {
-            $booksQuery->where(function ($query) {
-                $query->where('books.created_by', auth()->id())
-                    ->orWhere('books.department_id', auth()->user()->department_id);
-            });
+        // Department users should only see the books they added themselves
+        if ($this->isDepartmentUser() && !$this->isAdminUser()) {
+            $booksQuery->where('books.created_by', auth()->id());
         }
         
         $books = $booksQuery->paginate(25);
@@ -84,7 +96,7 @@ class BookController extends Controller
         $category_languages = DB::table('category_langs')->get();
         $departmentsQuery = DB::table('departments')->where('is_active', true);
 
-        if (auth()->user()->department_id && !auth()->user()->hasAnyRole(['Owner', 'Admin'])) {
+        if (auth()->user()->department_id && !$this->isAdminUser()) {
             $departmentsQuery->where('id', auth()->user()->department_id);
         }
 
@@ -109,15 +121,19 @@ class BookController extends Controller
             'author_date' => $request->author_date,
             'category_lang_id' => $request->category_lang_id,
             'category_id' => $request->category,
-            'department_id' => $request->department_id,
-            'pdf_downloadable' => $request->has('pdf_downloadable') ? 1 : 0,
             'created_by' => Auth::user()->id,
             'created_at' => now()->format('Y-m-d H:i:s'),
             'details' => clear_tag($request->description),
         ];
 
-        if (auth()->user()->department_id && !auth()->user()->hasAnyRole(['Owner', 'Admin'])) {
+        if ($this->supportsPdfDownloadableColumn()) {
+            $data['pdf_downloadable'] = $request->has('pdf_downloadable') ? 1 : 0;
+        }
+
+        if ($this->supportsDepartmentColumn() && auth()->user()->department_id && !$this->isAdminUser()) {
             $data['department_id'] = auth()->user()->department_id;
+        } elseif ($this->supportsDepartmentColumn()) {
+            $data['department_id'] = $request->department_id;
         }
 
         if (!empty($request->image)) {
@@ -133,7 +149,9 @@ class BookController extends Controller
             $extension = $file->getClientOriginalExtension();
             $filename = hash('gost', time()) . '.' . $extension;
             $file->move(public_path('uploads/books/pdfs/'), $filename);
-            $data['pdf'] = $filename;
+            if ($this->supportsPdfColumn()) {
+                $data['pdf'] = $filename;
+            }
         }
 
         DB::table('books')->insert($data);
@@ -144,6 +162,11 @@ class BookController extends Controller
     public function show($id)
     {
         $book =  DB::table('books')->where('id', $id)->first();
+
+        if ($this->isDepartmentUser() && !$this->canManageBook($book)) {
+            abort(403, 'You do not have permission to view this book.');
+        }
+
         return response()->json($book);
     }
 
@@ -151,10 +174,17 @@ class BookController extends Controller
     {
 
         $b = [];
-        $rows = DB::table('books')
-            ->where('code', 'LIKE', "%{$term}%")
-            ->orWhere('title', 'LIKE', "%{$term}%")
-            ->get();
+        $rowsQuery = DB::table('books')
+            ->where(function ($query) use ($term) {
+                $query->where('code', 'LIKE', "%{$term}%")
+                    ->orWhere('title', 'LIKE', "%{$term}%");
+            });
+
+        if ($this->isDepartmentUser() && !$this->isAdminUser()) {
+            $rowsQuery->where('created_by', auth()->id());
+        }
+
+        $rows = $rowsQuery->get();
 
         if (!empty($rows)) {
             $r = 0;
@@ -190,7 +220,7 @@ class BookController extends Controller
         $category_languages = DB::table('category_langs')->get();
         $departmentsQuery = DB::table('departments')->where('is_active', true);
 
-        if (auth()->user()->department_id && !auth()->user()->hasAnyRole(['Owner', 'Admin'])) {
+        if ($this->supportsDepartmentColumn() && auth()->user()->department_id && !$this->isAdminUser()) {
             $departmentsQuery->where('id', auth()->user()->department_id);
         }
 
@@ -225,14 +255,18 @@ class BookController extends Controller
             'author_date' => $request->author_date,
             'category_lang_id' => $request->category_lang_id,
             'category_id' => $request->category,
-            'department_id' => $request->department_id,
-            'pdf_downloadable' => $request->has('pdf_downloadable') ? 1 : 0,
             'updated_at' => now()->format('Y-m-d H:i:s'),
             'details' => clear_tag($request->description),
         ];
 
-        if (auth()->user()->department_id && !auth()->user()->hasAnyRole(['Owner', 'Admin'])) {
+        if ($this->supportsPdfDownloadableColumn()) {
+            $data['pdf_downloadable'] = $request->has('pdf_downloadable') ? 1 : 0;
+        }
+
+        if ($this->supportsDepartmentColumn() && auth()->user()->department_id && !$this->isAdminUser()) {
             $data['department_id'] = auth()->user()->department_id;
+        } elseif ($this->supportsDepartmentColumn()) {
+            $data['department_id'] = $request->department_id;
         }
 
         if (!empty($request->image)) {
@@ -253,9 +287,11 @@ class BookController extends Controller
             $extension = $file->getClientOriginalExtension();
             $filename = hash('gost', time()) . '.' . $extension;
             $file->move(public_path('uploads/books/pdfs/'), $filename);
-            $data['pdf'] = $filename;
+            if ($this->supportsPdfColumn()) {
+                $data['pdf'] = $filename;
+            }
 
-            $old_pdf = DB::table('books')->where(['id' => $id])->first()->pdf;
+            $old_pdf = data_get(DB::table('books')->where(['id' => $id])->first(), 'pdf');
             if ($old_pdf && file_exists(public_path('uploads/books/pdfs/' . $old_pdf))) {
                 unlink(public_path('uploads/books/pdfs/' . $old_pdf));
             }
@@ -281,7 +317,7 @@ class BookController extends Controller
             return admin_redirect('group_book/books')->with('error', __('message.this_book_can_not_delete_please_check_book_browers'));
         } else {
             $old_img =  DB::table('books')->where(['id' => $id])->first()->image;
-            $old_pdf =  DB::table('books')->where(['id' => $id])->first()->pdf;
+            $old_pdf =  data_get(DB::table('books')->where(['id' => $id])->first(), 'pdf');
             DB::table('books')->where(['id' => $id])->delete();
             if ($old_img && file_exists(public_path('uploads/books/' . $old_img))) {
                 unlink(public_path('uploads/books/' . $old_img));
@@ -314,6 +350,10 @@ class BookController extends Controller
                 $quantity =  $request->input('quantity')[$m];
 
                 $book = DB::table('books')->where('id', $bid)->first();
+
+                if ($this->isDepartmentUser() && !$this->canManageBook($book)) {
+                    continue;
+                }
 
                 $barcodes[] = [
                     'book_id'   => $book->id,

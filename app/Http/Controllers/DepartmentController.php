@@ -5,21 +5,10 @@ namespace App\Http\Controllers;
 use App\Models\Department;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Routing\Controllers\Middleware;
+use Illuminate\Support\Facades\Schema;
 
 class DepartmentController extends Controller
 {
-    public function middleware($middleware = null, array $options = [])
-    {
-        if (func_num_args() === 0) {
-            return [
-                new Middleware('role:Owner|Admin'),
-            ];
-        }
-
-        return parent::middleware($middleware, $options);
-    }
-
     /**
      * Display a listing of the resource.
      */
@@ -139,7 +128,11 @@ class DepartmentController extends Controller
     public function destroy(Department $department)
     {
         // Check if department has books
-        $bookCount = DB::table('books')->where('department_id', $department->id)->count();
+        $bookCount = 0;
+
+        if (Schema::hasColumn('books', 'department_id')) {
+            $bookCount = DB::table('books')->where('department_id', $department->id)->count();
+        }
         
         if ($bookCount > 0) {
             return admin_redirect('settings/departments')->with('error', 'Cannot delete department with associated books. Please reassign or delete those books first.');

@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>{{ settings()->site_name }}</title>
-  <link rel="shortcut icon" href="{{ asset('uploads/settings/'. settings()->logo) }}" type="image/x-icon">
+  <link rel="shortcut icon" href="{{ settings_logo_url() }}" type="image/x-icon">
 
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
   <link rel="stylesheet" href="{{ asset('plugins/fontawesome-free/css/all.min.css')  }}">

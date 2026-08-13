@@ -1,0 +1,27 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    public function up(): void
+    {
+        Schema::create('category_langs', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('code', 55);
+            $table->string('name', 55);
+            $table->string('image', 65)->nullable();
+            $table->string('slug', 55)->nullable();
+            $table->string('description', 255)->nullable();
+            $table->integer('created_by')->nullable();
+            $table->timestamps();
+        });
+    }
+
+    public function down(): void
+    {
+        Schema::dropIfExists('category_langs');
+    }
+};

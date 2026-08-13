@@ -23,6 +23,7 @@ return Application::configure(basePath: dirname(__DIR__))
             'admin'              => \App\Http\Middleware\AdminMiddleware::class,
             'license'            => \App\Http\Middleware\CheckLicense::class,
             'apikey'             => \App\Http\Middleware\ApiKeyMiddleware::class,
+            'sync.admin.permissions' => \App\Http\Middleware\SyncAdminPermissions::class,
             'role'               => \Spatie\Permission\Middleware\RoleMiddleware::class,
             'permission'         => \Spatie\Permission\Middleware\PermissionMiddleware::class,
             'role_or_permission' => \Spatie\Permission\Middleware\RoleOrPermissionMiddleware::class,

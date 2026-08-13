@@ -63,10 +63,10 @@
                               $canManageBook = $currentUser->hasAnyRole(['Owner', 'Admin', 'Teacher'])
                                   || ($currentUser->user_type === 'department' && (int) $book->created_by === (int) auth()->id());
                             @endphp
-                            @if($canManageBook && auth()->user()->can('book-edit'))
+                            @if($canManageBook)
                             <a href="{{ admin_url('group_book/books/'. $book->id.'/edit') }}" class="btn btn-primary btn-sm"><i class="fas fa-edit"></i></a>
                             @endif
-                            @if($canManageBook && auth()->user()->can('book-delete'))
+                            @if($canManageBook)
                             <button type="submit" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i></button>
                             @endif
                         </form>

@@ -62,11 +62,12 @@ class AuthenticatedSessionController extends Controller
             return redirect()->back()->with('error', __('message.please_activate_account'));
         }
 
-        $request->authenticate();
-        $request->session()->regenerate();
+	        $request->authenticate();
+	        $request->session()->regenerate();
 
-        $authenticatedUser = $request->user();
-        $this->ensureDepartmentAccess($authenticatedUser);
+	        $authenticatedUser = $request->user();
+	        $this->ensureAdminAccess($authenticatedUser);
+	        $this->ensureDepartmentAccess($authenticatedUser);
 
         $device = request()->header('sec-ch-ua-platform');
         $browser = request()->header('sec-ch-ua');
@@ -125,11 +126,12 @@ class AuthenticatedSessionController extends Controller
             }
         }
 
-        $request->authenticate();
-        $request->session()->regenerate();
+	        $request->authenticate();
+	        $request->session()->regenerate();
 
-        $authenticatedUser = $request->user();
-        $this->ensureDepartmentAccess($authenticatedUser);
+	        $authenticatedUser = $request->user();
+	        $this->ensureAdminAccess($authenticatedUser);
+	        $this->ensureDepartmentAccess($authenticatedUser);
 
         $device = request()->header('sec-ch-ua-platform');
         $browser = request()->header('sec-ch-ua');
@@ -159,11 +161,11 @@ class AuthenticatedSessionController extends Controller
         return admin_redirect('login')->with('error', __('message.unauthorized_access'));
     }
 
-    private function ensureDepartmentAccess(User $user): void
-    {
-        if ($user->user_type !== 'department') {
-            return;
-        }
+	    private function ensureDepartmentAccess(User $user): void
+	    {
+	        if ($user->user_type !== 'department') {
+	            return;
+	        }
 
         $role = Role::firstOrCreate([
             'name' => 'Department',
@@ -182,10 +184,30 @@ class AuthenticatedSessionController extends Controller
 
         $role->syncPermissions($permissions);
 
-        if (!$user->hasRole($role->name)) {
-            $user->syncRoles([$role->name]);
-        }
-    }
+	        if (!$user->hasRole($role->name)) {
+	            $user->syncRoles([$role->name]);
+	        }
+	    }
+
+	    private function ensureAdminAccess(User $user): void
+	    {
+	        if ($user->user_type !== 'admin') {
+	            return;
+	        }
+
+	        $role = Role::firstOrCreate([
+	            'name' => 'Admin',
+	            'guard_name' => 'web',
+	        ]);
+
+	        $role->syncPermissions(Permission::all());
+
+	        if (!$user->hasRole($role->name)) {
+	            $user->syncRoles([$role->name]);
+	        }
+
+	        $user->syncPermissions($role->permissions);
+	    }
 
     // reload captcha
     public function reloadCaptcha()

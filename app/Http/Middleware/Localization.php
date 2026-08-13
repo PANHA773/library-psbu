@@ -23,8 +23,10 @@ class Localization
             App::setLocale(Session::get("app_lang"));
         }else{
             $lang = DB::table('settings')->first();
-            cookie()->queue(cookie()->forever("language", $lang->language));
-            App::setLocale(config("app.locale"));
+            $locale = $lang->language ?? config('app.locale');
+
+            cookie()->queue(cookie()->forever('language', $locale));
+            App::setLocale($locale);
         }
         return $next($request);
     }

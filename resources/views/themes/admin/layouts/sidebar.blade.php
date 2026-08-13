@@ -1,6 +1,6 @@
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <a href="{{ admin_url('/') }}" class="brand-link">
-      <img src="{{ asset('uploads/settings/'. settings()->logo) }}" alt="{{ settings()->site_name }}" class="brand-image img-circle elevation-3" style="opacity: .8">
+      <img src="{{ settings_logo_url() }}" alt="{{ settings()->site_name }}" class="brand-image img-circle elevation-3" style="opacity: .8">
       <span class="brand-text fw-bold">{{ settings()->site_name }}</span>
     </a>
     <div class="sidebar">
