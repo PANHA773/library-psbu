@@ -9,9 +9,13 @@ $(document).ready(function() {
         searchProducts(data_category);
     });
 
-    $('#input-search').keyup(function() {
-        var data_search = {query: $(this).val()};
-        searchProducts(data_search);
+    var searchTimer;
+    $('#input-search').on('input', function() {
+        var input = this;
+        clearTimeout(searchTimer);
+        searchTimer = setTimeout(function() {
+            searchProducts({query: input.value});
+        }, 300);
     });
 
     searchProducts();
@@ -29,7 +33,7 @@ $(document).ready(function() {
                 <div class="col-xl-3 col-lg-4 col-md-6 wow fadeInUp" data-wow-delay=".2s">
                     <div class="shop-box-items">
                         <div class="book-thumb center">
-                            <a href="${site.site_url}book_details/${data.slug}"><img src="${site.site_url}uploads/books/${data.image ?? 'no_image.png'}" alt="img"></a>
+                            <a href="${site.site_url}book_details/${data.slug}"><img src="${site.site_url}uploads/books/${data.image ?? 'no_image.png'}" alt="" loading="lazy" decoding="async"></a>
                             <ul class="shop-icon d-grid justify-content-center align-items-center">
                                 <li>
                                     <a href="${site.site_url}book_details/${data.slug}"><i class="far fa-eye"></i></a>
@@ -42,10 +46,8 @@ $(document).ready(function() {
                     </div>
                 </div>
             `;
-            $('#result').empty();
-            $(html).appendTo('#result');
-
             });
+            $('#result').html(html);
             
         } else {
             $('#result').empty();

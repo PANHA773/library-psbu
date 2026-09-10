@@ -1050,7 +1050,9 @@
     <!--<< Main.js >>-->
     <script src="{{asset('frontend/assets/js/main.js')}}"></script>
 
-    <script src="{{ asset('frontend/assets/jquery/products.js') }}"></script>
+    @if (request()->is('books*'))
+        <script src="{{ asset('frontend/assets/jquery/products.js') }}" defer></script>
+    @endif
 </body>
 
 </html>

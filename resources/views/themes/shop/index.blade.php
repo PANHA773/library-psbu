@@ -404,11 +404,11 @@
         </div>
         <div class="swiper book-slider">
             <div class="swiper-wrapper">
-                @foreach($books as $book)
+                @foreach($featuredBooks as $book)
                 <div class="swiper-slide">
                     <div class="shop-box-items style-2">
                         <div class="book-thumb center">
-                            <a href="{{ front_url('book_details/'. $book->slug); }}"><img src="{{$book->image ? asset('uploads/books/'. $book->image) : asset('uploads/books/no_image.png')}}" alt="img"></a>
+                            <a href="{{ front_url('book_details/'. $book->slug); }}"><img src="{{$book->image ? asset('uploads/books/'. $book->image) : asset('uploads/books/no_image.png')}}" alt="{{ $book->title }}" loading="lazy" decoding="async"></a>
                             
                             <ul class="shop-icon d-grid justify-content-center align-items-center">
 
@@ -445,7 +445,7 @@
                     <div class="swiper-slide">
                         <div class="book-catagories-items">
                             <div class="book-thumb">
-                                <img src="{{$category->image ? asset('uploads/category/'. $category->image) : asset('uploads/category/no_image.png')}}" alt="img" class="img-fluid" style="">
+                                <img src="{{$category->image ? asset('uploads/category/'. $category->image) : asset('uploads/category/no_image.png')}}" alt="{{ $category->name }}" class="img-fluid" loading="lazy" decoding="async">
                                 <div class="circle-shape">
                                     <img src="{{asset('frontend/assets/img/book-categori/circle-shape.png')}}" alt="shape-img">
                                 </div>
@@ -1419,12 +1419,12 @@
             </a>
         </div>
         <div class="row">
-            @foreach($books as $book)
+            @foreach($popularBooks as $book)
             <div class="col-xl-6 col-lg-6 wow fadeInUp" data-wow-delay=".3s">
                 <div class="top-ratting-card">
                     <div class="top-ratting-thumb">
                         <a href="{{ front_url('book_details/'. $book->slug) }}">
-                            <img src="{{ $book->image ? asset('uploads/books/'. $book->image) : asset('uploads/books/no_image.png') }}" alt="{{ $book->title }}">
+                            <img src="{{ $book->image ? asset('uploads/books/'. $book->image) : asset('uploads/books/no_image.png') }}" alt="{{ $book->title }}" loading="lazy" decoding="async">
                         </a>
                     </div>
                     <div class="top-ratting-content">
@@ -1471,11 +1471,11 @@
         </div>
         <div class="swiper book-slider">
             <div class="swiper-wrapper">
-                @foreach($books as $book)
+                @foreach($popularBooks as $book)
                 <div class="swiper-slide">
                     <div class="shop-box-items style-2">
                         <div class="book-thumb center">
-                            <a href="{{front_url('book_details/'. $book->slug)}}"><img src="{{ $book->image ? asset('uploads/books/'. $book->image) : asset('uploads/books/no_image.png') }}" alt="img"></a>
+                            <a href="{{front_url('book_details/'. $book->slug)}}"><img src="{{ $book->image ? asset('uploads/books/'. $book->image) : asset('uploads/books/no_image.png') }}" alt="{{ $book->title }}" loading="lazy" decoding="async"></a>
                             
                             <ul class="shop-icon d-grid justify-content-center align-items-center">
                                

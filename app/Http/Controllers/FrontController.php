@@ -13,9 +13,18 @@ class FrontController extends Controller
     
     public function index()
     {   
-        $categories = DB::table('categories')->get();
-        $books = DB::table('books')->orderBy('id', 'DESC')->get();
-        return $this->frontend_construct('index', ['books' => $books,'categories' => $categories]);
+        // The home page previously rendered the entire catalogue three times.
+        // Keep each section deliberately small so the initial HTML and image
+        // payload stay fast as the catalogue grows.
+        $categories = DB::table('categories')->orderByDesc('id')->limit(12)->get();
+        $featuredBooks = DB::table('books')->orderByDesc('id')->limit(8)->get();
+        $popularBooks = DB::table('books')->orderByDesc('views')->limit(6)->get();
+
+        return $this->frontend_construct('index', [
+            'featuredBooks' => $featuredBooks,
+            'popularBooks' => $popularBooks,
+            'categories' => $categories,
+        ]);
     }
 
     public function about()

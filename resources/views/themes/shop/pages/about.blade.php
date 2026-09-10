@@ -1141,7 +1141,7 @@
             </div>
             <div class="row g-4">
                 @forelse($staffMembers as $staff)
-                    <div class="col-md-4 wow fadeInUp" data-wow-delay="{{ ($loop->iteration * 0.2) }}s">
+                    <div class="col-md-3 wow fadeInUp" data-wow-delay="{{ ($loop->iteration * 0.2) }}s">
                         <div class="staff-card">
                             <div class="staff-img-box">
                                 <img src="{{ $staff->image_url }}" alt="{{ $staff->name }}">
