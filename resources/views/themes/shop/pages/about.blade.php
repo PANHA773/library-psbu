@@ -591,6 +591,8 @@
         width: 100%;
         height: 100%;
         object-fit: cover;
+        /* Keep portrait photos aligned to the face instead of cropping from the top. */
+        object-position: center 20%;
         transition: all 0.5s ease;
     }
 
@@ -1134,43 +1136,58 @@
 
     <!-- 8. Staff and Librarians Section -->
     <section class="library-staff-section">
+        {{--
+            Static staff profiles. Put replacement photos in
+            public/frontend/assets/img/team/ and change the `image` filename below.
+        --}}
+        @php
+            $staticStaffMembers = [
+                [
+                    'name' => 'Huon Rady',
+                    'position' => 'Library Director',
+                    'description' => 'Leads library services and academic resource development.',
+                    'image' => 'team/Huon Rady.png',
+                ],
+                [
+                    'name' => 'Seng Chamroeun',
+                    'position' => 'Senior Librarian',
+                    'description' => 'Supports readers with research and reference services.',
+                    'image' => 'team/Seng Chamroeun.png',
+                ],
+                [
+                    'name' => 'Sokun Thira',
+                    'position' => 'Digital Resources Librarian',
+                    'description' => 'Manages e-library resources and digital learning support.',
+                    'image' => 'team/Sokun Thira.png',
+                ],
+                [
+                    'name' => 'Chan Soriya',
+                    'position' => 'Reader Services Officer',
+                    'description' => 'Helps students access books and library facilities.',
+                    'image' => 'team/Soya.png',
+                ],
+            ];
+        @endphp
         <div class="container">
             <div class="edu-section-title">
                 <h2 class="edu-heading-moul">ថ្នាក់ដឹកនាំ និងបណ្ណារក្ស</h2>
                 <p class="edu-font-battambang">បុគ្គលិកដែលមានវិជ្ជាជីវៈ និងបទពិសោធន៍ខ្ពស់ រង់ចាំជួយសម្រួលដល់ការសិក្សារបស់អ្នកគ្រប់ពេលវេលា។</p>
             </div>
             <div class="row g-4">
-                @forelse($staffMembers as $staff)
+                @foreach($staticStaffMembers as $staff)
                     <div class="col-md-3 wow fadeInUp" data-wow-delay="{{ ($loop->iteration * 0.2) }}s">
                         <div class="staff-card">
                             <div class="staff-img-box">
-                                <img src="{{ $staff->image_url }}" alt="{{ $staff->name }}">
-                                <div class="staff-social-overlay">
-                                    @if($staff->facebook_url)
-                                        <a href="{{ $staff->facebook_url }}" target="_blank" rel="noopener noreferrer"><i class="fab fa-facebook-f"></i></a>
-                                    @endif
-                                    @if($staff->twitter_url)
-                                        <a href="{{ $staff->twitter_url }}" target="_blank" rel="noopener noreferrer"><i class="fab fa-twitter"></i></a>
-                                    @endif
-                                    @if($staff->linkedin_url)
-                                        <a href="{{ $staff->linkedin_url }}" target="_blank" rel="noopener noreferrer"><i class="fab fa-linkedin-in"></i></a>
-                                    @endif
-                                </div>
+                                <img src="{{ asset('frontend/assets/img/' . $staff['image']) }}" alt="{{ $staff['name'] }}" loading="lazy">
                             </div>
                             <div class="staff-info edu-font-battambang">
-                                <h4>{{ $staff->name }}</h4>
-                                <p>{{ $staff->position }}</p>
-                                <p class="staff-desc">{{ $staff->description }}</p>
+                                <h4>{{ $staff['name'] }}</h4>
+                                <p>{{ $staff['position'] }}</p>
+                                <p class="staff-desc">{{ $staff['description'] }}</p>
                             </div>
                         </div>
                     </div>
-                @empty
-                    <div class="col-12">
-                        <div class="alert alert-info text-center mb-0">
-                            មិនទាន់មានថ្នាក់ដឹកនាំ ឬបណ្ណារក្សត្រូវបានបន្ថែមនៅឡើយ។
-                        </div>
-                    </div>
-                @endforelse
+                @endforeach
             </div>
         </div>
     </section>
