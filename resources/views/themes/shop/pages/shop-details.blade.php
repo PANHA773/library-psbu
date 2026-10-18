@@ -912,9 +912,9 @@
         <div class="book-pdf-band-head">
             <div>
                 <h4 class="battambang-regular mb-1">Read the PDF</h4>
-                <p class="mb-0 text-muted">
+                <!-- <p class="mb-0 text-muted">
                     Preview online. Downloads stay hidden unless the admin enables them.
-                </p>
+                </p> -->
             </div>
             <div class="d-flex flex-wrap gap-2">
                 <span class="book-crumb">Two-page reader</span>
