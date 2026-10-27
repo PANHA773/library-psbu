@@ -124,7 +124,7 @@
             width: 22px;
             height: 16px;
             border-radius: 2px;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
             background-size: cover;
             flex-shrink: 0;
         }
@@ -139,6 +139,39 @@
 
         .header-top-1 .lang-flag-link:hover .lang-text {
             color: #FF6500;
+        }
+
+        .header-main .header-language-switcher {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            padding: 5px;
+            margin-right: 14px;
+            border: 1px solid #e2e8f0;
+            border-radius: 999px;
+            background: #f8fafc;
+        }
+
+        .header-main .header-language-switcher a {
+            padding: 6px 10px;
+            border-radius: 999px;
+            color: #475569;
+            font-family: 'Battambang', sans-serif;
+            font-size: .82rem;
+            font-weight: 700;
+            line-height: 1.2;
+            text-decoration: none;
+        }
+
+        .header-main .header-language-switcher a.active,
+        .header-main .header-language-switcher a:hover {
+            color: #fff;
+            background: #005c70;
+        }
+
+        @media (max-width: 575.98px) {
+            .header-main .header-language-switcher { gap: 0; padding: 3px; margin-right: 8px; }
+            .header-main .header-language-switcher a { padding: 6px 7px; font-size: .75rem; }
         }
 
         .header-top-1 .lang-flag-link.active .lang-text {
@@ -334,6 +367,78 @@
         }
 
         /* ── Section Titles ── */
+        /* Offcanvas panel polish */
+        .offcanvas__info {
+            width: min(460px, 100vw) !important;
+            height: 100dvh;
+            overflow-y: auto;
+            background: linear-gradient(160deg, #f4f9ff 0%, #e5f0fb 58%, #d8e9f7 100%) !important;
+            padding: clamp(24px, 5vw, 42px) !important;
+        }
+
+        .offcanvas__wrapper,
+        .offcanvas__content { min-height: 100%; }
+
+        .offcanvas__content { display: flex; flex-direction: column; }
+
+        .offcanvas__top {
+            padding-bottom: 22px;
+            margin-bottom: 24px !important;
+            border-bottom: 1px solid rgba(11, 37, 69, .1);
+        }
+
+        .offcanvas__logo img { max-width: 190px; max-height: 64px; }
+
+        .offcanvas__content p.text {
+            display: block !important;
+            color: #52657a !important;
+            font-size: .96rem;
+            line-height: 1.9;
+            margin: 0 0 28px;
+        }
+
+        .offcanvas__contact h4 { margin-bottom: 18px; font-size: 1.15rem; }
+        .offcanvas__contact ul { gap: 10px; margin-bottom: 24px; }
+
+        .offcanvas__contact ul li {
+            min-width: 0;
+            padding: 13px 14px;
+            border: 1px solid rgba(11, 37, 69, .07);
+            border-radius: 14px;
+            background: rgba(255, 255, 255, .68);
+            box-shadow: 0 4px 14px rgba(11, 37, 69, .035);
+        }
+
+        .offcanvas__contact-icon {
+            flex: 0 0 34px;
+            width: 34px;
+            height: 34px;
+            margin: 0 !important;
+            border-radius: 10px;
+            background: #e3f1f4;
+        }
+
+        .offcanvas__contact-text { min-width: 0; }
+        .offcanvas__contact-text a { display: block; overflow-wrap: anywhere; font-size: .9rem; }
+        .offcanvas__contact .header-button { margin-top: 0 !important; }
+        .offcanvas__contact .header-button .theme-btn { min-height: 54px; }
+
+        .offcanvas__contact .social-icon {
+            padding-top: 22px;
+            margin-top: 22px;
+            border-top: 1px solid rgba(11, 37, 69, .1);
+        }
+
+        .offcanvas__overlay {
+            background: rgba(8, 20, 36, .58);
+            backdrop-filter: blur(3px);
+        }
+
+        @media (max-width: 480px) {
+            .offcanvas__info { padding: 22px 18px !important; }
+            .offcanvas__contact ul li { padding: 11px; }
+        }
+
         .section-title h2,
         .section-title-area .section-title h2 {
             font-family: 'Battambang', 'Moul', sans-serif;
@@ -468,7 +573,13 @@
                         </div>
                         <div class="social-icon d-flex align-items-center">
                             @if(shop_settings()->facebook)
-                            <a href="{{shop_settings()->facebook}}"><i class="fab fa-facebook-f"></i></a>
+
+                            <a href="https://www.facebook.com/profile.php?id=100041937890408"
+                                target="_blank"
+                                rel="noopener noreferrer">
+                                <i class="fab fa-facebook-f"></i>
+                            </a>
+
                             @endif
 
                             @if(shop_settings()->twitter)
@@ -553,22 +664,22 @@
                                             <ul>
                                                 <li class="{{ request()->is('/') || request()->is('') ? 'active' : '' }}">
                                                     <a href="{{ front_url('')}}" style="display:inline-flex;align-items:center;gap:8px;">
-                                                        <i class="fas fa-home" style="font-size:20px;width:20px;min-width:20px;text-align:center;"></i><span>ទំព័រដើម</span>
+                                                        <i class="fas fa-home" style="font-size:20px;width:20px;min-width:20px;text-align:center;"></i><span>{{ __('Home') }}</span>
                                                     </a>
                                                 </li>
                                                 <li class="{{ request()->is('books*') ? 'active' : '' }}">
                                                     <a href="{{front_url('books')}}" style="display:inline-flex;align-items:center;gap:8px;">
-                                                        <i class="fas fa-book" style="font-size:20px;width:20px;min-width:20px;text-align:center;"></i><span>សៀវភៅ</span>
+                                                        <i class="fas fa-book" style="font-size:20px;width:20px;min-width:20px;text-align:center;"></i><span>{{ __('Books') }}</span>
                                                     </a>
                                                 </li>
                                                 <li class="{{ request()->is('about*') ? 'active' : '' }}">
                                                     <a href="{{front_url('about')}}" style="display:inline-flex;align-items:center;gap:8px;">
-                                                        <i class="fas fa-info-circle" style="font-size:20px;width:20px;min-width:20px;text-align:center;"></i><span>អំពីយើង</span>
+                                                        <i class="fas fa-info-circle" style="font-size:20px;width:20px;min-width:20px;text-align:center;"></i><span>{{ __('About Us') }}</span>
                                                     </a>
                                                 </li>
                                                 <li class="{{ request()->is('contact*') ? 'active' : '' }}">
                                                     <a href="{{front_url('contact')}}" style="display:inline-flex;align-items:center;gap:8px;">
-                                                        <i class="fas fa-envelope" style="font-size:20px;width:20px;min-width:20px;text-align:center;"></i><span>ទំនាក់ទំនង</span>
+                                                        <i class="fas fa-envelope" style="font-size:20px;width:20px;min-width:20px;text-align:center;"></i><span>{{ __('Contact') }}</span>
                                                     </a>
                                                 </li>
                                             </ul>
@@ -609,7 +720,11 @@
                                         </div>
                                     </form>
                                 </div> --}}
-                                <div class="menu-cart">
+                                <div class="header-language-switcher" aria-label="Select language">
+                                        <a href="{{ url('/localization/km') }}" class="{{ app()->getLocale() === 'km' ? 'active' : '' }}" lang="km" aria-label="{{ __('Switch to Khmer') }}">ខ្មែរ</a>
+                                        <a href="{{ url('/localization/en') }}" class="{{ app()->getLocale() === 'en' ? 'active' : '' }}" lang="en" aria-label="{{ __('Switch to English') }}">EN</a>
+                                    </div>
+                                    <div class="menu-cart">
                                     {{-- <a href="wishlist.html" class="cart-icon">
                                         <i class="fa-regular fa-heart"></i>
                                     </a>
@@ -651,22 +766,22 @@
                                             <ul>
                                                 <li class="{{ request()->is('/') || request()->is('') ? 'active' : '' }}">
                                                     <a href="{{front_url('')}}" style="display:inline-flex;align-items:center;gap:8px;">
-                                                        <i class="fas fa-home" style="font-size:20px;width:20px;min-width:20px;text-align:center;"></i><span>ទំព័រដើម</span>
+                                                        <i class="fas fa-home" style="font-size:20px;width:20px;min-width:20px;text-align:center;"></i><span>{{ __('Home') }}</span>
                                                     </a>
                                                 </li>
                                                 <li class="{{ request()->is('books*') ? 'active' : '' }}">
                                                     <a href="{{front_url('books')}}" style="display:inline-flex;align-items:center;gap:8px;">
-                                                        <i class="fas fa-book" style="font-size:20px;width:20px;min-width:20px;text-align:center;"></i><span>សៀវភៅ</span>
+                                                        <i class="fas fa-book" style="font-size:20px;width:20px;min-width:20px;text-align:center;"></i><span>{{ __('Books') }}</span>
                                                     </a>
                                                 </li>
                                                 <li class="{{ request()->is('about*') ? 'active' : '' }}">
                                                     <a href="{{front_url('about')}}" style="display:inline-flex;align-items:center;gap:8px;">
-                                                        <i class="fas fa-info-circle" style="font-size:20px;width:20px;min-width:20px;text-align:center;"></i><span>អំពីយើង</span>
+                                                        <i class="fas fa-info-circle" style="font-size:20px;width:20px;min-width:20px;text-align:center;"></i><span>{{ __('About Us') }}</span>
                                                     </a>
                                                 </li>
                                                 <li class="{{ request()->is('contact*') ? 'active' : '' }}">
                                                     <a href="{{front_url('contact')}}" style="display:inline-flex;align-items:center;gap:8px;">
-                                                        <i class="fas fa-envelope" style="font-size:20px;width:20px;min-width:20px;text-align:center;"></i><span>ទំនាក់ទំនង</span>
+                                                        <i class="fas fa-envelope" style="font-size:20px;width:20px;min-width:20px;text-align:center;"></i><span>{{ __('Contact') }}</span>
                                                     </a>
                                                 </li>
                                             </ul>
@@ -707,7 +822,11 @@
                                         </div>
                                     </form>
                                 </div> --}}
-                                <div class="menu-cart">
+                                <div class="header-language-switcher" aria-label="Select language">
+                                        <a href="{{ url('/localization/km') }}" class="{{ app()->getLocale() === 'km' ? 'active' : '' }}" lang="km" aria-label="{{ __('Switch to Khmer') }}">ខ្មែរ</a>
+                                        <a href="{{ url('/localization/en') }}" class="{{ app()->getLocale() === 'en' ? 'active' : '' }}" lang="en" aria-label="{{ __('Switch to English') }}">EN</a>
+                                    </div>
+                                    <div class="menu-cart">
                                     {{-- <a href="wishlist.html" class="cart-icon">
                                         <i class="fa-regular fa-heart"></i>
                                     </a>
@@ -766,7 +885,7 @@
                                 </a>
                             </div>
                             <div>
-                                <a class="another-option another-option-two" href="https://www.facebook.com/">
+                                <a class="another-option another-option-two" href="https://www.facebook.com/profile.php?id=100041937890408">
                                     <img src="{{asset('frontend/assets/img/facebook.png')}}" alt="google">
                                     Continue With Facebook
                                 </a>
@@ -834,7 +953,7 @@
                                 </a>
                             </div>
                             <div>
-                                <a class="another-option another-option-two" href="https://www.facebook.com/">
+                                <a class="another-option another-option-two" href="https://www.facebook.com/profile.php?id=100041937890408">
                                     <img src="{{asset('frontend/assets/img/facebook.png')}}" alt="google">
                                     Continue With Facebook
                                 </a>
@@ -935,13 +1054,19 @@
                                 </p>
                                 <div class="social-icon d-flex align-items-center">
                                     @if(shop_settings()->facebook)
-                                    <a href="{{ shop_settings()->facebook }}"><i class="fab fa-facebook-f"></i></a>
+
+                                    <a href="https://www.facebook.com/profile.php?id=100041937890408"
+                                        target="_blank"
+                                        rel="noopener noreferrer">
+                                        <i class="fab fa-facebook-f"></i>
+                                    </a>
+
                                     @endif
                                     @if(shop_settings()->twitter)
                                     <a href="{{ shop_settings()->twitter }}"><i class="fab fa-twitter"></i></a>
                                     @endif
                                     @if(shop_settings()->youtube)
-                                    <a href="{{shop_settings()->youtube}}"><i class="fab fa-youtube"></i></a>
+                                    <a href="{{ shop_settings()->youtube }}" target="_blank" rel="noopener noreferrer"><i class="fab fa-youtube"></i></a>
                                     @endif
                                     @if(shop_settings()->linkedin)
                                     <a href="{{shop_settings()->linkedin}}"><i class="fab fa-linkedin-in"></i></a>
@@ -1051,7 +1176,7 @@
     <script src="{{asset('frontend/assets/js/main.js')}}"></script>
 
     @if (request()->is('books*'))
-        <script src="{{ asset('frontend/assets/jquery/products.js') }}" defer></script>
+    <script src="{{ asset('frontend/assets/jquery/products.js') }}" defer></script>
     @endif
 </body>
 

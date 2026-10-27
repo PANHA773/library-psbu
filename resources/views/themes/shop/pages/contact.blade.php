@@ -11,19 +11,19 @@
     </div>
     <div class="container">
         <div class="page-heading">
-            <h1>Contact Us</h1>
+            <h1>{{ __('contact.title') }}</h1>
             <div class="page-header">
                 <ul class="breadcrumb-items wow fadeInUp" data-wow-delay=".3s">
                     <li>
                         <a href="{{front_url('')}}">
-                            Home
+                            {{ __('contact.home') }}
                         </a>
                     </li>
                     <li>
                         <i class="fa-solid fa-chevron-right"></i>
                     </li>
                     <li>
-                        Contact Us
+                        {{ __('contact.title') }}
                     </li>
                 </ul>
             </div>
@@ -44,7 +44,7 @@
                                     <i class="icon-icon-10"></i>
                                 </div>
                                 <div class="content">
-                                    <p>Call Us</p>
+                                    <p>{{ __('contact.call_us') }}</p>
                                     <h3>
                                         <a href="tel: 023 902 904"> 023 902 904</a>
                                     </h3>
@@ -55,7 +55,7 @@
                                     <i class="icon-icon-11"></i>
                                 </div>
                                 <div class="content">
-                                    <p>Make a Quote</p>
+                                    <p>{{ __('contact.email_us') }}</p>
                                     <h3>
                                         <a href="mailto:elibrary@psbu.cloud">elibrary@psbu.cloud</a>
                                     </h3>
@@ -66,7 +66,7 @@
                                     <i class="icon-icon-12"></i>
                                 </div>
                                 <div class="content">
-                                    <p>Location</p>
+                                    <p>{{ __('contact.location') }}</p>
                                     <h3>
                                         Sangkat Tonle Basac, Khan Chamkarmorn, Phnom Penh, Cambodia
                                     </h3>
@@ -86,15 +86,13 @@
                 </div>
                 <div class="col-lg-8">
                     <div class="contact-content">
-                        <h2>Ready to Get Started?</h2>
+                        <h2>{{ __('contact.heading') }}</h2>
                         <p>
-                            Nunc tincidunt cursus lectus ac semper. Aenean ullamcorper quis arcu molestie consequat.
-                            Interdum et malesuada fames ac ante ipsum primis in faucibus. Ut nec lobortis elit, eu
-                            ultrices justo. Fusce auctor erat est, non fringilla nibh tempus quis. Aenean dignissim
+                            {{ __('contact.intro') }}
                         </p>
                         @if ($errors->any())
                             <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                                <strong>Please fix the following errors:</strong>
+                                <strong>{{ __('contact.fix_errors') }}</strong>
                                 <ul class="mb-0">
                                     @foreach ($errors->all() as $error)
                                         <li>{{ $error }}</li>
@@ -116,8 +114,8 @@
                             <div class="row g-4">
                                 <div class="col-lg-6 wow fadeInUp" data-wow-delay=".3s">
                                     <div class="form-clt">
-                                        <span>Your name*</span>
-                                        <input type="text" name="name" id="name" placeholder="Your Name" value="{{ old('name') }}" class="@error('name') is-invalid @enderror">
+                                        <span>{{ __('contact.your_name') }}</span>
+                                        <input type="text" name="name" id="name" placeholder="{{ __('contact.name_placeholder') }}" value="{{ old('name') }}" class="@error('name') is-invalid @enderror">
                                         @error('name')
                                             <small class="text-danger">{{ $message }}</small>
                                         @enderror
@@ -125,8 +123,8 @@
                                 </div>
                                 <div class="col-lg-6 wow fadeInUp" data-wow-delay=".5s">
                                     <div class="form-clt">
-                                        <span>Your Email*</span>
-                                        <input type="email" name="email" id="email123" placeholder="Your Email" value="{{ old('email') }}" class="@error('email') is-invalid @enderror">
+                                        <span>{{ __('contact.your_email') }}</span>
+                                        <input type="email" name="email" id="email123" placeholder="{{ __('contact.email_placeholder') }}" value="{{ old('email') }}" class="@error('email') is-invalid @enderror">
                                         @error('email')
                                             <small class="text-danger">{{ $message }}</small>
                                         @enderror
@@ -134,9 +132,9 @@
                                 </div>
                                 <div class="col-lg-12 wow fadeInUp" data-wow-delay=".7s">
                                     <div class="form-clt">
-                                        <span>Write Message*</span>
+                                        <span>{{ __('contact.your_message') }}</span>
                                         <textarea name="message" id="message"
-                                            placeholder="Write Message" class="@error('message') is-invalid @enderror">{{ old('message') }}</textarea>
+                                            placeholder="{{ __('contact.message_placeholder') }}" class="@error('message') is-invalid @enderror">{{ old('message') }}</textarea>
                                         @error('message')
                                             <small class="text-danger">{{ $message }}</small>
                                         @enderror
@@ -144,7 +142,7 @@
                                 </div>
                                 <div class="col-lg-7 wow fadeInUp" data-wow-delay=".9s">
                                     <button type="submit" class="theme-btn">
-                                        Send Message <i class="fa-solid fa-arrow-right-long"></i>
+                                        {{ __('contact.send_message') }} <i class="fa-solid fa-arrow-right-long"></i>
                                     </button>
                                 </div>
                             </div>

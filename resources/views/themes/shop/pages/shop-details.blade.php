@@ -1183,10 +1183,10 @@
     <div class="container">
         <div class="section-title text-center">
             <h2 class="mb-3 wow fadeInUp" data-wow-delay=".3s">Related Books</h2>
-            <p class="wow fadeInUp" data-wow-delay=".5s">
+            <!-- <p class="wow fadeInUp" data-wow-delay=".5s">
                 Interdum et malesuada fames ac ante ipsum primis in faucibus. <br> Donec at nulla nulla. Duis
                 posuere ex lacus
-            </p>
+            </p> -->
         </div>
         <div class="swiper book-slider">
             <div class="swiper-wrapper">

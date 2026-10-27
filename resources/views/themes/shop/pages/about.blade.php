@@ -843,17 +843,17 @@
     <section class="library-hero-banner">
         <div class="container">
             <div class="hero-banner-content wow fadeInUp" data-wow-delay=".2s">
-                <span class="hero-badge edu-font-battambang">{{ $about->subtitle ?? 'ស្វាគមន៍មកកាន់បណ្ណាល័យវិទ្យាសាស្ត្រ' }}</span>
-                <h1 class="edu-heading-moul">{{ $about->title ?? 'បណ្ណាល័យតេជោសន្តិភាព' }}</h1>
+                <span class="hero-badge edu-font-battambang">{{ $about->subtitle ?? __('about.hero_subtitle') }}</span>
+                <h1 class="edu-heading-moul">{{ $about->title ?? __('about.hero_title') }}</h1>
                 <p class="edu-font-battambang">
-                    {{ $about->hero_description ?? 'មជ្ឈមណ្ឌលស្រាវជ្រាវ និងសិក្សាឈានមុខគេ ដែលប្រមូលផ្តុំទៅដោយធនធានវិទ្យាសាស្ត្រ សៀវភៅ ឯកសារសិក្សា និងបណ្ណសារអេឡិចត្រូនិចដ៏សំបូរបែប សម្រាប់បម្រើដល់ការសិក្សារបស់សិស្សានុសិស្ស គ្រូឧទ្ទេស និងអ្នកស្រាវជ្រាវគ្រប់រូប។' }}
+                    {{ $about->hero_description ?? __('about.hero_description') }}
                 </p>
                 <div class="hero-btns edu-font-battambang">
                     <a href="#services" class="btn btn-gold">
-                        ស្វែងរកសេវាកម្មរបស់យើង <i class="fa-solid fa-arrow-down ms-2"></i>
+                        {{ __('about.services_button') }} <i class="fa-solid fa-arrow-down ms-2"></i>
                     </a>
                     <a href="{{ front_url('books') }}" class="btn btn-outline">
-                        ស្វែងរកសៀវភៅ <i class="fa-solid fa-search ms-2"></i>
+                        {{ __('about.books_button') }} <i class="fa-solid fa-search ms-2"></i>
                     </a>
                 </div>
             </div>
@@ -868,23 +868,23 @@
                     <div class="intro-img-wrapper">
                         <img src="{{ asset('frontend/assets/img/about.jpg') }}" alt="Students studying in Library" class="intro-img-main">
                         <div class="intro-badge-card edu-font-battambang">
-                            <h4>{{ $about->years_of_service ?? '10' }}+ ឆ្នាំ</h4>
-                            <p class="mb-0 text-white">{{ $about->service_description ?? 'នៃការបម្រើការ និងរួមចំណែកកសាងធនធានមនុស្សក្នុងប្រទេសកម្ពុជា' }}</p>
+                            <h4>{{ $about->years_of_service ?? '10' }}+ {{ __('about.years') }}</h4>
+                            <p class="mb-0 text-white">{{ $about->service_description ?? __('about.service_description') }}</p>
                         </div>
                     </div>
                 </div>
                 <div class="col-lg-6 wow fadeInRight" data-wow-delay=".3s">
                     <div class="intro-content-right">
-                        <h3 class="edu-heading-moul">ការណែនាំអំពីបណ្ណាល័យ</h3>
+                        <h3 class="edu-heading-moul">{{ __('about.intro_title') }}</h3>
                         <p class="edu-font-battambang">
-                            បណ្ណាល័យតេជោសន្តិភាព ត្រូវបានបង្កើតឡើងក្នុងគោលបំណងលើកកម្ពស់វប្បធម៌នៃការអាន ការសិក្សាស្រាវជ្រាវ និងការស្វែងរកចំណេះដឹងថ្មីៗ។ បណ្ណាល័យរបស់យើងផ្តល់ជូននូវបរិយាកាសសិក្សាដ៏ល្អប្រសើរ និងបរិក្ខារសមស្របតាមស្តង់ដារអប់រំ។
+                            {{ __('about.intro_paragraph_one') }}
                         </p>
                         <p class="edu-font-battambang">
-                            យើងផ្តល់ភាពងាយស្រួលដល់អ្នកសិក្សាតាមរយៈប្រព័ន្ធគ្រប់គ្រងបណ្ណាល័យឌីជីថល ដែលអនុញ្ញាតឱ្យសិស្សានុសិស្សស្វែងរក និងកក់សៀវភៅតាមអនឡាញ ក៏ដូចជាចូលទៅកាន់មូលដ្ឋានទិន្នន័យស្រាវជ្រាវទំនើបទូទាំងសកលលោក។
+                            {{ __('about.intro_paragraph_two') }}
                         </p>
                         <div class="mt-4 edu-font-battambang">
                             <a href="#stats" class="theme-btn" style="background-color: var(--uni-blue-deep); color: white;">
-                                មើលស្ថិតិបណ្ណាល័យ <i class="fa-solid fa-arrow-right ms-2"></i>
+                                {{ __('about.stats_button') }} <i class="fa-solid fa-arrow-right ms-2"></i>
                             </a>
                         </div>
                     </div>
@@ -896,8 +896,8 @@
     <section class="mission-vision-section">
         <div class="container">
             <div class="edu-section-title">
-                <h2 class="edu-heading-moul">បេសកកម្ម និងចក្ខុវិស័យ</h2>
-                <p class="edu-font-battambang">ច្បាប់ចម្លងការប្រើប្រាស់អត្ថបទនេះសម្រាប់បង្ហាញពីគោលបំណង និងចក្ខុវិស័យរបស់បណ្ណាល័យនៅលើទំព័រអំពីយើង។</p>
+                <h2 class="edu-heading-moul">{{ __('about.mission_vision_title') }}</h2>
+                <p class="edu-font-battambang">{{ __('about.mission_vision_intro') }}</p>
             </div>
             <div class="row g-4">
                 <div class="col-md-6 wow fadeInUp" data-wow-delay=".2s">
@@ -905,9 +905,9 @@
                         <div class="mv-icon-box">
                             <i class="fa-solid fa-bullseye"></i>
                         </div>
-                        <h3 class="edu-heading-moul">បេសកកម្ម (Mission)</h3>
+                        <h3 class="edu-heading-moul">{{ __('about.mission_title') }}</h3>
                         <p class="edu-font-battambang">
-                            ផ្តល់នូវបរិយាកាសសិក្សាដ៏ល្អប្រសើរ និងធនធានចម្បងដល់សិស្សានុសិស្ស គ្រូបង្រៀន និងអ្នកស្រាវជ្រាវ ដើម្បីលើកកម្ពស់វប្បធម៌សម្រាប់ការវិទ្យាសាស្ត្រ និងការសិក្សា។
+                            {{ __('about.mission_text') }}
                         </p>
                     </div>
                 </div>
@@ -916,9 +916,9 @@
                         <div class="mv-icon-box">
                             <i class="fa-solid fa-eye"></i>
                         </div>
-                        <h3 class="edu-heading-moul">ចក្ខុវិស័យ (Vision)</h3>
+                        <h3 class="edu-heading-moul">{{ __('about.vision_title') }}</h3>
                         <p class="edu-font-battambang">
-                            ក្លាយជាបណ្ណាល័យលំដាប់ជាច្រើនដែលនាំមកនូវផលប្រយោជន៍ដល់សហគមន៍ និងក្លាយជាមជ្ឈមណ្ឌលសិក្សាស្រាវជ្រាវដែលមានលក្ខណៈលូតលាស់ និងទំនើបទាន់សម័យ។
+                            {{ __('about.vision_text') }}
                         </p>
                     </div>
                 </div>
@@ -934,28 +934,28 @@
                     <div class="stat-box">
                         <div class="stat-icon"><i class="fa-solid fa-book"></i></div>
                         <div class="stat-number">50,000+</div>
-                        <div class="stat-label edu-font-battambang">សៀវភៅបោះពុម្ព</div>
+                        <div class="stat-label edu-font-battambang">{{ __('about.printed_books') }}</div>
                     </div>
                 </div>
                 <div class="col-md-3 col-6 wow fadeInUp" data-wow-delay=".2s">
                     <div class="stat-box">
                         <div class="stat-icon"><i class="fa-solid fa-laptop"></i></div>
                         <div class="stat-number">2,000+</div>
-                        <div class="stat-label edu-font-battambang">ធនធានឌីជីថល</div>
+                        <div class="stat-label edu-font-battambang">{{ __('about.digital_resources') }}</div>
                     </div>
                 </div>
                 <div class="col-md-3 col-6 wow fadeInUp" data-wow-delay=".3s">
                     <div class="stat-box">
                         <div class="stat-icon"><i class="fa-solid fa-graduation-cap"></i></div>
                         <div class="stat-number">500+</div>
-                        <div class="stat-label edu-font-battambang">អ្នកស្រាវជ្រាវ</div>
+                        <div class="stat-label edu-font-battambang">{{ __('about.researchers') }}</div>
                     </div>
                 </div>
                 <div class="col-md-3 col-6 wow fadeInUp" data-wow-delay=".4s">
                     <div class="stat-box">
                         <div class="stat-icon"><i class="fa-solid fa-users"></i></div>
                         <div class="stat-number">1,000+</div>
-                        <div class="stat-label edu-font-battambang">សិស្សដែលប្រើសេវា</div>
+                        <div class="stat-label edu-font-battambang">{{ __('about.students_served') }}</div>
                     </div>
                 </div>
             </div>
@@ -966,8 +966,8 @@
     <section id="services" class="library-services-section">
         <div class="container">
             <div class="edu-section-title">
-                <h2 class="edu-heading-moul">សេវាកម្មបណ្ណាល័យ</h2>
-                <p class="edu-font-battambang">យើងផ្តល់ជូននូវសេវាកម្មសំខាន់ៗ ដើម្បីគាំទ្រការសិក្សា និងការស្រាវជ្រាវរបស់សមាជិកបណ្ណាល័យទាំងអស់។</p>
+                <h2 class="edu-heading-moul">{{ __('about.services_title') }}</h2>
+                <p class="edu-font-battambang">{{ __('about.services_intro') }}</p>
             </div>
             <div class="row g-4">
                 <!-- 1. Book Borrowing -->
@@ -976,8 +976,8 @@
                         <div class="service-icon-wrapper">
                             <i class="fa-solid fa-book-open-reader"></i>
                         </div>
-                        <h4 class="edu-font-battambang">ការខ្ចី-សងសៀវភៅ</h4>
-                        <p class="edu-font-battambang">សេវាកម្មខ្ចីសៀវភៅ និងសៀវភៅអានកម្សាន្តដោយងាយស្រួល ជាមួយនឹងរយៈពេលសមស្រប និងប្រព័ន្ធគ្រប់គ្រងស្វ័យប្រវត្តិ។</p>
+                        <h4 class="edu-font-battambang">{{ __('about.borrowing_title') }}</h4>
+                        <p class="edu-font-battambang">{{ __('about.borrowing_text') }}</p>
                     </div>
                 </div>
                 <!-- 2. Digital Library -->
@@ -986,8 +986,8 @@
                         <div class="service-icon-wrapper">
                             <i class="fa-solid fa-laptop-code"></i>
                         </div>
-                        <h4 class="edu-font-battambang">បណ្ណាល័យអេឡិចត្រូនិច</h4>
-                        <p class="edu-font-battambang">ការចូលទៅកាន់ប្រព័ន្ធផ្ទុកសៀវភៅអេឡិចត្រូនិច E-books អត្ថបទស្រាវជ្រាវ និងធនធានអនឡាញគ្រប់ពេលវេលា។</p>
+                        <h4 class="edu-font-battambang">{{ __('about.digital_library_title') }}</h4>
+                        <p class="edu-font-battambang">{{ __('about.digital_library_text') }}</p>
                     </div>
                 </div>
                 <!-- 3. Research Support -->
@@ -996,8 +996,8 @@
                         <div class="service-icon-wrapper">
                             <i class="fa-solid fa-magnifying-glass-chart"></i>
                         </div>
-                        <h4 class="edu-font-battambang">ការគាំទ្រការស្រាវជ្រាវ</h4>
-                        <p class="edu-font-battambang">ការជួយណែនាំ និងផ្តល់ប្រឹក្សាពីបណ្ណារក្សជំនាញអំពីវិធីសាស្ត្រស្វែងរកឯកសារយោង និងការសរសេរអត្ថបទវិទ្យាសាស្ត្រ។</p>
+                        <h4 class="edu-font-battambang">{{ __('about.research_support_title') }}</h4>
+                        <p class="edu-font-battambang">{{ __('about.research_support_text') }}</p>
                     </div>
                 </div>
                 <!-- 4. Reading Rooms -->
@@ -1006,8 +1006,8 @@
                         <div class="service-icon-wrapper">
                             <i class="fa-solid fa-person-shelter"></i>
                         </div>
-                        <h4 class="edu-font-battambang">បន្ទប់អាន និងពិភាក្សា</h4>
-                        <p class="edu-font-battambang">បន្ទប់អានស្ងប់ស្ងាត់សម្រាប់បុគ្គល និងបន្ទប់ពិភាក្សាក្រុមសម្រាប់ការងារសហការគ្នា។</p>
+                        <h4 class="edu-font-battambang">{{ __('about.reading_rooms_title') }}</h4>
+                        <p class="edu-font-battambang">{{ __('about.reading_rooms_text') }}</p>
                     </div>
                 </div>
                 <!-- 5. Online Catalog -->
@@ -1016,8 +1016,8 @@
                         <div class="service-icon-wrapper">
                             <i class="fa-solid fa-database"></i>
                         </div>
-                        <h4 class="edu-font-battambang">កាតាឡុកអនឡាញ (OPAC)</h4>
-                        <p class="edu-font-battambang">ប្រព័ន្ធស្វែងរកសៀវភៅតាមអនឡាញ និងទូរស័ព្ទដៃ ដើម្បីត្រួតពិនិត្យភាពមានសៀវភៅ និងទីតាំងស្តុក។</p>
+                        <h4 class="edu-font-battambang">{{ __('about.catalog_title') }}</h4>
+                        <p class="edu-font-battambang">{{ __('about.catalog_text') }}</p>
                     </div>
                 </div>
                 <!-- 6. WiFi Access -->
@@ -1026,8 +1026,8 @@
                         <div class="service-icon-wrapper">
                             <i class="fa-solid fa-wifi"></i>
                         </div>
-                        <h4 class="edu-font-battambang">អ៊ីនធឺណិតល្បឿនលឿន</h4>
-                        <p class="edu-font-battambang">ការផ្តល់ជូននូវបណ្តាញអ៊ីនធឺណិត WiFi ល្បឿនលឿនទូទាំងបណ្ណាល័យ ដើម្បីទាញយកឯកសារសិក្សា។</p>
+                        <h4 class="edu-font-battambang">{{ __('about.wifi_title') }}</h4>
+                        <p class="edu-font-battambang">{{ __('about.wifi_text') }}</p>
                     </div>
                 </div>
             </div>
@@ -1038,8 +1038,8 @@
     <section class="library-facilities-section">
         <div class="container">
             <div class="edu-section-title">
-                <h2 class="edu-heading-moul">បរិក្ខារ និងកន្លែងសិក្សាលេចធ្លោ</h2>
-                <p class="edu-font-battambang">ស្វែងយល់ពីកន្លែងសិក្សា និងបន្ទប់បម្រើសេវាកម្មដែលមានបរិយាកាសសមស្រប និងគុណភាពខ្ពស់។</p>
+                <h2 class="edu-heading-moul">{{ __('about.facilities_title') }}</h2>
+                <p class="edu-font-battambang">{{ __('about.facilities_intro') }}</p>
             </div>
             <div class="row">
                 <!-- Facility 1 -->
@@ -1047,8 +1047,8 @@
                     <div class="facility-gallery-item">
                         <img src="{{ asset('frontend/assets/img/about.jpg') }}" alt="Main Reading Hall" class="facility-gallery-img">
                         <div class="facility-gallery-overlay edu-font-battambang">
-                            <h4>សាលអានកណ្ដាល</h4>
-                            <p>កន្លែងអានសៀវភៅដ៏ធំទូលាយ មានពន្លឺធម្មជាតិ និងបរិយាកាសស្ងប់ស្ងាត់។</p>
+                            <h4>{{ __('about.main_reading_hall') }}</h4>
+                            <p>{{ __('about.main_reading_hall_text') }}</p>
                         </div>
                     </div>
                 </div>
@@ -1057,8 +1057,8 @@
                     <div class="facility-gallery-item">
                         <img src="{{ asset('frontend/assets/img/readingbook.jpg') }}" alt="E-Library Lab" class="facility-gallery-img">
                         <div class="facility-gallery-overlay edu-font-battambang">
-                            <h4>បន្ទប់កុំព្យូទ័រ E-Lab</h4>
-                            <p>បន្ទប់កុំព្យូទ័រសម្រាប់ការស្រាវជ្រាវ និងចូលប្រើធនធានអនឡាញ។</p>
+                            <h4>{{ __('about.computer_lab') }}</h4>
+                            <p>{{ __('about.computer_lab_text') }}</p>
                         </div>
                     </div>
                 </div>
@@ -1067,8 +1067,8 @@
                     <div class="facility-gallery-item">
                         <img src="{{ asset('frontend/assets/img/banner/book-banner-2.jpg') }}" alt="Discussion Rooms" class="facility-gallery-img">
                         <div class="facility-gallery-overlay edu-font-battambang">
-                            <h4>បន្ទប់ពិភាក្សាក្រុម</h4>
-                            <p>កន្លែងសម្រាប់ការងារជាក្រុម ការបង្ហាញមេរៀន និងការសហការគ្នា។</p>
+                            <h4>{{ __('about.discussion_room') }}</h4>
+                            <p>{{ __('about.discussion_room_text') }}</p>
                         </div>
                     </div>
                 </div>
@@ -1077,8 +1077,8 @@
                     <div class="facility-gallery-item">
                         <img src="{{ asset('frontend/assets/img/banner/book-banner-3.jpg') }}" alt="Research Archives" class="facility-gallery-img">
                         <div class="facility-gallery-overlay edu-font-battambang">
-                            <h4>បណ្ណសារស្រាវជ្រាវ</h4>
-                            <p>កន្លែងរក្សាទុកឯកសារ និងសៀវភៅកម្ររបស់បណ្ណាល័យ។</p>
+                            <h4>{{ __('about.research_archive') }}</h4>
+                            <p>{{ __('about.research_archive_text') }}</p>
                         </div>
                     </div>
                 </div>
@@ -1090,8 +1090,8 @@
     <section class="library-timeline-section">
         <div class="container">
             <div class="edu-section-title">
-                <h2 class="edu-heading-moul">ប្រវត្តិនៃការអភិវឌ្ឍ</h2>
-                <p class="edu-font-battambang">ការអភិវឌ្ឍ និងការពង្រីកបណ្ណាល័យតាមលំដាប់ពេលវេលា។</p>
+                <h2 class="edu-heading-moul">{{ __('about.timeline_title') }}</h2>
+                <p class="edu-font-battambang">{{ __('about.timeline_intro') }}</p>
             </div>
             <div class="timeline-container">
                 <!-- Timeline Year 1 -->
@@ -1099,8 +1099,8 @@
                     <div class="timeline-dot"></div>
                     <div class="timeline-content-card edu-font-battambang">
                         <span class="timeline-year">2018</span>
-                        <h4>ការបង្កើតបណ្ណាល័យ</h4>
-                        <p>បណ្ណាល័យត្រូវបានបង្កើតឡើងជាមួយសៀវភៅប្រមាណ ៥,០០០ ក្បាល និងទីកន្លែងអានដំបូង។</p>
+                        <h4>{{ __('about.timeline_2018_title') }}</h4>
+                        <p>{{ __('about.timeline_2018_text') }}</p>
                     </div>
                 </div>
                 <!-- Timeline Year 2 -->
@@ -1108,8 +1108,8 @@
                     <div class="timeline-dot"></div>
                     <div class="timeline-content-card edu-font-battambang">
                         <span class="timeline-year">2020</span>
-                        <h4>ការពង្រីក និងបន្ថែម E-Lab</h4>
-                        <p>ចាប់ផ្តើមដាក់ឱ្យប្រើប្រាស់បន្ទប់កុំព្យូទ័រសម្រាប់ការស្រាវជ្រាវ និងសិក្សាឌីជីថល។</p>
+                        <h4>{{ __('about.timeline_2020_title') }}</h4>
+                        <p>{{ __('about.timeline_2020_text') }}</p>
                     </div>
                 </div>
                 <!-- Timeline Year 3 -->
@@ -1117,8 +1117,8 @@
                     <div class="timeline-dot"></div>
                     <div class="timeline-content-card edu-font-battambang">
                         <span class="timeline-year">2022</span>
-                        <h4>ការបង្កើតមជ្ឈមណ្ឌលស្រាវជ្រាវ</h4>
-                        <p>បង្កើតផ្នែកគាំទ្រការស្រាវជ្រាវ និងមូលដ្ឋានទិន្នន័យសម្រាប់អ្នកស្រាវជ្រាវ។</p>
+                        <h4>{{ __('about.timeline_2022_title') }}</h4>
+                        <p>{{ __('about.timeline_2022_text') }}</p>
                     </div>
                 </div>
                 <!-- Timeline Year 4 -->
@@ -1126,8 +1126,8 @@
                     <div class="timeline-dot"></div>
                     <div class="timeline-content-card edu-font-battambang">
                         <span class="timeline-year">2025</span>
-                        <h4>ការភ្ជាប់ទំនាក់ទំនងបណ្ណាល័យសកល</h4>
-                        <p>ភ្ជាប់ជាមួយប្រព័ន្ធកាតាឡុកអនឡាញ និងធនធានឌីជីថលពិភពលោក។</p>
+                        <h4>{{ __('about.timeline_2025_title') }}</h4>
+                        <p>{{ __('about.timeline_2025_text') }}</p>
                     </div>
                 </div>
             </div>
@@ -1144,34 +1144,34 @@
             $staticStaffMembers = [
                 [
                     'name' => 'Huon Rady',
-                    'position' => 'Library Director',
-                    'description' => 'Leads library services and academic resource development.',
+                    'position' => __('about.staff_director'),
+                    'description' => __('about.staff_director_text'),
                     'image' => 'team/Huon Rady.png',
                 ],
                 [
                     'name' => 'Seng Chamroeun',
-                    'position' => 'Senior Librarian',
-                    'description' => 'Supports readers with research and reference services.',
+                    'position' => __('about.staff_senior'),
+                    'description' => __('about.staff_senior_text'),
                     'image' => 'team/Seng Chamroeun.png',
                 ],
                 [
                     'name' => 'Sokun Thira',
-                    'position' => 'Digital Resources Librarian',
-                    'description' => 'Manages e-library resources and digital learning support.',
+                    'position' => __('about.staff_digital'),
+                    'description' => __('about.staff_digital_text'),
                     'image' => 'team/Sokun Thira.png',
                 ],
                 [
                     'name' => 'Chan Soriya',
-                    'position' => 'Reader Services Officer',
-                    'description' => 'Helps students access books and library facilities.',
+                    'position' => __('about.staff_reader_services'),
+                    'description' => __('about.staff_reader_services_text'),
                     'image' => 'team/Soya.png',
                 ],
             ];
         @endphp
         <div class="container">
             <div class="edu-section-title">
-                <h2 class="edu-heading-moul">ថ្នាក់ដឹកនាំ និងបណ្ណារក្ស</h2>
-                <p class="edu-font-battambang">បុគ្គលិកដែលមានវិជ្ជាជីវៈ និងបទពិសោធន៍ខ្ពស់ រង់ចាំជួយសម្រួលដល់ការសិក្សារបស់អ្នកគ្រប់ពេលវេលា។</p>
+                <h2 class="edu-heading-moul">{{ __('about.staff_title') }}</h2>
+                <p class="edu-font-battambang">{{ __('about.staff_intro') }}</p>
             </div>
             <div class="row g-4">
                 @foreach($staticStaffMembers as $staff)
@@ -1196,13 +1196,13 @@
     <section class="library-cta-section">
         <div class="container">
             <div class="cta-content-wrapper wow scaleIn" data-wow-delay=".2s">
-                <h2 class="edu-heading-moul">មកកាន់បណ្ណាល័យថ្ងៃនេះ ដើម្បីពង្រីកចំណេះដឹងរបស់អ្នក!</h2>
+                <h2 class="edu-heading-moul">{{ __('about.cta_title') }}</h2>
                 <p class="edu-font-battambang">
-                    បណ្ណាល័យតេជោសន្តិភាព បើកទ្វារស្វាគមន៍និស្សិត គ្រូឧទ្ទេស និងអ្នកស្រាវជ្រាវទាំងអស់រៀងរាល់ថ្ងៃចន្ទ ដល់ថ្ងៃសុក្រ ចាប់ពីម៉ោង ៧:០០ ព្រឹក ដល់ម៉ោង ៥:០០ ល្ងាច។
+                    {{ __('about.cta_text') }}
                 </p>
                 <div class="cta-btns edu-font-battambang">
                     <a href="{{ front_url('contact') }}" class="btn btn-gold">
-                        ទំនាក់ទំនងកក់កន្លែងសិក្សា <i class="fa-solid fa-envelope ms-2"></i>
+                        {{ __('about.cta_button') }} <i class="fa-solid fa-envelope ms-2"></i>
                     </a>
                 </div>
             </div>

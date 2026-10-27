@@ -397,9 +397,9 @@
     <div class="container">
         <div class="section-title-area">
             <div class="section-title">
-                <h2 class="wow fadeInUp" data-wow-delay=".3s">Featured Books</h2>
+                <h2 class="wow fadeInUp" data-wow-delay=".3s">{{ __('Featured Books') }}</h2>
             </div>
-            <a href="{{front_url('books')}}" class="theme-btn transparent-btn wow fadeInUp" data-wow-delay=".5s">Explore More <i
+            <a href="{{front_url('books')}}" class="theme-btn transparent-btn wow fadeInUp" data-wow-delay=".5s">{{ __('Explore More') }} <i
                     class="fa-solid fa-arrow-right-long"></i></a>
         </div>
         <div class="swiper book-slider">
@@ -433,7 +433,7 @@
     <div class="container">
         <div class="book-catagories-wrapper">
             <div class="section-title text-center">
-                <h2 class="wow fadeInUp" data-wow-delay=".3s">Categories Book</h2>
+                <h2 class="wow fadeInUp" data-wow-delay=".3s">{{ __('Book Categories') }}</h2>
             </div>
             <div class="array-button">
                 <button class="array-prev"><i class="fal fa-arrow-left"></i></button>
@@ -1410,11 +1410,11 @@
     <div class="container">
         <div class="top-ratting-header">
             <div class="top-ratting-title-group wow fadeInUp" data-wow-delay=".2s">
-                <span class="sub-badge"><i class="fa-solid fa-fire"></i> ពេញនិយម</span>
-                <h2>សៀវភៅពេញនិយម</h2>
+                <span class="sub-badge"><i class="fa-solid fa-fire"></i> {{ __('Popular Books') }}</span>
+                <h2>{{ __('Popular Books') }}</h2>
             </div>
             <a href="{{ front_url('books') }}" class="top-ratting-view-all wow fadeInUp" data-wow-delay=".3s">
-                <span>មើលសៀវភៅច្រើនទៀត</span>
+                <span>{{ __('View More Books') }}</span>
                 <i class="fa-solid fa-arrow-right-long"></i>
             </a>
         </div>
@@ -1438,7 +1438,7 @@
                                     <i class="fas fa-star"></i>
                                     <span>5.0</span>
                                 </div>
-                                <span class="top-ratting-badge">Top Rated</span>
+                                <span class="top-ratting-badge">{{ __('Top Rated') }}</span>
                             </div>
                             <h3 class="top-ratting-title">
                                 <a href="{{ front_url('book_details/'. $book->slug) }}">{{ $book->title }}</a>
@@ -1446,10 +1446,10 @@
                         </div>
                         <div class="top-ratting-footer">
                             <a href="{{ front_url('book_details/'. $book->slug) }}" class="top-ratting-btn">
-                                <span>មើលលម្អិត</span>
+                                <span>{{ __('View Details') }}</span>
                                 <i class="fa-solid fa-arrow-right"></i>
                             </a>
-                            <a href="{{ front_url('book_details/'. $book->slug) }}" class="top-ratting-view-icon" title="មើលលម្អិត">
+                            <a href="{{ front_url('book_details/'. $book->slug) }}" class="top-ratting-view-icon" title="{{ __('View Details') }}">
                                 <i class="far fa-eye"></i>
                             </a>
                         </div>
@@ -1464,9 +1464,9 @@
     <div class="container">
         <div class="section-title-area">
             <div class="section-title wow fadeInUp" data-wow-delay=".3s">
-                <h2>Top Selling Books</h2>
+                <h2>{{ __('Top Selling Books') }}</h2>
             </div>
-            <a href="{{ front_url('books') }}" class="theme-btn transparent-btn wow fadeInUp" data-wow-delay=".5s">Explore More <i
+            <a href="{{ front_url('books') }}" class="theme-btn transparent-btn wow fadeInUp" data-wow-delay=".5s">{{ __('Explore More') }} <i
                     class="fa-solid fa-arrow-right-long"></i></a>
         </div>
         <div class="swiper book-slider">
@@ -1502,7 +1502,7 @@
 <!-- <section class="news-section fix section-padding section-bg">
     <div class="container">
         <div class="section-title text-center">
-            <h2 class="mb-3 wow fadeInUp" data-wow-delay=".3s">Our Latest News</h2>
+            <h2 class="mb-3 wow fadeInUp" data-wow-delay=".3s">{{ __('Our Latest News') }}</h2>
             <p class="wow fadeInUp" data-wow-delay=".5s">Interdum et malesuada fames ac ante ipsum primis in
                 faucibus. <br> Donec at nulla nulla. Duis posuere ex lacus</p>
         </div>

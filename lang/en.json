@@ -3,5 +3,21 @@
     "The :attribute must contain at least one number.": "The :attribute must contain at least one number.",
     "The :attribute must contain at least one symbol.": "The :attribute must contain at least one symbol.",
     "The :attribute must contain at least one uppercase and one lowercase letter.": "The :attribute must contain at least one uppercase and one lowercase letter.",
-    "The given :attribute has appeared in a data leak. Please choose a different :attribute.": "The given :attribute has appeared in a data leak. Please choose a different :attribute."
+    "The given :attribute has appeared in a data leak. Please choose a different :attribute.": "The given :attribute has appeared in a data leak. Please choose a different :attribute.",
+    "Home": "Home",
+    "Books": "Books",
+    "About Us": "About Us",
+    "Contact": "Contact",
+    "Featured Books": "Featured Books",
+    "Explore More": "Explore More",
+    "Book Categories": "Book Categories",
+    "Popular Books": "Popular Books",
+    "View More Books": "View More Books",
+    "View Details": "View Details",
+    "Top Selling Books": "Top Selling Books",
+    "Our Latest News": "Our Latest News",
+    "Read More": "Read More",
+    "Top Rated": "Top Rated",
+    "Switch to Khmer": "Switch to Khmer",
+    "Switch to English": "Switch to English"
 }
