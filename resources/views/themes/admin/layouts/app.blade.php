@@ -27,11 +27,60 @@
   <script src="{{ asset('plugins/jquery-ui/jquery-ui.js') }}"></script>
 
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Battambang:wght@100;300;400;700;900&display=swap');
-  body {
-    font-family: "Battambang", system-ui !important;
-    
+    @import url('https://fonts.googleapis.com/css2?family=Battambang:wght@100;300;400;700;900&family=Kantumruy+Pro:wght@300;400;500;600;700&family=Noto+Sans+Khmer:wght@300;400;500;600;700&family=Noto+Sans:wght@300;400;500;600;700&display=swap');
+  :root {
+    --admin-navy: #081A33;
+    --admin-blue: #0B2C5F;
+    --admin-blue-soft: #123A73;
+    --admin-accent: #0E6E8C;
+    --admin-gold: #D9A441;
+    --admin-bg: #F8FAFC;
+    --admin-text: #0F172A;
+    --admin-muted: #64748B;
+    --admin-border: #E2E8F0;
   }
+  body {
+    font-family: "Kantumruy Pro", "Noto Sans Khmer", "Noto Sans", "Battambang", system-ui, sans-serif !important;
+    color: var(--admin-text);
+    background: var(--admin-bg);
+  }
+  .main-sidebar { background: var(--admin-navy) !important; box-shadow: 8px 0 28px rgba(8,26,51,.12) !important; }
+  .brand-link { min-height: 76px; display:flex !important; align-items:center; border-bottom:1px solid rgba(255,255,255,.1) !important; padding: .8rem 1rem !important; }
+  .brand-image { width:38px; height:38px; max-height:38px !important; object-fit:cover; margin:0 12px 0 0 !important; }
+  .brand-text { color:#fff !important; font-weight:700 !important; letter-spacing:.01em; white-space:normal; line-height:1.2; }
+  .brand-text .brand-subtitle { display:block;color:rgba(255,255,255,.56);font-size:.68rem;font-weight:400;letter-spacing:.035em;margin-top:3px; }
+  .main-sidebar .sidebar { padding: 12px 10px 18px; }
+  .nav-sidebar .nav-link { color:rgba(255,255,255,.76) !important; border-radius:9px; margin:2px 0; transition:background .18s ease,color .18s ease,transform .18s ease; }
+  .nav-sidebar .nav-link:hover { background:rgba(255,255,255,.09) !important; color:#fff !important; transform:translateX(2px); }
+  .nav-sidebar .nav-link.active { color:#fff !important; background:linear-gradient(100deg,rgba(217,164,65,.22),rgba(14,110,140,.22)) !important; box-shadow:inset 3px 0 var(--admin-gold); }
+  .nav-sidebar .nav-link.active .nav-icon { color:var(--admin-gold) !important; }
+  .nav-sidebar .nav-treeview { padding-left:8px; }
+  .nav-sidebar .nav-treeview > .nav-item > .nav-link { font-size:.92rem; }
+  .main-header { background:#fff !important; border-bottom:1px solid var(--admin-border) !important; box-shadow:0 3px 14px rgba(15,23,42,.04); }
+  .main-header .nav-link { color:var(--admin-muted) !important; }
+  .main-header .nav-link:hover { color:var(--admin-blue) !important; }
+  .main-header .text-white { color:var(--admin-muted) !important; }
+  .dropdown-menu { border:1px solid var(--admin-border); border-radius:12px; box-shadow:0 16px 36px rgba(15,23,42,.12); overflow:hidden; }
+  .dropdown-item:active { background:var(--admin-blue); }
+  .content-wrapper, .content-wrapper > .content { background:var(--admin-bg); }
+  .content-header { padding:22px 1rem 12px !important; }
+  .content-header h1 { color:var(--admin-text); font-size:1.55rem; font-weight:700; }
+  .breadcrumb { background:transparent !important; }
+  .breadcrumb-item, .breadcrumb-item a { color:var(--admin-muted); }
+  .main-footer { background:#fff; border-top:1px solid var(--admin-border); color:var(--admin-muted); }
+  .btn-primary { background:var(--admin-blue); border-color:var(--admin-blue); }
+  .btn-primary:hover { background:var(--admin-blue-soft); border-color:var(--admin-blue-soft); }
+  .user-panel-card { display:flex; align-items:center; gap:11px; margin:18px 7px 4px; padding:14px 10px 4px; border-top:1px solid rgba(255,255,255,.12); color:#fff; }
+  .user-panel-card .user-initial { width:36px;height:36px;display:grid;place-items:center;border-radius:50%;background:rgba(217,164,65,.18);color:#f2c66d;font-weight:700; }
+  .user-panel-card .user-meta { min-width:0; }
+  .user-panel-card .user-name { font-size:.88rem;font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap; }
+  .user-panel-card .user-role { color:rgba(255,255,255,.56);font-size:.74rem; }
+  @media (max-width:767.98px) {
+    .main-header { margin-left:0 !important; }
+    .content-header { padding-top:16px !important; }
+    .brand-link { min-height:64px; }
+  }
+  @media (prefers-reduced-motion:reduce) { *,*::before,*::after { scroll-behavior:auto !important; transition:none !important; animation:none !important; } }
   .truncated-text {
       overflow: hidden !important;
       white-space: nowrap !important;

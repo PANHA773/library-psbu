@@ -112,38 +112,59 @@ class StudentsController extends Controller
 
     public function update(Request $request, $id)
     {
-        $data =  [
-            'first_name'    => $request->first_name,
-            'last_name'     => $request->last_name,
-            'nick_name'     => $request->nick_name,
-            'dob'           => $request->dob,
-            'pob'           => $request->pob,
-            'phone'         => $request->phone,
-            'email'         => $request->email,
-            'father_phone'  => $request->father_phone,
-            'mother_phone'  => $request->mother_phone,
-            'province_id'   => $request->province_id,
-            'shift'         => $request->shift,
-            'batch'         => $request->batch,
-            'skills'        => $request->skills,
-            'description'   => clear_tag($request->description),
-        ];
+        $student = DB::table('students')->where('id', $id)->first();
+        abort_if(!$student, 404);
 
-        if (!empty($request->image)) {
+        $validated = $request->validate([
+            'first_name' => 'required|string|max:55',
+            'last_name' => 'required|string|max:55',
+            'nick_name' => 'nullable|string|max:55',
+            'gender' => 'nullable|in:male,female',
+            'dob' => 'nullable|date',
+            'pob' => 'nullable|string|max:64',
+            'phone' => 'nullable|string|max:64',
+            'email' => 'nullable|email|max:64',
+            'father_phone' => 'nullable|string|max:64',
+            'mother_phone' => 'nullable|string|max:64',
+            'province_id' => 'nullable|integer',
+            'shift' => 'nullable|string|max:25',
+            'batch' => 'nullable|string|max:25',
+            'skills' => 'nullable|string|max:50',
+            'description' => 'nullable|string',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        ]);
 
-            $old_image =  DB::table('students')->where('id', $id)->first()->image;
+        $data = collect($validated)->only([
+            'first_name', 'last_name', 'nick_name', 'gender', 'dob', 'pob', 'phone',
+            'email', 'father_phone', 'mother_phone', 'province_id', 'shift', 'batch', 'skills',
+        ])->all();
+
+        if (array_key_exists('description', $validated)) {
+            $data['description'] = clear_tag($validated['description'] ?? '');
+        }
+
+        if ($request->hasFile('image')) {
             $file = $request->file('image');
             $extension = $file->getClientOriginalExtension();
-            $filename = hash('gost', (time() . '.' . $extension));
+            $filename = hash('gost', time() . '.' . $extension);
             $file->move(public_path('uploads/student/'), $filename);
             $data['image'] = $filename;
 
-            if ($old_image != '') {
-                unlink(public_path('uploads/student/' . $old_image));
+            $oldImage = $student->image;
+            $oldImagePath = $oldImage ? public_path('uploads/student/' . $oldImage) : null;
+            if (
+                $oldImagePath
+                && !in_array($oldImage, ['male.png', 'female.png'], true)
+                && is_file($oldImagePath)
+                && is_writable($oldImagePath)
+            ) {
+                unlink($oldImagePath);
             }
         }
 
-        DB::table('students')->where('id', $id)->update($data);
+        if ($data) {
+            DB::table('students')->where('id', $id)->update($data);
+        }
 
         return admin_redirect('peoples/students')->with('success', __('message.student_updated'));
     }

@@ -31,7 +31,7 @@ use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\ApiKeyController;
 use App\Http\Controllers\PermissionGroupController;
 use App\Http\Controllers\ContactController;
-use App\Http\Controllers\Admin\StaffMemberController;
+use App\Http\Controllers\StaffMemberController;
 use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\DepartmentUserController;
 /*

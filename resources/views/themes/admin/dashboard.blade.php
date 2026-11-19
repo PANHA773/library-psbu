@@ -222,6 +222,60 @@
     text-align: center;
 }
 .greeting-banner .greeting-date strong { display: block; font-size: 1.4rem; font-weight: 700; }
+
+/* Premium university dashboard theme */
+.content-wrapper { background:#F8FAFC; font-family:"Kantumruy Pro","Noto Sans Khmer","Noto Sans","Battambang",system-ui,sans-serif; }
+.content-header h1 { letter-spacing:-.025em; }
+.greeting-banner {
+    background:linear-gradient(118deg,#081A33 0%,#0B2C5F 66%,#0E6E8C 100%);
+    border:1px solid rgba(255,255,255,.12);
+    border-radius:18px;
+    padding:26px 30px;
+    min-height:132px;
+    box-shadow:0 16px 32px rgba(8,26,51,.16);
+    position:relative;
+}
+.greeting-banner:after { content:"";position:absolute;width:150px;height:150px;border:1px solid rgba(217,164,65,.24);border-radius:50%;right:145px;top:-82px;pointer-events:none; }
+.greeting-banner h2 { font-size:1.45rem; }
+.greeting-banner p { opacity:.78; }
+.greeting-banner .greeting-date { position:relative;z-index:1;border:1px solid rgba(255,255,255,.18);background:rgba(255,255,255,.09);backdrop-filter:blur(8px);min-width:130px; }
+.dashboard-quick-actions { display:flex;gap:9px;align-items:center;position:relative;z-index:1;margin-left:auto;margin-right:14px; }
+.dashboard-quick-actions .btn { border-radius:9px;padding:9px 13px;font-size:.82rem;font-weight:600;white-space:nowrap; }
+.dashboard-quick-actions .btn-gold { background:#D9A441;color:#081A33;border:1px solid #D9A441; }
+.dashboard-quick-actions .btn-gold:hover { background:#e5b653;color:#081A33; }
+.dashboard-quick-actions .btn-outline-light:hover { color:#081A33; }
+.metric-card,.donut-card,.stat-icon-card,.chart-card,.recent-card {
+    border:1px solid #E2E8F0;
+    border-radius:15px;
+    box-shadow:0 5px 18px rgba(15,23,42,.045);
+    transition:transform .2s ease,box-shadow .2s ease,border-color .2s ease;
+}
+.metric-card:hover,.donut-card:hover,.stat-icon-card:hover,.chart-card:hover,.recent-card:hover { transform:translateY(-2px);box-shadow:0 12px 28px rgba(15,23,42,.08);border-color:#cbd5e1; }
+.metric-card { border-top:3px solid #D9A441; }
+.metric-card .metric-label,.donut-card .metric-label,.stat-icon-card .stat-text .label { color:#64748B;letter-spacing:.035em; }
+.metric-card .metric-value,.stat-icon-card .stat-text .value { color:#081A33; }
+.metric-card .metric-sub { color:#64748B; }
+.metric-card .metric-sub .badge-up { color:#16A34A; }
+.chart-card .chart-title,.recent-card .recent-title { color:#0F172A; }
+.chart-card .chart-subtitle,.recent-date { color:#64748B; }
+.chart-card .chart-header { padding-top:21px; }
+.recent-card .recent-header { border-bottom-color:#E2E8F0; }
+.recent-list-item { border-bottom-color:#F1F5F9; }
+.recent-list-item:hover { background:#F8FAFC; }
+.recent-avatar-placeholder { background:linear-gradient(135deg,#0B2C5F,#0E6E8C); }
+.cat-bar-track { background:#F1F5F9; }
+.dashboard-section { margin-bottom:12px; }
+.content .table { background:#fff;border-color:#E2E8F0; }
+.content .table thead th { background:#F8FAFC;color:#334155;border-bottom:1px solid #E2E8F0;font-size:.78rem;letter-spacing:.035em;text-transform:uppercase; }
+.content .table tbody tr:hover { background:#F8FAFC; }
+.content .card,.content .modal-content { border:1px solid #E2E8F0;border-radius:14px;box-shadow:0 5px 18px rgba(15,23,42,.045); }
+@media (max-width:767.98px) {
+    .greeting-banner { padding:22px 20px;align-items:flex-start;gap:16px;flex-wrap:wrap; }
+    .greeting-banner:after { right:15px; }
+    .dashboard-quick-actions { width:100%;margin:0;flex-wrap:wrap; }
+    .greeting-banner .greeting-date { margin-left:auto; }
+}
+@media (prefers-reduced-motion:reduce) { .metric-card,.donut-card,.stat-icon-card,.chart-card,.recent-card { transition:none; } }
 </style>
 
 <div class="content-wrapper">
@@ -253,6 +307,12 @@
                 <div class="greeting-date d-none d-md-block">
                     <strong id="clockTime">--:--</strong>
                     <span id="clockDate"></span>
+                </div>
+                <div class="dashboard-quick-actions">
+                    <a href="{{ admin_url('group_book/books/create') }}" class="btn btn-gold"><i class="fas fa-plus mr-1"></i> Add book</a>
+                    @if(Auth::user()->user_type !== 'department')
+                        <a href="{{ admin_url('borrowers/create') }}" class="btn btn-outline-light"><i class="fas fa-hand-holding mr-1"></i> New borrowing</a>
+                    @endif
                 </div>
             </div>
 
@@ -312,15 +372,15 @@
                         </div>
                         <div class="donut-legend">
                             <div class="donut-legend-item">
-                                <span><span class="donut-legend-dot" style="background:#4f86f7"></span>Borrowed</span>
+                                <span><span class="donut-legend-dot" style="background:#0B2C5F"></span>Borrowed</span>
                                 <strong>{{ $borrowedCount }}</strong>
                             </div>
                             <div class="donut-legend-item">
-                                <span><span class="donut-legend-dot" style="background:#38a169"></span>Repayed</span>
+                                <span><span class="donut-legend-dot" style="background:#16A34A"></span>Repayed</span>
                                 <strong>{{ $repayedCount }}</strong>
                             </div>
                             <div class="donut-legend-item">
-                                <span><span class="donut-legend-dot" style="background:#f6ad55"></span>Pending</span>
+                                <span><span class="donut-legend-dot" style="background:#D9A441"></span>Pending</span>
                                 <strong>{{ $pendingCount }}</strong>
                             </div>
                         </div>
@@ -332,8 +392,8 @@
             <div class="row dashboard-section">
                 <div class="col-lg-3 col-sm-6 mb-4">
                     <div class="stat-icon-card">
-                        <div class="icon-wrap" style="background:#ebf4ff;">
-                            <i class="fas fa-users" style="color:#4f86f7"></i>
+                        <div class="icon-wrap" style="background:rgba(11,44,95,.09);">
+                            <i class="fas fa-users" style="color:#0B2C5F"></i>
                         </div>
                         <div class="stat-text">
                             <div class="label">Total Students</div>
@@ -343,7 +403,7 @@
                 </div>
                 <div class="col-lg-3 col-sm-6 mb-4">
                     <div class="stat-icon-card">
-                        <div class="icon-wrap" style="background:#fef3c7;">
+                        <div class="icon-wrap" style="background:rgba(217,164,65,.16);">
                             <i class="fas fa-user-tie" style="color:#d97706"></i>
                         </div>
                         <div class="stat-text">
@@ -354,8 +414,8 @@
                 </div>
                 <div class="col-lg-3 col-sm-6 mb-4">
                     <div class="stat-icon-card">
-                        <div class="icon-wrap" style="background:#f0fff4;">
-                            <i class="fas fa-check-double" style="color:#38a169"></i>
+                        <div class="icon-wrap" style="background:rgba(22,163,74,.1);">
+                            <i class="fas fa-check-double" style="color:#16A34A"></i>
                         </div>
                         <div class="stat-text">
                             <div class="label">Books Returned</div>
@@ -365,8 +425,8 @@
                 </div>
                 <div class="col-lg-3 col-sm-6 mb-4">
                     <div class="stat-icon-card">
-                        <div class="icon-wrap" style="background:#fff5f5;">
-                            <i class="fas fa-hourglass-half" style="color:#e53e3e"></i>
+                        <div class="icon-wrap" style="background:rgba(14,110,140,.1);">
+                            <i class="fas fa-hourglass-half" style="color:#0E6E8C"></i>
                         </div>
                         <div class="stat-text">
                             <div class="label">Still Borrowed</div>
@@ -388,10 +448,10 @@
                                 <div class="chart-subtitle">Borrowers & Attendances — last 6 months</div>
                             </div>
                             <div>
-                                <span class="badge badge-pill" style="background:#ebf4ff;color:#4f86f7;font-size:.75rem;padding:5px 10px;">
+                                <span class="badge badge-pill" style="background:rgba(11,44,95,.09);color:#0B2C5F;font-size:.75rem;padding:5px 10px;">
                                     <i class="fas fa-circle mr-1" style="font-size:.5rem"></i>Borrowers
                                 </span>
-                                <span class="badge badge-pill ml-1" style="background:#f0fff4;color:#38a169;font-size:.75rem;padding:5px 10px;">
+                                <span class="badge badge-pill ml-1" style="background:rgba(217,164,65,.16);color:#8A641B;font-size:.75rem;padding:5px 10px;">
                                     <i class="fas fa-circle mr-1" style="font-size:.5rem"></i>Attendance
                                 </span>
                             </div>
@@ -414,7 +474,7 @@
                         <div class="chart-body">
                             @php
                                 $maxCat = $topCategories->max('total') ?: 1;
-                                $barColors = ['#4f86f7','#38a169','#f6ad55','#e53e3e','#9f7aea'];
+                                $barColors = ['#0B2C5F','#0E6E8C','#D9A441','#16A34A','#123A73'];
                             @endphp
                             @foreach($topCategories as $i => $cat)
                             <div class="cat-bar-item">
@@ -483,9 +543,9 @@
                             </div>
                             <div class="recent-status">
                                 @if($borrow->status === 'borrowed')
-                                    <span class="badge badge-pill" style="background:#ebf4ff;color:#4f86f7;font-size:.75rem">Borrowed</span>
+                                    <span class="badge badge-pill" style="background:rgba(11,44,95,.09);color:#0B2C5F;font-size:.75rem">Borrowed</span>
                                 @elseif($borrow->status === 'repayed')
-                                    <span class="badge badge-pill" style="background:#f0fff4;color:#38a169;font-size:.75rem">Returned</span>
+                                    <span class="badge badge-pill" style="background:rgba(22,163,74,.1);color:#15803D;font-size:.75rem">Returned</span>
                                 @else
                                     <span class="badge badge-pill" style="background:#fef3c7;color:#d97706;font-size:.75rem">Pending</span>
                                 @endif
@@ -566,9 +626,9 @@ $(function () {
         return 'rgba('+r+','+g+','+b+','+alpha+')';
     }
 
-    sparkline('sparkBooks',       bookData,     '#4f86f7');
-    sparkline('sparkBorrowers',   borrowerData, '#9f7aea');
-    sparkline('sparkAttendances', attendData,   '#38a169');
+    sparkline('sparkBooks',       bookData,     '#0B2C5F');
+    sparkline('sparkBorrowers',   borrowerData, '#0E6E8C');
+    sparkline('sparkAttendances', attendData,   '#D9A441');
 
     // ── Donut ──
     new Chart(document.getElementById('donutBorrow'), {
@@ -577,7 +637,7 @@ $(function () {
             labels: ['Borrowed', 'Repayed', 'Pending'],
             datasets: [{
                 data: [{{ $borrowedCount }}, {{ $repayedCount }}, {{ $pendingCount }}],
-                backgroundColor: ['#4f86f7','#38a169','#f6ad55'],
+                backgroundColor: ['#0B2C5F','#16A34A','#D9A441'],
                 borderWidth: 0,
                 hoverOffset: 4
             }]
@@ -604,22 +664,22 @@ $(function () {
                 {
                     label: 'Borrowers',
                     data: borrowerData,
-                    borderColor: '#4f86f7',
-                    backgroundColor: 'rgba(79,134,247,0.08)',
+                    borderColor: '#0B2C5F',
+                    backgroundColor: 'rgba(11,44,95,0.08)',
                     borderWidth: 2.5,
                     pointRadius: 4,
-                    pointBackgroundColor: '#4f86f7',
+                    pointBackgroundColor: '#0B2C5F',
                     fill: true,
                     tension: 0.4
                 },
                 {
                     label: 'Attendance',
                     data: attendData,
-                    borderColor: '#38a169',
-                    backgroundColor: 'rgba(56,161,105,0.08)',
+                    borderColor: '#D9A441',
+                    backgroundColor: 'rgba(217,164,65,0.10)',
                     borderWidth: 2.5,
                     pointRadius: 4,
-                    pointBackgroundColor: '#38a169',
+                    pointBackgroundColor: '#D9A441',
                     fill: true,
                     tension: 0.4
                 }
@@ -648,12 +708,12 @@ $(function () {
                 label: 'New Books',
                 data: bookData,
                 backgroundColor: [
-                    'rgba(79,134,247,0.8)',
-                    'rgba(159,122,234,0.8)',
-                    'rgba(56,161,105,0.8)',
-                    'rgba(246,173,85,0.8)',
-                    'rgba(229,62,62,0.8)',
-                    'rgba(79,134,247,0.8)',
+                    'rgba(11,44,95,0.82)',
+                    'rgba(14,110,140,0.82)',
+                    'rgba(217,164,65,0.88)',
+                    'rgba(22,163,74,0.78)',
+                    'rgba(18,58,115,0.82)',
+                    'rgba(11,44,95,0.68)',
                 ],
                 borderRadius: 8,
                 borderSkipped: false

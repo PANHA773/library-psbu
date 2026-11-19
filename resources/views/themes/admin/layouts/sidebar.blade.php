@@ -1,7 +1,10 @@
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <a href="{{ admin_url('/') }}" class="brand-link">
       <img src="{{ settings_logo_url() }}" alt="{{ settings()->site_name }}" class="brand-image img-circle elevation-3" style="opacity: .8">
-      <span class="brand-text fw-bold">{{ settings()->site_name }}</span>
+      <span class="brand-text fw-bold">
+        <span>{{ settings()->site_name }}</span>
+        <small class="brand-subtitle">Library Management</small>
+      </span>
     </a>
     <div class="sidebar">
      
@@ -433,5 +436,12 @@
           @endif
         </ul>
       </nav>
+      <div class="user-panel-card" aria-label="{{ Auth::user()->name }}">
+        <span class="user-initial" aria-hidden="true">{{ strtoupper(mb_substr(Auth::user()->name ?? 'U', 0, 1)) }}</span>
+        <div class="user-meta">
+          <div class="user-name">{{ Auth::user()->name }}</div>
+          <div class="user-role">{{ Auth::user()->user_type ?? __('admin.profile') }}</div>
+        </div>
+      </div>
     </div>
   </aside>

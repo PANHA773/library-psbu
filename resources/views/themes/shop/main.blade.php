@@ -679,7 +679,7 @@
                                                 </li>
                                                 <li class="{{ request()->is('contact*') ? 'active' : '' }}">
                                                     <a href="{{front_url('contact')}}" style="display:inline-flex;align-items:center;gap:8px;">
-                                                        <i class="fas fa-envelope" style="font-size:20px;width:20px;min-width:20px;text-align:center;"></i><span>{{ __('Contact') }}</span>
+                                                        <i class="fas fa-envelope" style="font-size:20px;width:20px;min-width:20px;text-align:center;"></i><span>{{ is_scalar(__('Contact')) ? __('Contact') : 'Contact' }}</span>
                                                     </a>
                                                 </li>
                                             </ul>
@@ -781,7 +781,7 @@
                                                 </li>
                                                 <li class="{{ request()->is('contact*') ? 'active' : '' }}">
                                                     <a href="{{front_url('contact')}}" style="display:inline-flex;align-items:center;gap:8px;">
-                                                        <i class="fas fa-envelope" style="font-size:20px;width:20px;min-width:20px;text-align:center;"></i><span>{{ __('Contact') }}</span>
+                                                        <i class="fas fa-envelope" style="font-size:20px;width:20px;min-width:20px;text-align:center;"></i><span>{{ is_scalar(__('Contact')) ? __('Contact') : 'Contact' }}</span>
                                                     </a>
                                                 </li>
                                             </ul>
@@ -1112,7 +1112,16 @@
                                 <li>
                                     <a href="{{ front_url('books/'. $category->id); }}">
                                         <i class="fa-solid fa-chevrons-right"></i>
-                                        {{$category->name;}}
+                                        @php
+                                            $categoryName = $category->name ?? '';
+                                            if (is_array($categoryName)) {
+                                                $categoryName = $categoryName[app()->getLocale()]
+                                                    ?? $categoryName['en']
+                                                    ?? reset($categoryName)
+                                                    ?: '';
+                                            }
+                                        @endphp
+                                        {{ is_scalar($categoryName) ? $categoryName : '' }}
                                     </a>
                                 </li>
                                 @endforeach
